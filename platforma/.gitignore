@@ -25,5 +25,6 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
-/public/media/
+/public/media/*
+!/public/media/.htaccess
 /storage/app/private/*

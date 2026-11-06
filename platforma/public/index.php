@@ -5,6 +5,12 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
+// Not installed yet: send the visitor to the installer instead of an error page.
+if (! is_file(__DIR__.'/../install.lock') && is_file(__DIR__.'/../install.php') && ! is_file(__DIR__.'/../.env')) {
+    header('Location: /install.php', true, 302);
+    exit;
+}
+
 // Determine if the application is in maintenance mode...
 if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
     require $maintenance;

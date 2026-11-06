@@ -1,0 +1,16 @@
+# ELGAROM – folosit când pachetul este dezarhivat direct în public_html.
+# Recomandat: setați rădăcina domeniului pe directorul public/ (vezi docs/INSTALARE.md).
+Options -Indexes
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Fișiere sensibile din rădăcină: interzise
+    RewriteRule ^(\.env.*|\.git.*|artisan|composer\.(json|lock)|install\.lock|recover\.php|package(-lock)?\.json|vite\.config\.js|phpunit\.xml)$ - [F,L]
+    # Directoarele aplicației: interzise
+    RewriteRule ^(app|bootstrap|config|database|lang|resources|routes|storage|tests|vendor|node_modules|docs|tools)(/|$) - [F,L]
+    # Totul altceva se servește din public/
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+<IfModule !mod_rewrite.c>
+    Require all denied
+</IfModule>

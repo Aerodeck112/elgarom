@@ -10,5 +10,5 @@ class AiMessage extends Model
 
     public $timestamps = false;
 
-    protected $casts = ['created_at' => 'datetime'];
+    protected $casts = ['created_at' => 'datetime', 'raw' => 'array'];
 }

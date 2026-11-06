@@ -10,6 +10,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
+        "anthropic-ai/sdk": "^1.6",
         "bacon/bacon-qr-code": "^3.0",
         "laravel/framework": "^13.17",
         "pragmarx/google2fa": "^8.0"

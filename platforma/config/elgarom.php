@@ -36,6 +36,18 @@ return [
         'document_max_kb' => 20480,
     ],
 
+    'ai' => [
+        // USD per million tokens (Anthropic first-party prices, 2026-10). Used for budget enforcement and statistics.
+        // Update here if prices change; cache writes are billed at 1.25x input.
+        'models' => [
+            'claude-opus-5-5' => ['label' => 'Claude Opus 5.5 (implicit, cel mai capabil)', 'in' => 4.00, 'out' => 20.00, 'cache_read' => 0.20],
+            'claude-sonnet-5-5' => ['label' => 'Claude Sonnet 5.5 (mai rapid, cost mai mic)', 'in' => 2.00, 'out' => 10.00, 'cache_read' => 0.20],
+            'claude-haiku-5-5' => ['label' => 'Claude Haiku 5.5 (cel mai ieftin)', 'in' => 0.10, 'out' => 0.50, 'cache_read' => 0.01],
+        ],
+        'max_input_chars' => 1500,
+        'timeout' => 45,
+    ],
+
     'mail' => [
         'max_attempts' => 8,
     ],

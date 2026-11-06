@@ -108,6 +108,9 @@ class QuoteController extends Controller
         }
 
         $request->session()->forget('quote_stash');
+        if ($quote->source === 'asistent_ai' && ($pid = $request->session()->get('ai.conversation'))) {
+            \App\Models\AiConversation::where('public_id', $pid)->update(['led_to_quote' => true]);
+        }
         $this->quotes->clearStash($sid);
         defer(fn () => app(Outbox::class)->sendFor('quote', $quote->id));
 

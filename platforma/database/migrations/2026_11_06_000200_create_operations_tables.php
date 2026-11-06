@@ -124,6 +124,7 @@ return new class extends Migration
             $table->foreignId('ai_conversation_id')->constrained()->cascadeOnDelete();
             $table->string('role', 20);
             $table->text('content');
+            $table->json('raw')->nullable();
             $table->unsignedInteger('tokens_in')->default(0);
             $table->unsignedInteger('tokens_out')->default(0);
             $table->string('status', 20)->default('ok');

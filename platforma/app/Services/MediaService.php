@@ -59,6 +59,10 @@ class MediaService
         // Original, capped at MAX_EDGE.
         $main = $this->resize($src, $w, $h, self::MAX_EDGE);
         $ext = $hasAlpha ? 'png' : 'jpg';
+        if ($hasAlpha) {
+            imagealphablending($main, false);
+            imagesavealpha($main, true);
+        }
         $mainRel = $dir.'/'.$base.'.'.$ext;
         $hasAlpha ? imagepng($main, public_path('media/'.$mainRel), 8) : imagejpeg($main, public_path('media/'.$mainRel), 84);
         $mw = imagesx($main);
@@ -72,6 +76,10 @@ class MediaService
                 }
                 $img = $this->resize($main, $mw, $mh, $vw, true);
                 $rel = $dir.'/'.$base.'-'.imagesx($img).'.webp';
+                if ($hasAlpha) {
+                    imagealphablending($img, false);
+                    imagesavealpha($img, true);
+                }
                 imagewebp($img, public_path('media/'.$rel), 80);
                 $variants[] = ['format' => 'webp', 'width' => imagesx($img), 'height' => imagesy($img), 'path' => $rel];
                 if ($img !== $main) {

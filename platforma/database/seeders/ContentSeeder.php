@@ -136,9 +136,7 @@ class ContentSeeder extends Seeder
             // Confirmed on the old site ("Tehnologie" page).
             ['linie', 'process', 'Tip proces', 'Zincare electrolitică slab acidă', null, true, true],
             ['linie', 'execution', 'Mod de execuție', 'Pe dispozitive și în tamburi', null, true, true],
-            ['dispozitive', 'rack_length', 'Lungime maximă piesă pe dispozitiv', '1900', 'mm', true, true],
-            ['dispozitive', 'rack_height', 'Înălțime maximă piesă pe dispozitiv', '1200', 'mm', true, true],
-            ['dispozitive', 'rack_depth', 'Lățime maximă piesă pe dispozitiv', '450', 'mm', true, true],
+            ['dispozitive', 'rack_envelope', 'Gabarit maxim piesă pe dispozitiv', '1900 × 1200 × 450', 'mm', true, true],
             ['tamburi', 'barrel_load', 'Încărcare maximă în tambur', '100', 'kg', true, true],
             ['linie', 'automation', 'Automatizare', 'Linie complet automatizată, parametri monitorizați electronic', null, true, false],
             ['tratamente', 'post', 'Tratamente după zincare', 'Pasivare; top coating (sigilare) pentru piese mici', null, true, false],
@@ -424,7 +422,9 @@ Site-ul folosește cookie-uri strict necesare pentru funcționare și, numai cu 
 - **Statistică (Google Analytics):** ne arată cum este folosit site-ul. Se activează numai după acord.
 - **Marketing (Google Ads):** măsoară eficiența campaniilor. Se activează numai după acord.
 
-Până la alegerea dumneavoastră, etichetele Google rulează în modul fără cookie-uri (Google Consent Mode), fără a stoca identificatori.
+Până la alegerea dumneavoastră nu se încarcă etichete Google de statistică sau marketing. Dacă vă retrageți acordul, cookie-urile Google setate de site sunt șterse.
+
+Harta Google de pe pagina Contact se încarcă doar când apăsați „Afișează harta”.
 
 ## Cum vă schimbați preferințele
 

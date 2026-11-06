@@ -1,7 +1,7 @@
 # ELGAROM – document de proiect
 
 Documentul ține evidența inventarului, deciziilor, progresului și blocajelor, ca lucrul să poată continua între sesiuni.
-Ultima actualizare: 2026-11-06.
+Ultima actualizare: 2026-11-06 (livrare 1.0.0).
 
 ## 1. Inventarul materialelor colectate
 
@@ -107,11 +107,14 @@ Toate redirect-urile sunt înregistrări în baza de date (Administrare → SEO 
 ## 6. Progres
 
 - [x] Backup site vechi, inventar, tabel de migrare
-- [ ] Direcție vizuală + homepage cu scena 3D
-- [ ] Pagini și migrarea conținutului
-- [ ] Backend, administrare
-- [ ] Formular ofertă, AI, Google
-- [ ] Securitate, actualizări, verificări, pachet cPanel
+- [x] Direcție vizuală (docs/DIRECTIE-VIZUALA.md) + homepage cu scena 3D (Three.js + GSAP ScrollTrigger)
+- [x] Pagini și migrarea conținutului (13 pagini, servicii, FAQ, capacități confirmate, redirect-uri)
+- [x] Backend și administrare (pagini/secțiuni cu ciornă și publicare, resurse, media, setări, utilizatori, audit)
+- [x] Formular ofertă (5 pași, fișiere private, outbox email cu reîncercare), asistent AI, Google și cookies
+- [x] Securitate (2FA obligatoriu, roluri, CSP, rate limiting), backup/restaurare, actualizări ZIP semnate
+- [x] Pachet cPanel cu install.php, utilitar de release, documentație, verificări (docs/RAPORT.md)
+
+Versiune livrată: 1.0.0. Următoarea actualizare se construiește cu `--previous=livrare/files-1.0.0.json`.
 
 ## 7. Blocaje / întrebări pentru beneficiar
 

@@ -256,13 +256,13 @@ h3 { font-size: var(--t-md); line-height: 1.15; letter-spacing: -0.01em; font-we
   .scene__progress { display: none; }
 }
 /* static mode: no WebGL, reduced motion or data saver */
-.scene.is-static .scene__stage { position: relative; height: 70vh; min-height: 420px; }
-.scene.is-static .scene__flow { margin-top: -70vh; }
-.scene.is-static .scene__intro { min-height: 70vh; }
-.scene.is-static .scene__steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; padding: 3rem 0 0; }
-.scene.is-static .scene__step { min-height: 0; }
-.scene.is-static .scene__card { max-width: none; height: 100%; backdrop-filter: none; background: var(--grafit-2); }
-.scene.is-static .scene__progress { display: none; }
+.scene-static .scene .scene__stage { position: relative; height: 70vh; min-height: 420px; }
+.scene-static .scene .scene__flow { margin-top: -70vh; }
+.scene-static .scene .scene__intro { min-height: 70vh; }
+.scene-static .scene .scene__steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; padding: 3rem 0 0; }
+.scene-static .scene .scene__step { min-height: 0; }
+.scene-static .scene .scene__card { max-width: none; height: 100%; backdrop-filter: none; background: var(--grafit-2); }
+.scene-static .scene .scene__progress { display: none; }
 
 /* ==========================================================================
    Sections
@@ -536,6 +536,8 @@ h3 { font-size: var(--t-md); line-height: 1.15; letter-spacing: -0.01em; font-we
   .scene__flow { margin: 0 !important; }
   body { background: #fff; }
 }
-.scene.is-static .scene__card h2 { font-size: var(--t-md); font-stretch: 108%; line-height: 1.15; }
+.scene-static .scene .scene__card h2 { font-size: var(--t-md); font-stretch: 108%; line-height: 1.15; }
 [hidden] { display: none !important; }
-.scene.is-static .scene__step { padding: 0; align-items: stretch; }
+.scene-static .scene .scene__step { padding: 0; align-items: stretch; }
+
+.no-js [data-wizard-nav] { display: none; }

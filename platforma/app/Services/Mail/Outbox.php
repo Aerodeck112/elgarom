@@ -43,8 +43,10 @@ class Outbox
 
     public function sendFor(string $relatedType, int $relatedId): void
     {
-        MailOutbox::where('related_type', $relatedType)->where('related_id', $relatedId)
-            ->where('status', 'pending')->orderBy('id')->get()->each(fn ($m) => $this->deliver($m));
+        // foreach, not each(): a failed delivery must not stop the remaining emails.
+        foreach (MailOutbox::where('related_type', $relatedType)->where('related_id', $relatedId)->where('status', 'pending')->orderBy('id')->get() as $m) {
+            $this->deliver($m);
+        }
     }
 
     /** Process due messages. Returns [sent, failed]. */

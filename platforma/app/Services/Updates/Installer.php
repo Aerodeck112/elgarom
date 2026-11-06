@@ -71,6 +71,7 @@ class Installer
 
         $staging = self::workDir().'/staging-'.$this->record->id;
         $applied = false;
+        $migrated = false;
         $added = [];
         $backup = null;
         try {
@@ -115,6 +116,7 @@ class Installer
             $this->log('Fișiere aplicate.');
 
             // 5. migrations
+            $migrated = true;
             $code = Artisan::call('migrate', ['--force' => true]);
             $this->log('Migrații: '.trim(Artisan::output()));
             if ($code !== 0) {
@@ -132,7 +134,7 @@ class Installer
         } catch (\Throwable $e) {
             $this->log('EROARE: '.$e->getMessage());
             if ($applied || $backup) {
-                $this->rollback($backup, $added, $applied);
+                $this->rollback($backup, $added, $applied, $migrated);
             }
             try {
                 Artisan::call('up');
@@ -169,7 +171,8 @@ class Installer
             if (! hash_equals($hash, hash_file('sha256', $dest))) {
                 throw new RuntimeException('Hash diferit după dezarhivare: '.$rel);
             }
-            if (str_ends_with($rel, '.php')) {
+            // Own code only: vendor/ contains polyfills written for newer PHP versions that are never loaded here.
+            if (str_ends_with($rel, '.php') && ! str_starts_with($rel, 'vendor/') && ! str_ends_with($rel, '.blade.php')) {
                 try {
                     token_get_all(file_get_contents($dest), TOKEN_PARSE);
                 } catch (\ParseError $pe) {
@@ -213,7 +216,7 @@ class Installer
         }
     }
 
-    private function rollback(?Backup $backup, array $added, bool $filesTouched): void
+    private function rollback(?Backup $backup, array $added, bool $filesTouched, bool $migrated): void
     {
         $this->log('Restaurare automată pornită.');
         try {
@@ -238,6 +241,12 @@ class Installer
                     @unlink(base_path($rel));
                 }
                 $this->log('Fișiere restaurate ('.count($added).' fișiere noi eliminate).');
+            }
+            if (! $migrated) {
+                $zip->close();
+                $this->log('Migrațiile nu au rulat: baza de date nu a fost modificată.');
+
+                return;
             }
             // Tables created by new migrations are not in the dump: drop them so the schema matches the backup.
             foreach (DB::select('SHOW FULL TABLES WHERE Table_type = "BASE TABLE"') as $row) {

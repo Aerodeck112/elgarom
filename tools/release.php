@@ -89,7 +89,11 @@ function files_of(string $root): array
 function build(string $src, string $buildDir, string $version, bool $skip): void
 {
     if (! preg_match('/^\d+\.\d+\.\d+$/', $version)) { die_('Versiune invalidă: '.$version); }
-    if ($skip && is_dir($buildDir)) { say('Folosesc build-ul existent.'); return; }
+    $setVersion = function () use ($buildDir, $version) {
+        $cfg = $buildDir.'/config/elgarom.php';
+        file_put_contents($cfg, preg_replace("/'version' => '[^']+'/", "'version' => '".$version."'", file_get_contents($cfg), 1));
+    };
+    if ($skip && is_dir($buildDir)) { say('Folosesc build-ul existent.'); $setVersion(); return; }
     run('npm run build', $src);
     rrmdir($buildDir);
     @mkdir($buildDir, 0755, true);
@@ -103,9 +107,7 @@ function build(string $src, string $buildDir, string $version, bool $skip): void
     foreach (['storage/logs', 'storage/framework/cache/data', 'storage/framework/sessions', 'storage/framework/views', 'storage/app/private', 'bootstrap/cache', 'public/media'] as $d) {
         @mkdir($buildDir.'/'.$d, 0755, true);
     }
-    // version
-    $cfg = $buildDir.'/config/elgarom.php';
-    file_put_contents($cfg, preg_replace("/'version' => '[^']+'/", "'version' => '".$version."'", file_get_contents($cfg), 1));
+    $setVersion();
     run('composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction --no-progress', $buildDir);
     // strip VCS metadata and add deny rules
     // Packages installed from VCS (when dist zips are unavailable) carry tests, docs and symlinks: drop them.

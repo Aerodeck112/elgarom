@@ -33,7 +33,7 @@
     @foreach (config('elgarom.locales') as $code => $loc)
         @if ($loc['published'] && isset($alternates[$code]))<link rel="alternate" hreflang="{{ $code }}" href="{{ $alternates[$code] }}">@endif
     @endforeach
-    <script nonce="{{ csp_nonce() }}">document.documentElement.classList.replace('no-js','js');</script>
+    <script nonce="{{ csp_nonce() }}">(function(d){d.classList.replace('no-js','js');if(!document.querySelector)return;var s=matchMedia('(prefers-reduced-motion: reduce)').matches||(navigator.connection&&navigator.connection.saveData);if(!s&&!/scene-capture/.test(location.hash)){try{var c=document.createElement('canvas');s=!(c.getContext('webgl2')||c.getContext('webgl'));}catch(e){s=true;}}if(s)d.classList.add('scene-static');})(document.documentElement);</script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('head')
     <script type="application/ld+json" nonce="{{ csp_nonce() }}">{!! json_encode(\App\Support\StructuredData::organization(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) !!}</script>

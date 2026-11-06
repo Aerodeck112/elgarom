@@ -7,7 +7,9 @@
     $stepOf = ['name' => 1, 'company' => 1, 'email' => 1, 'phone' => 1, 'city' => 1, 'part_type' => 2, 'material' => 2, 'process' => 2, 'description' => 2,
         'quantity' => 3, 'weight' => 3, 'dimensions' => 3, 'deadline' => 3, 'deadline_note' => 3, 'files' => 4, 'files.*' => 4, 'privacy' => 5];
     $errStep = 1;
+    $startStep = 1;
     foreach (array_keys($bag->messages()) as $k) { $errStep = $stepOf[preg_replace('/\.\d+$/', '.*', $k)] ?? 5; break; }
+    $startStep = $bag->any() ? $errStep : 1;
     $materials = ['Oțel carbon cu conținut scăzut de carbon', 'Oțel carbon cu conținut mediu de carbon', 'Oțel carbon cu conținut ridicat de carbon', 'Oțel inoxidabil', 'Oțel aliat / înalt aliat', 'Nu știu'];
     $e = fn ($f) => $bag->has($f) ? 'aria-invalid=true aria-describedby='.str_replace('.', '-', $f).'-e' : '';
     $err = fn ($f) => $bag->has($f) ? '<p class="err" id="'.e(str_replace('.', '-', $f)).'-e">'.e($bag->first($f)).'</p>' : '';
@@ -35,7 +37,7 @@
                 <div class="alert" role="alert" tabindex="-1" data-focus>{{ session('quote_failed') }}</div>
             @endif
 
-            <fieldset class="wizard__step" data-step="1" style="border:0;padding:0;margin:0">
+            <fieldset class="wizard__step @if ($startStep === 1) is-active @endif" data-step="1" style="border:0;padding:0;margin:0">
                 <legend class="sr-only">Pasul 1 din 5: date de contact</legend>
                 <h2>Cum vă contactăm</h2>
                 <div class="grid-2">
@@ -47,7 +49,7 @@
                 <div class="field"><label for="q-city">Localitate <span class="opt">(opțional)</span></label><input class="input" id="q-city" name="city" autocomplete="address-level2" maxlength="120" value="{{ old('city') }}"></div>
             </fieldset>
 
-            <fieldset class="wizard__step" data-step="2" style="border:0;padding:0;margin:0">
+            <fieldset class="wizard__step @if ($startStep === 2) is-active @endif" data-step="2" style="border:0;padding:0;margin:0">
                 <legend class="sr-only">Pasul 2 din 5: piesa</legend>
                 <h2>Ce piese doriți să zincați</h2>
                 <p class="field" style="margin-bottom:.5rem"><span style="font-weight:620;font-size:var(--t-sm)">Tipul pieselor</span></p>
@@ -76,7 +78,7 @@
                 </div>
             </fieldset>
 
-            <fieldset class="wizard__step" data-step="3" style="border:0;padding:0;margin:0">
+            <fieldset class="wizard__step @if ($startStep === 3) is-active @endif" data-step="3" style="border:0;padding:0;margin:0">
                 <legend class="sr-only">Pasul 3 din 5: cantitate, dimensiuni și termen</legend>
                 <h2>Cantitate, dimensiuni, termen</h2>
                 <p class="muted small">Toate câmpurile sunt opționale. Completați ce știți – le clarificăm împreună.</p>
@@ -91,7 +93,7 @@
                 </div>
             </fieldset>
 
-            <fieldset class="wizard__step" data-step="4" style="border:0;padding:0;margin:0">
+            <fieldset class="wizard__step @if ($startStep === 4) is-active @endif" data-step="4" style="border:0;padding:0;margin:0">
                 <legend class="sr-only">Pasul 4 din 5: fișiere</legend>
                 <h2>Desene și fotografii</h2>
                 <p class="muted small">Opțional. Până la {{ $maxFiles }} fișiere de maximum {{ $maxMb }} MB fiecare: {{ implode(', ', array_map('strtoupper', $exts)) }}. Fișierele sunt private și accesibile doar echipei Elgarom.</p>
@@ -107,11 +109,11 @@
                     <input class="sr-only" id="q-files" name="files[]" type="file" multiple accept="{{ implode(',', array_map(fn ($x) => '.'.$x, $exts)) }}" data-files>
                     <ul class="files" data-file-list aria-live="polite"></ul>
                     {!! $err('files') !!}
-                    @foreach ($bag->get('files.*') as $m)<p class="err">{{ $m }}</p>@endforeach
+                    @foreach (\Illuminate\Support\Arr::flatten($bag->get('files.*')) as $m)<p class="err">{{ $m }}</p>@endforeach
                 </div>
             </fieldset>
 
-            <fieldset class="wizard__step" data-step="5" style="border:0;padding:0;margin:0">
+            <fieldset class="wizard__step @if ($startStep === 5) is-active @endif" data-step="5" style="border:0;padding:0;margin:0">
                 <legend class="sr-only">Pasul 5 din 5: revizuire și trimitere</legend>
                 <h2>Verificați și trimiteți</h2>
                 <dl class="review" data-review></dl>
@@ -121,7 +123,7 @@
                 <button class="btn" type="submit" data-submit>Trimite cererea de ofertă</button>
             </fieldset>
 
-            <div class="wizard__nav" data-wizard-nav hidden>
+            <div class="wizard__nav" data-wizard-nav>
                 <button class="btn btn--line" type="button" data-prev>Înapoi</button>
                 <button class="btn" type="button" data-next>Continuă</button>
             </div>

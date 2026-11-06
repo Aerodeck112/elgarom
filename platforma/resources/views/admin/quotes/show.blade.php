@@ -2,7 +2,7 @@
 @section('title', $q->reference)
 @section('content')
 @php $canManage = auth()->user()->can_('quotes.manage'); @endphp
-<div class="page-title"><div><p><a href="{{ route('admin.quotes.index') }}">Cereri</a></p><h1>{{ $q->reference }}</h1><p>{{ $q->kind === 'contact' ? 'Mesaj din formularul scurt' : 'Cerere de ofertă' }}, primită {{ $q->created_at->format('d.m.Y H:i') }}@if ($q->source === 'asistent_ai'), precompletată cu asistentul AI@endif</p></div>
+<div class="page-title"><div><p><a href="{{ route('admin.quotes.index') }}">Cereri</a></p><h1>{{ $q->reference }}</h1><p>{{ $q->kind === 'contact' ? 'Mesaj din formularul scurt' : 'Cerere de ofertă' }}, primită {{ $q->created_at->format('d.m.Y H:i') }}@if ($q->source === 'asistent_ai'), precompletată cu asistentul AI @endif</p></div>
 <span class="tag {{ $q->status === 'nou' ? 'tag--info' : '' }}" style="font-size:1rem">{{ $q->statusLabel() }}</span></div>
 <div class="grid" style="grid-template-columns:minmax(0,2fr) minmax(0,1fr)">
 <div>

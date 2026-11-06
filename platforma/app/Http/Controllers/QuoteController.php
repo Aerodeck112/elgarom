@@ -19,7 +19,8 @@ class QuoteController extends Controller
 
     public function store(Request $request)
     {
-        $sid = $request->session()->getId();
+        // Random key for the temporary upload folder, kept in the session (survives session id regeneration).
+        $sid = $request->session()->get('quote_stash_key') ?? tap(bin2hex(random_bytes(16)), fn ($k) => $request->session()->put('quote_stash_key', $k));
         $back = fn () => redirect()->to(url('/solicita-oferta').'#formular')->withInput($request->except(['files', '_t', 'website']));
 
         if ($reason = FormGuard::check($request, 'description')) {
@@ -107,7 +108,7 @@ class QuoteController extends Controller
             return $back()->with('quote_failed', 'Cererea nu a putut fi salvată din cauza unei erori tehnice și NU a fost trimisă. Datele completate au fost păstrate – încercați din nou peste câteva minute sau sunați la '.(setting('company.phones', [])[0]['number'] ?? '').'.');
         }
 
-        $request->session()->forget('quote_stash');
+        $request->session()->forget(['quote_stash', 'quote_stash_key']);
         if ($quote->source === 'asistent_ai' && ($pid = $request->session()->get('ai.conversation'))) {
             \App\Models\AiConversation::where('public_id', $pid)->update(['led_to_quote' => true]);
         }

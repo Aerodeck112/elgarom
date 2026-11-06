@@ -10,7 +10,7 @@
 @section('content')
     <section class="scene on-dark" data-scene aria-labelledby="hero-title">
         <div class="scene__stage" aria-hidden="true">
-            <img class="scene__poster" src="{{ asset('img/scena-poster.webp') }}" alt="" width="1920" height="1080" fetchpriority="high">
+            <img class="scene__poster" src="{{ asset('img/scena-poster.webp') }}" data-final="{{ asset('img/scena-final.webp') }}" alt="" width="1920" height="1080" fetchpriority="high">
             <canvas class="scene__canvas" data-scene-canvas></canvas>
             <div class="scene__shade"></div>
             @if ($steps)

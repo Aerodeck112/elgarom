@@ -520,12 +520,18 @@ export function mount(root, { onFail } = {}) {
   const minFrame = small ? 1 / 30 : 0;
   const clock = { t: 0 };
 
+  // GPU budget: full rate while the visitor scrolls, 15 fps ambient when idle, full stop after 20 s idle.
+  let lastP = -1;
+  let lastChange = performance.now();
   const frame = (now) => {
     raf = requestAnimationFrame(frame);
     const dt = Math.min(0.05, (now - last) / 1000);
     last = now;
     acc += dt;
-    if (acc < minFrame) return;
+    if (Math.abs(state.p - lastP) > 1e-5) { lastP = state.p; lastChange = now; }
+    const idle = now - lastChange;
+    if (idle > 20000) { stop(); return; }
+    if (acc < (idle > 3000 ? 1 / 15 : minFrame)) return;
     const step = acc;
     acc = 0;
     clock.t += step;
@@ -534,7 +540,7 @@ export function mount(root, { onFail } = {}) {
     renderer.render(scene, camera);
     marks.forEach((m, i) => m.classList.toggle('is-on', phase(state.p) >= i + 0.5));
   };
-  const start = () => { if (!running && visible && !document.hidden) { running = true; last = performance.now(); raf = requestAnimationFrame(frame); } };
+  const start = () => { if (!running && visible && !document.hidden) { running = true; last = performance.now(); lastChange = last; raf = requestAnimationFrame(frame); } };
   const stop = () => { running = false; cancelAnimationFrame(raf); };
 
   new IntersectionObserver((entries) => {
@@ -560,8 +566,9 @@ export function mount(root, { onFail } = {}) {
   gsap.to(state, {
     p: 1,
     ease: 'none',
-    scrollTrigger: { trigger: root, start: 'top top', end: 'bottom bottom', scrub: 0.6, invalidateOnRefresh: true, onRefresh: computeAnchors },
+    scrollTrigger: { trigger: root, start: 'top top', end: 'bottom bottom', scrub: 0.6, invalidateOnRefresh: true, onRefresh: computeAnchors, onUpdate: () => start() },
   });
+  window.addEventListener('resize', () => start(), { passive: true });
   document.fonts?.ready.then(() => ScrollTrigger.refresh());
 
   // first frame, then reveal the canvas over the poster

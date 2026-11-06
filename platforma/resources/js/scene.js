@@ -15,11 +15,11 @@ function webglAvailable() {
 }
 
 function goStatic() {
-  root.classList.add('is-static');
+  document.documentElement.classList.add('scene-static');
   root.classList.remove('is-live');
   const poster = root.querySelector('.scene__poster');
-  if (poster && poster.dataset.final !== 'done') {
-    poster.src = poster.src.replace('scena-poster', 'scena-final');
+  if (poster && poster.dataset.final && poster.dataset.final !== 'done') {
+    poster.src = poster.dataset.final;
     poster.dataset.final = 'done';
   }
 }
@@ -28,7 +28,7 @@ if (root) {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   const saveData = navigator.connection && navigator.connection.saveData;
   const capture = location.hash.startsWith('#scene-capture=');
-  if ((reduce.matches && !capture) || saveData || !webglAvailable()) {
+  if (document.documentElement.classList.contains('scene-static') || (reduce.matches && !capture) || saveData || !webglAvailable()) {
     goStatic();
   } else {
     const start = () => import('./scene/main.js')

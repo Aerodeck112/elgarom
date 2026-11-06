@@ -1,4 +1,4 @@
 @extends('errors.layout')
 @section('code', '403')
-@section('title', 'Acces interzis')
-@section('message', 'Nu aveți permisiunea de a accesa această pagină.')
+@section('title', __('Acces interzis'))
+@section('message', __('Nu aveți permisiunea de a accesa această pagină.'))

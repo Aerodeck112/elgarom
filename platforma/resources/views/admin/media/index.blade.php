@@ -26,6 +26,9 @@
                 <p class="small muted">{{ $m->width }}×{{ $m->height }} px, {{ number_format($m->size / 1024, 0) }} KB, {{ count($m->variants ?? []) }} variante</p>
                 <form method="post" action="{{ route('admin.media.update', $m) }}">@csrf @method('PUT')
                     <div class="field"><label for="alt{{ $m->id }}">Text alternativ</label><input class="input" id="alt{{ $m->id }}" name="alt" value="{{ $m->alt }}" maxlength="255"></div>
+                    @foreach (\App\Support\Locales::all() as $code => $l)@continue($code === \App\Support\Locales::default())
+                    <div class="field"><label for="alt{{ $code }}{{ $m->id }}">Text alternativ – {{ $l['name'] }}</label><input class="input" id="alt{{ $code }}{{ $m->id }}" name="alt_i18n[{{ $code }}]" value="{{ $m->alt_i18n[$code] ?? '' }}" maxlength="255" lang="{{ $code }}"></div>
+                    @endforeach
                     <div class="field"><label for="cap{{ $m->id }}">Descriere</label><input class="input" id="cap{{ $m->id }}" name="caption" value="{{ $m->caption }}" maxlength="255"></div>
                     <div class="field"><label for="foc{{ $m->id }}">Punct de interes (decupare)</label><select class="select" id="foc{{ $m->id }}" name="focal">@foreach (['50% 50%' => 'Centru', '50% 20%' => 'Sus', '50% 80%' => 'Jos', '20% 50%' => 'Stânga', '80% 50%' => 'Dreapta'] as $k => $l)<option value="{{ $k }}" @selected($m->focal === $k)>{{ $l }}</option>@endforeach</select></div>
                     <button class="btn btn--sm" type="submit">Salvează</button>

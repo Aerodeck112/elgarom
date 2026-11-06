@@ -1,9 +1,10 @@
 import { track } from './consent.js';
+import { t, urls, locale } from './i18n.js';
 
 const PREFILL_KEY = 'elg_ai_prefill';
 const LABELS = {
-  part_type: 'Tip piese', material: 'Material', process: 'Execuție', description: 'Descriere',
-  quantity: 'Cantitate', weight: 'Greutate', dimensions: 'Dimensiuni', deadline_note: 'Termen',
+  part_type: t('Tip piese'), material: t('Material'), process: t('Execuție'), description: t('Descriere'),
+  quantity: t('Cantitate'), weight: t('Greutate'), dimensions: t('Dimensiuni'), deadline_note: t('Termen'),
 };
 let ready = false;
 let panel; let log; let form; let input; let busy = false;
@@ -35,7 +36,7 @@ function addPrefill(data) {
   const box = document.createElement('div');
   box.className = 'ai-prefill';
   const h = document.createElement('strong');
-  h.textContent = 'Propunere pentru formularul de ofertă';
+  h.textContent = t('Propunere pentru formularul de ofertă');
   const dl = document.createElement('dl');
   Object.entries(data).forEach(([k, v]) => {
     const d = document.createElement('div');
@@ -45,15 +46,15 @@ function addPrefill(data) {
   });
   const btn = document.createElement('button');
   btn.type = 'button'; btn.className = 'btn btn--sm';
-  btn.textContent = 'Completează formularul cu aceste date';
+  btn.textContent = t('Completează formularul cu aceste date');
   btn.addEventListener('click', () => {
     try { sessionStorage.setItem(PREFILL_KEY, JSON.stringify(data)); } catch (_) { /* ignore */ }
     track('ai_prefill_accepted', {});
-    location.href = '/solicita-oferta#formular';
+    location.href = (urls.quote || '/solicita-oferta') + '#formular';
   });
   const note = document.createElement('p');
   note.className = 'small';
-  note.textContent = 'Nimic nu se trimite până nu verificați și trimiteți formularul. Datele de contact le completați dumneavoastră.';
+  note.textContent = t('Nimic nu se trimite până nu verificați și trimiteți formularul. Datele de contact le completați dumneavoastră.');
   box.append(h, dl, btn, note);
   log.appendChild(box);
   log.scrollTop = log.scrollHeight;
@@ -63,29 +64,29 @@ async function send(text) {
   if (busy) return;
   busy = true;
   add('user', text);
-  const typing = add('system', 'Asistentul scrie…');
+  const typing = add('system', t('Asistentul scrie…'));
   typing.className = 'ai-typing';
   try {
     const res = await fetch('/asistent/mesaj', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'X-CSRF-TOKEN': csrf() },
-      body: JSON.stringify({ message: text }),
+      body: JSON.stringify({ message: text, locale }),
       credentials: 'same-origin',
     });
     const data = await res.json().catch(() => ({}));
     typing.remove();
     if (!res.ok) {
-      add('system', (data.error || data.message || 'Asistentul nu poate răspunde acum.') + ' ' + (data.fallback || ''));
+      add('system', (data.error || data.message || t('Asistentul nu poate răspunde acum.')) + ' ' + (data.fallback || ''));
       if (data.links) addLinks(data.links);
       return;
     }
     add('assistant', data.reply);
     if (data.prefill && Object.keys(data.prefill).length) addPrefill(data.prefill);
-    if (data.remaining <= 3) add('system', `Mai puteți trimite ${data.remaining} mesaje în această conversație.`);
+    if (data.remaining <= 3) add('system', t('Mai puteți trimite :n mesaje în această conversație.', { n: data.remaining }));
   } catch (_) {
     typing.remove();
-    add('system', 'Conexiunea a eșuat. Puteți folosi formularul de ofertă.');
-    addLinks([{ label: 'Formular de ofertă', url: '/solicita-oferta' }]);
+    add('system', t('Conexiunea a eșuat. Puteți folosi formularul de ofertă.'));
+    addLinks([{ label: t('Formular de ofertă'), url: urls.quote || '/solicita-oferta' }]);
   } finally {
     busy = false;
   }
@@ -109,7 +110,7 @@ async function init() {
   panel.querySelector('[data-ai-delete]').addEventListener('click', async () => {
     await fetch('/asistent/conversatie', { method: 'DELETE', headers: { 'X-CSRF-TOKEN': csrf(), Accept: 'application/json' }, credentials: 'same-origin' });
     [...log.children].slice(1).forEach((c) => c.remove());
-    add('system', 'Conversația a fost ștearsă.');
+    add('system', t('Conversația a fost ștearsă.'));
   });
   try {
     const res = await fetch('/asistent/istoric', { headers: { Accept: 'application/json' }, credentials: 'same-origin' });

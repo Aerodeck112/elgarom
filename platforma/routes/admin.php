@@ -38,6 +38,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('pagini/{page}', [Admin\PagesController::class, 'edit'])->name('pages.edit');
             Route::put('pagini/{page}', [Admin\PagesController::class, 'update'])->name('pages.update');
             Route::delete('pagini/{page}', [Admin\PagesController::class, 'destroy'])->name('pages.destroy');
+            Route::post('pagini/{page}/traduce', [Admin\PagesController::class, 'translate'])->name('pages.translate');
             Route::post('pagini/{page}/publica', [Admin\PagesController::class, 'publish'])->name('pages.publish');
             Route::post('pagini/{page}/retrage', [Admin\PagesController::class, 'unpublish'])->name('pages.unpublish');
             Route::get('pagini/{page}/previzualizare', [Admin\PagesController::class, 'previewLink'])->name('pages.preview-link');

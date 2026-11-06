@@ -44,6 +44,7 @@ class ContentSeeder extends Seeder
         $this->menus();
         $this->redirects();
         $this->knowledge();
+        (new \App\Support\TranslationImporter)->run();
     }
 
     private function media(): void

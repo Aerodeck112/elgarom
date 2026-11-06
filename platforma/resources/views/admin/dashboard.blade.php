@@ -2,6 +2,13 @@
 @section('title', 'Panou principal')
 @section('content')
 <div class="page-title"><div><h1>Bună ziua, {{ auth()->user()->name }}</h1><p>Versiune platformă {{ config('elgarom.version') }}</p></div></div>
+@if (setting('locales.review_notice') && auth()->user()->can_('content'))
+    <div class="panel panel--warn">
+        <h2>Traduceri de verificat</h2>
+        <p>Versiunile în germană, engleză și maghiară ale site-ului au fost traduse automat din română. Rugați un vorbitor nativ să verifice textele (mai ales politicile de confidențialitate și cookies) în <a href="{{ route('admin.pages.index', ['locale' => 'de']) }}">Pagini</a>, Servicii, Întrebări frecvente și Capacități tehnice (tab-urile de limbă).</p>
+        <p class="small">După verificare, debifați avertismentul în <a href="{{ route('admin.settings.edit', 'languages') }}">Limbi</a>.</p>
+    </div>
+@endif
 <dl class="grid" style="margin:0 0 1.5rem">
     @foreach ($stats as $l => $v)<div class="stat"><dt>{{ $l }}</dt><dd>{{ $v }}</dd></div>@endforeach
 </dl>

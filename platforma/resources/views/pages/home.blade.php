@@ -22,8 +22,8 @@
                 <h1 id="hero-title">{{ $data['title'] }}</h1>
                 @if (! empty($data['lead']))<p class="lead">{{ $data['lead'] }}</p>@endif
                 <div class="btn-row">
-                    <a class="btn" href="{{ url('/solicita-oferta') }}" data-track="cta_click" data-track-label="hero_oferta">Solicită ofertă</a>
-                    <a class="btn btn--line" href="{{ url('/procesul-de-zincare') }}" data-track="cta_click" data-track-label="hero_proces">Descoperă procesul</a>
+                    <a class="btn" href="{{ page_url('solicita-oferta') }}" data-track="cta_click" data-track-label="hero_oferta">{{ __('Solicită ofertă') }}</a>
+                    <a class="btn btn--line" href="{{ page_url('procesul-de-zincare') }}" data-track="cta_click" data-track-label="hero_proces">{{ __('Descoperă procesul') }}</a>
                 </div>
                 @if ($facts->isNotEmpty())
                     <ul class="scene__facts">
@@ -32,7 +32,7 @@
                         @endforeach
                     </ul>
                 @endif
-                @if ($steps)<p class="scene__skip"><a href="#dupa-scena">Sari peste ilustrație</a></p>@endif
+                @if ($steps)<p class="scene__skip"><a href="#dupa-scena">{{ __('Sari peste ilustrație') }}</a></p>@endif
             </div>
             @if ($steps)
                 <ol class="wrap scene__steps" data-scene-steps>
@@ -41,7 +41,7 @@
                     @endforeach
                 </ol>
                 @if (! empty($scene['data']['note']))
-                    <p class="wrap scene__note">{{ $scene['data']['note'] }} <a href="{{ url('/procesul-de-zincare') }}">Vezi etapele reale</a>.</p>
+                    <p class="wrap scene__note">{{ $scene['data']['note'] }} <a href="{{ page_url('procesul-de-zincare') }}">{{ __('Vezi etapele reale') }}</a>.</p>
                 @endif
             @endif
         </div>

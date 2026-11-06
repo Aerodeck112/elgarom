@@ -72,9 +72,26 @@ class Page extends Model
 
     public function path(): string
     {
-        $prefix = $this->locale === config('elgarom.default_locale') ? '' : '/'.$this->locale;
+        $prefix = \App\Support\Locales::prefix($this->locale);
+        if ($this->slug === '/') {
+            return $prefix === '' ? '/' : $prefix;
+        }
 
-        return $prefix.($this->slug === '/' ? '/' : '/'.$this->slug);
+        return $prefix.'/'.$this->slug;
+    }
+
+    /** Published versions of this page in the enabled locales: [locale => url]. */
+    public function alternates(): array
+    {
+        if (! $this->translation_key) {
+            return [$this->locale => $this->url()];
+        }
+        $out = [];
+        foreach (self::where('translation_key', $this->translation_key)->where('status', 'published')->whereIn('locale', \App\Support\Locales::enabled())->get() as $p) {
+            $out[$p->locale] = $p->url();
+        }
+
+        return $out;
     }
 
     public function url(): string

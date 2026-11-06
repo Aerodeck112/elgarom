@@ -2,15 +2,17 @@
 
 return [
     // Application version. Bumped by every signed update package.
-    'version' => '1.0.0',
+    'version' => '1.1.0',
 
     'default_locale' => 'ro',
 
-    // Locales with published content. Add a locale here only when its translations are complete.
+    // Available languages. Which ones are visible is set in the admin (setting locales.enabled).
+    // 'segments' are the translated URL parts for routes that are not CMS pages.
     'locales' => [
-        'ro' => ['name' => 'Română', 'published' => true],
-        'en' => ['name' => 'English', 'published' => false],
-        'hu' => ['name' => 'Magyar', 'published' => false],
+        'ro' => ['name' => 'Română', 'prefix' => '', 'og' => 'ro_RO', 'segments' => ['services' => 'servicii', 'projects' => 'proiecte', 'sent' => 'solicita-oferta/trimisa']],
+        'de' => ['name' => 'Deutsch', 'prefix' => 'de', 'og' => 'de_DE', 'segments' => ['services' => 'leistungen', 'projects' => 'projekte', 'sent' => 'anfrage-gesendet']],
+        'en' => ['name' => 'English', 'prefix' => 'en', 'og' => 'en_GB', 'segments' => ['services' => 'services', 'projects' => 'projects', 'sent' => 'request-sent']],
+        'hu' => ['name' => 'Magyar', 'prefix' => 'hu', 'og' => 'hu_HU', 'segments' => ['services' => 'szolgaltatasok', 'projects' => 'projektek', 'sent' => 'ajanlatkeres-elkuldve']],
     ],
 
     'updates' => [

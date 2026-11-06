@@ -14,19 +14,27 @@ class SeoController extends Controller
 {
     public function sitemap()
     {
-        $urls = [];
-        foreach (Page::where('status', 'published')->where('noindex', false)->where('locale', app()->getLocale())->orderBy('sort')->get() as $p) {
-            $urls[] = [$p->url(), $p->published_at ?? $p->updated_at];
+        $enabled = \App\Support\Locales::enabled();
+        $entries = []; // [url, lastmod, alternates]
+        foreach (Page::where('status', 'published')->where('noindex', false)->whereIn('locale', $enabled)->orderBy('sort')->get() as $p) {
+            $entries[] = [$p->url(), $p->published_at ?? $p->updated_at, $p->alternates()];
         }
-        foreach (Service::published()->get() as $s) {
-            $urls[] = [url('/servicii/'.$s->slug), $s->updated_at];
+        foreach (Service::where('is_published', true)->whereIn('locale', $enabled)->orderBy('sort')->get() as $s) {
+            $alt = $s->translation_key ? Service::where('translation_key', $s->translation_key)->where('is_published', true)->whereIn('locale', $enabled)->get()->mapWithKeys(fn ($t) => [$t->locale => service_url($t)])->all() : [];
+            $entries[] = [service_url($s), $s->updated_at, $alt];
         }
-        foreach (Project::published()->get() as $p) {
-            $urls[] = [url('/proiecte/'.$p->slug), $p->updated_at];
+        foreach (Project::where('is_published', true)->whereIn('locale', $enabled)->orderBy('sort')->get() as $p) {
+            $entries[] = [project_url($p), $p->updated_at, []];
         }
-        $xml = '<?xml version="1.0" encoding="UTF-8"?>'."\n".'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n";
-        foreach ($urls as [$loc, $mod]) {
-            $xml .= '  <url><loc>'.e($loc).'</loc>'.($mod ? '<lastmod>'.$mod->toAtomString().'</lastmod>' : '').'</url>'."\n";
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>'."\n".'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">'."\n";
+        foreach ($entries as [$loc, $mod, $alt]) {
+            $xml .= '  <url><loc>'.e($loc).'</loc>'.($mod ? '<lastmod>'.$mod->toAtomString().'</lastmod>' : '');
+            if (count($alt) > 1) {
+                foreach ($alt as $code => $href) {
+                    $xml .= '<xhtml:link rel="alternate" hreflang="'.e($code).'" href="'.e($href).'"/>';
+                }
+            }
+            $xml .= '</url>'."\n";
         }
         $xml .= '</urlset>'."\n";
 
@@ -59,6 +67,7 @@ class SeoController extends Controller
     /** Fallback for unknown URLs: database redirects (301/302/410), otherwise 404. */
     public function fallback(Request $request)
     {
+        app()->setLocale(\App\Support\Locales::fromPath($request->getPathInfo()));
         $path = Redirect::normalize($request->getPathInfo());
         $r = Redirect::where('is_active', true)->where('from_path', $path)->first();
         if ($r) {

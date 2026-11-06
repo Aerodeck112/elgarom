@@ -1,6 +1,28 @@
-# Raport de livrare – ELGAROM 1.0.0
+# Raport de livrare – ELGAROM 1.0.0 și actualizarea 1.1.0
 
 Data: 2026-11-06. Pachet: `livrare/elgarom-1.0.0-cpanel.zip`. Amprenta SHA-256 se află în `livrare/SHA256SUMS`.
+
+## Actualizarea 1.1.0 – site în patru limbi
+
+Pachet: `livrare/elgarom-update-1.1.0.zip` (semnat cu `elgarom-release-2026`, se instalează peste 1.0.0 din Administrare → Actualizări). Lista de fișiere a versiunii: `livrare/files-1.1.0.json`. Modificările sunt descrise în `docs/CHANGELOG-1.1.0.md`.
+
+**Ce s-a verificat pe site-ul de test (Apache, instalare 1.0.0 cu date):**
+- Pachetul a fost încărcat din panou. Semnătura și toate fișierele au fost validate, apoi instalarea a durat 11 secunde (backup automat înainte).
+- După instalare: `/`, `/de`, `/en`, `/hu`, paginile de servicii, ofertă, contact, date tehnice și `sitemap.xml` răspund 200.
+- Conținutul în română a rămas identic: s-au comparat 6 pagini înainte și după, plus toate cele 19 adrese RO din sitemap între codul 1.0.0 și 1.1.0, pe aceeași bază de date. Singura diferență este eticheta nouă „Limba site-ului” a comutatorului.
+- Comutatorul de limbă duce la pagina corespunzătoare (DE „Über uns” → HU „Rólunk”). hreflang: ro, de, en, hu, x-default.
+- O cerere de ofertă trimisă din pagina maghiară primește numărul pe ecran în maghiară. Emailul de confirmare pentru client are subiectul în maghiară, iar notificarea internă rămâne în română.
+- Administrare: tab-uri de limbă (13 pagini pe fiecare limbă, 4 servicii), panoul „Alte limbi”, avertismentul „Traduceri de verificat” pe panoul principal. Dezactivarea maghiarei din Limbi face ca `/hu` să răspundă 404, iar reactivarea îl readuce (200).
+- Pe pagini în germană, engleză și maghiară nu a rămas text în română, nici în textele alternative ale imaginilor (scanare automată a celor 68 de adrese din sitemap).
+- Valorile tehnice (1900 × 1200 × 450 mm, 100 kg) sunt copiate, nu reformulate. Valorile neconfirmate nu apar în nicio limbă.
+- `php artisan test`: **31 de teste, 259 de verificări, toate trec** (9 teste noi pentru limbi și backup).
+
+**Probleme găsite și reparate în timpul testelor:**
+- Meniul cu texte mai lungi (DE/HU) se rupea pe două rânduri pe desktop. Varianta mobilă pornește acum sub 1320 px, iar comutatorul stă pe același rând.
+- Datele tehnice din primul ecran se suprapuneau peste ilustrația 3D, inclusiv în română. Lista are acum lățimea coloanei de text.
+- Backup: tabelele de sesiuni și cache lipseau din `database.sql`, așa că un import manual într-o bază goală (phpMyAdmin) dădea eroarea 500. Dump-ul conține acum structura lor, fără date. Am completat și instrucțiunile de recuperare manuală din `docs/ACTUALIZARI.md`.
+
+**De făcut de dumneavoastră:** traducerile în germană, engleză și maghiară sunt automate. Rugați vorbitori nativi să le verifice; politicile de confidențialitate și cookies cer verificare juridică. După verificare, debifați avertismentul din Administrare → Limbi.
 
 ## Ce conține livrarea
 
@@ -124,7 +146,7 @@ Pe dispozitive reale cu GPU, valorile trebuie confirmate după publicare, cu Pag
 2. **Integrări netestate cu conturi reale:** API-ul Claude (fără cheie), Google OAuth, Search Console, GA4 Data API, Business Profile și Google Ads (fără conturi și client OAuth). Codul tratează stările Neconfigurat, Conectat, Autorizare expirată și Acces necesar, dar trebuie verificat la prima conectare reală.
 3. **Google Business Profile:** recenziile și postările nu sunt implementate, pentru că API-urile cer aprobare de la Google. Panoul trimite la business.google.com.
 4. **Google Ads:** doar citire de rapoarte, care cere un developer token aprobat. Platforma nu modifică niciodată bugete și nu publică niciodată campanii.
-5. **Alte limbi:** arhitectura este pregătită (coloană `locale` în tabele, `config/elgarom.php → locales`, hreflang doar pentru limbile publicate). Nu există traduceri, iar interfața de editare pe limbi va fi adăugată când există conținut tradus, printr-o actualizare.
+5. **Alte limbi:** începând cu 1.1.0 site-ul este în română, germană, engleză și maghiară (vezi secțiunea de mai sus). Traducerile sunt automate și trebuie verificate de vorbitori nativi; politicile legale cer verificare juridică.
 6. **Hosting:** testat pe Apache 2.4. Pe LiteSpeed (des întâlnit la cPanel), `.htaccess` folosește doar directive compatibile, dar nu a fost testat efectiv.
 7. **Imagini pierdute la copierea site-ului vechi:** 10 originale au fost descărcate incomplet. 7 au fost recuperate din variante redimensionate intacte, iar 3 s-au pierdut (`7a1b32c5…`, `pic-1.jpg`, `19fbcffd….png`).
 8. **Cheia de semnare:** a fost generată în sesiunea de dezvoltare și v-a fost transmisă separat. Recomand să generați propria pereche (`php tools/release.php keygen`) și să o rotiți prin prima actualizare semnată.

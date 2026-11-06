@@ -8,6 +8,7 @@ use App\Http\Controllers\PageController;
 use App\Models\AuditLog;
 use App\Models\Page;
 use App\Models\Section;
+use App\Support\Locales;
 use App\Support\SectionTypes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
@@ -16,14 +17,60 @@ use Illuminate\Validation\Rule;
 
 class PagesController extends Controller
 {
-    public function index()
+    private const RESERVED = ['admin', 'servicii', 'proiecte', 'documente', 'asistent', 'media', 'build', 'health', 'mesaj', 'sitemap', 'install', 'solicita-oferta', 'de', 'en', 'hu'];
+
+    private function locale(Request $request): string
     {
-        return view('admin.pages.index', ['pages' => Page::where('locale', config('elgarom.default_locale'))->orderBy('sort')->get()]);
+        $loc = (string) $request->input('locale', Locales::default());
+
+        return isset(Locales::all()[$loc]) ? $loc : Locales::default();
     }
 
-    public function create()
+    public function index(Request $request)
     {
-        return view('admin.pages.create', ['templates' => Page::TEMPLATES]);
+        $loc = $this->locale($request);
+        $pages = Page::where('locale', $loc)->orderBy('sort')->get();
+        // Romanian pages that have no version in this language yet
+        $missing = $loc === Locales::default() ? collect() : Page::where('locale', Locales::default())
+            ->whereNotIn('translation_key', Page::where('locale', $loc)->whereNotNull('translation_key')->pluck('translation_key'))->orderBy('sort')->get();
+
+        return view('admin.pages.index', ['pages' => $pages, 'loc' => $loc, 'missing' => $missing]);
+    }
+
+    public function create(Request $request)
+    {
+        return view('admin.pages.create', ['templates' => Page::TEMPLATES, 'loc' => $this->locale($request)]);
+    }
+
+    /** Creates the version of a page in another language as a draft: copies the page data and all sections. */
+    public function translate(Request $request, Page $page)
+    {
+        $loc = $this->locale($request);
+        abort_if($loc === $page->locale, 422);
+        if (! $page->translation_key) {
+            $page->forceFill(['translation_key' => $page->slug === '/' ? 'acasa' : $page->slug])->saveQuietly();
+        }
+        if ($existing = Page::where('locale', $loc)->where('translation_key', $page->translation_key)->first()) {
+            return redirect()->route('admin.pages.edit', $existing)->with('warning', 'Pagina are deja o versiune în această limbă.');
+        }
+        $slug = $page->slug;
+        if ($slug !== '/') {
+            $base = $slug;
+            $i = 1;
+            while (Page::where('locale', $loc)->where('slug', $slug)->exists()) {
+                $slug = $base.'-'.(++$i);
+            }
+        }
+        $copy = $page->replicate(['published_data', 'published_at', 'published_by', 'has_unpublished_changes', 'translation_key']);
+        $copy->fill(['locale' => $loc, 'slug' => $slug, 'status' => 'draft']);
+        $copy->translation_key = $page->translation_key;
+        $copy->save();
+        foreach ($page->sections as $sec) {
+            Section::create(['page_id' => $copy->id, 'type' => $sec->type, 'sort' => $sec->sort, 'data' => $sec->data, 'is_visible' => $sec->is_visible]);
+        }
+        AuditLog::record('pagina.tradusa', $copy, ['din' => $page->id, 'limba' => $loc]);
+
+        return redirect()->route('admin.pages.edit', $copy)->with('warning', 'Ciorna în '.Locales::all()[$loc]['name'].' a fost creată cu textele din original. Traduceți titlul, adresa, SEO și fiecare secțiune, apoi publicați.');
     }
 
     public function store(Request $request)
@@ -33,12 +80,13 @@ class PagesController extends Controller
             'slug' => ['nullable', 'string', 'max:120', 'regex:/^[a-z0-9\-]+$/'],
             'template' => ['required', Rule::in(array_diff(array_keys(Page::TEMPLATES), ['home']))],
         ]);
+        $loc = $this->locale($request);
         $slug = $d['slug'] ?: Str::slug($d['title']);
-        $reserved = ['admin', 'servicii', 'proiecte', 'documente', 'asistent', 'media', 'build', 'health', 'mesaj', 'sitemap', 'install'];
-        if (in_array($slug, $reserved, true) || Page::where('slug', $slug)->where('locale', config('elgarom.default_locale'))->exists()) {
+        if (in_array($slug, self::RESERVED, true) || in_array($slug, array_column(array_column(Locales::all(), 'segments'), 'services'), true) || Page::where('slug', $slug)->where('locale', $loc)->exists()) {
             return back()->withInput()->withErrors(['slug' => 'Adresa „'.$slug.'” este deja folosită sau rezervată.']);
         }
-        $page = Page::create(['title' => $d['title'], 'slug' => $slug, 'template' => $d['template'], 'status' => 'draft', 'sort' => (int) Page::max('sort') + 10, 'locale' => config('elgarom.default_locale')]);
+        $page = Page::create(['title' => $d['title'], 'slug' => $slug, 'template' => $d['template'], 'status' => 'draft', 'sort' => (int) Page::max('sort') + 10, 'locale' => $loc]);
+        $page->forceFill(['translation_key' => $loc === Locales::default() ? $slug : 'pagina-'.$page->id])->saveQuietly();
         AuditLog::record('pagina.creata', $page, ['slug' => $slug]);
 
         return redirect()->route('admin.pages.edit', $page)->with('status', 'Pagina a fost creată ca ciornă.');
@@ -46,7 +94,10 @@ class PagesController extends Controller
 
     public function edit(Page $page)
     {
-        return view('admin.pages.edit', ['page' => $page->load('sections'), 'types' => SectionTypes::all(), 'templates' => Page::TEMPLATES]);
+        $translations = $page->translation_key
+            ? Page::where('translation_key', $page->translation_key)->where('id', '!=', $page->id)->get()->keyBy('locale')->all() : [];
+
+        return view('admin.pages.edit', ['page' => $page->load('sections'), 'types' => SectionTypes::all(), 'templates' => Page::TEMPLATES, 'translations' => $translations]);
     }
 
     public function update(Request $request, Page $page)
@@ -62,14 +113,17 @@ class PagesController extends Controller
             'slug' => ['nullable', 'string', 'max:120', 'regex:/^[a-z0-9\-]+$/'],
         ], ['meta_title.max' => 'Titlul SEO poate avea cel mult 70 de caractere.', 'meta_description.max' => 'Descrierea SEO poate avea cel mult 170 de caractere.']);
         $d['noindex'] = $request->boolean('noindex');
-        if ($page->is_system || $page->slug === '/') {
+        if ($page->slug === '/' || ($page->is_system && $page->locale === Locales::default())) {
             unset($d['slug']);
         } elseif (! empty($d['slug']) && $d['slug'] !== $page->slug) {
-            if (Page::where('slug', $d['slug'])->where('id', '!=', $page->id)->exists()) {
-                return back()->withInput()->withErrors(['slug' => 'Adresa este deja folosită.']);
+            if (in_array($d['slug'], self::RESERVED, true) || Page::where('slug', $d['slug'])->where('locale', $page->locale)->where('id', '!=', $page->id)->exists()) {
+                return back()->withInput()->withErrors(['slug' => 'Adresa este deja folosită sau rezervată.']);
             }
-            // keep old links working
-            \App\Models\Redirect::updateOrCreate(['from_path' => '/'.$page->slug], ['to_url' => '/'.$d['slug'], 'status_code' => 301, 'is_active' => true]);
+            // keep old links working (only once the page has been public)
+            if ($page->status === 'published' || $page->published_at) {
+                $prefix = Locales::prefix($page->locale);
+                \App\Models\Redirect::updateOrCreate(['from_path' => $prefix.'/'.$page->slug], ['to_url' => $prefix.'/'.$d['slug'], 'status_code' => 301, 'is_active' => true]);
+            }
         } else {
             unset($d['slug']);
         }
@@ -104,7 +158,7 @@ class PagesController extends Controller
         $page->delete();
         AuditLog::record('pagina.stearsa', $page);
 
-        return redirect()->route('admin.pages.index')->with('status', 'Pagina a fost ștearsă.');
+        return redirect()->route('admin.pages.index', ['locale' => $page->locale])->with('status', 'Pagina a fost ștearsă.');
     }
 
     public function previewLink(Page $page)
@@ -115,6 +169,8 @@ class PagesController extends Controller
     public function preview(Request $request, Page $page)
     {
         $page->load('sections');
+        app()->setLocale($page->locale);
+        \Carbon\Carbon::setLocale($page->locale);
         $resp = app(PageController::class)->render($page, $page->draftSnapshot(), true);
 
         return $resp;

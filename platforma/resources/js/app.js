@@ -1,5 +1,6 @@
 import { initConsent, track } from './consent.js';
 import { initWizard } from './wizard.js';
+import { t } from './i18n.js';
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -57,7 +58,8 @@ function initGallery() {
   if (!galleries.length) return;
   const dlg = document.createElement('dialog');
   dlg.className = 'lightbox';
-  dlg.innerHTML = '<button class="btn btn--sm lightbox__close" type="button">Închide</button><img alt=""><p></p>';
+  dlg.innerHTML = '<button class="btn btn--sm lightbox__close" type="button"></button><img alt=""><p></p>';
+  dlg.querySelector('button').textContent = t('Închide');
   document.body.appendChild(dlg);
   const img = $('img', dlg);
   const cap = $('p', dlg);
@@ -112,7 +114,7 @@ function initMap() {
     $('[data-map-load]', m)?.addEventListener('click', () => {
       const f = document.createElement('iframe');
       f.src = m.dataset.src;
-      f.title = 'Harta – locația Elgarom';
+      f.title = t('Harta – locația Elgarom');
       f.loading = 'lazy';
       f.referrerPolicy = 'no-referrer-when-downgrade';
       m.replaceChildren(f);

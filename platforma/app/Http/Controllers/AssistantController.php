@@ -15,10 +15,11 @@ class AssistantController extends Controller
 {
     private function fallback(string $reason, int $status = 503)
     {
+        $reason = __($reason);
         return response()->json([
             'error' => $reason,
-            'fallback' => 'Puteți trimite oricând o cerere prin formularul de ofertă sau ne puteți suna.',
-            'links' => [['label' => 'Formular de ofertă', 'url' => url('/solicita-oferta')], ['label' => 'Contact', 'url' => url('/contact')]],
+            'fallback' => __('Puteți trimite oricând o cerere prin formularul de ofertă sau ne puteți suna.'),
+            'links' => [['label' => __('Formular de ofertă'), 'url' => page_url('solicita-oferta')], ['label' => __('Contact'), 'url' => page_url('contact')]],
         ], $status);
     }
 
@@ -41,11 +42,14 @@ class AssistantController extends Controller
 
     public function message(Request $request, Assistant $assistant)
     {
+        if (\App\Support\Locales::isEnabled((string) $request->input('locale'))) {
+            app()->setLocale((string) $request->input('locale'));
+        }
         if (! Assistant::publicStatus()['enabled']) {
             return $this->fallback('Asistentul AI nu este disponibil acum.');
         }
         $data = $request->validate(['message' => 'required|string|max:'.config('elgarom.ai.max_input_chars')], [
-            'message.required' => 'Scrieți o întrebare.', 'message.max' => 'Mesajul este prea lung (max. '.config('elgarom.ai.max_input_chars').' caractere).',
+            'message.required' => __('Scrieți o întrebare.'), 'message.max' => __('Mesajul este prea lung (max. :n caractere).', ['n' => config('elgarom.ai.max_input_chars')]),
         ]);
         $key = 'ai:'.FormGuard::ipHash($request);
         if (RateLimiter::tooManyAttempts($key, (int) setting('ai.max_requests_per_ip_hour', 30))) {

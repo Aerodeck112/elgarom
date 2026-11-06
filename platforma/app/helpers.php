@@ -119,3 +119,68 @@ if (! function_exists('safe_url')) {
         return $fallback;
     }
 }
+
+if (! function_exists('lurl')) {
+    /** URL in the given (or current) locale: lurl('/x') → /de/x */
+    function lurl(string $path = '/', ?string $locale = null): string
+    {
+        $prefix = \App\Support\Locales::prefix($locale);
+        $path = '/'.ltrim($path, '/');
+
+        return url($prefix === '' ? $path : ($path === '/' ? $prefix : $prefix.$path));
+    }
+}
+
+if (! function_exists('lroute')) {
+    function lroute(string $name, array $params = [], ?string $locale = null): string
+    {
+        return route(\App\Support\Locales::routeName($name, $locale), $params);
+    }
+}
+
+if (! function_exists('page_url')) {
+    /** URL of a system page by its translation key (Romanian slug), in the current locale; falls back to Romanian. */
+    function page_url(string $key, ?string $locale = null): string
+    {
+        static $cache = [];
+        $locale ??= app()->getLocale();
+        $k = $locale.'|'.$key;
+        if (! isset($cache[$k])) {
+            $page = \App\Models\Page::where('translation_key', $key)->where('locale', $locale)->where('status', 'published')->first()
+                ?? \App\Models\Page::where('translation_key', $key)->where('locale', \App\Support\Locales::default())->first();
+            $cache[$k] = $page ? $page->url() : lurl('/', $locale);
+        }
+
+        return $cache[$k];
+    }
+}
+
+if (! function_exists('service_url')) {
+    function service_url($service): string
+    {
+        return lurl('/'.\App\Support\Locales::segment('services', $service->locale).'/'.$service->slug, $service->locale);
+    }
+}
+
+if (! function_exists('project_url')) {
+    function project_url($project): string
+    {
+        return lurl('/'.\App\Support\Locales::segment('projects', $project->locale).'/'.$project->slug, $project->locale);
+    }
+}
+
+if (! function_exists('lsetting')) {
+    /** Translatable setting: "key.de" for German, falling back to "key". */
+    function lsetting(string $key, mixed $default = null): mixed
+    {
+        $loc = app()->getLocale();
+        if ($loc !== \App\Support\Locales::default()) {
+            $v = setting($key.'.'.$loc);
+            if ($v !== null && $v !== '') {
+                return $v;
+            }
+        }
+
+        return setting($key, $default);
+    }
+}

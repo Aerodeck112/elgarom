@@ -19,7 +19,7 @@ class Resources
             'services' => [
                 'model' => Models\Service::class, 'label' => 'Servicii', 'singular' => 'serviciu', 'perm' => 'content',
                 'columns' => ['title' => 'Titlu', 'slug' => 'Adresă', 'is_published' => 'Publicat'], 'search' => ['title', 'summary'], 'order' => 'sort',
-                'public' => fn ($m) => url('/servicii/'.$m->slug),
+                'public' => fn ($m) => service_url($m),
                 'fields' => [
                     ['name' => 'title', 'label' => 'Titlu', 'type' => 'text', 'rules' => 'required|string|max:160'],
                     ['name' => 'slug', 'label' => 'Adresă URL', 'type' => 'slug', 'from' => 'title', 'rules' => 'nullable|string|max:120|regex:/^[a-z0-9\-]+$/', 'hint' => 'Doar litere mici, cifre și cratime. Se generează din titlu dacă rămâne gol.'],
@@ -60,7 +60,7 @@ class Resources
             'projects' => [
                 'model' => Models\Project::class, 'label' => 'Proiecte', 'singular' => 'proiect', 'perm' => 'content',
                 'columns' => ['title' => 'Titlu', 'client' => 'Client', 'is_published' => 'Publicat'], 'search' => ['title', 'client'], 'order' => 'sort',
-                'public' => fn ($m) => url('/proiecte/'.$m->slug),
+                'public' => fn ($m) => project_url($m),
                 'fields' => [
                     ['name' => 'title', 'label' => 'Titlu', 'type' => 'text', 'rules' => 'required|string|max:160'],
                     ['name' => 'slug', 'label' => 'Adresă URL', 'type' => 'slug', 'from' => 'title', 'rules' => 'nullable|string|max:120|regex:/^[a-z0-9\-]+$/'],
@@ -103,7 +103,7 @@ class Resources
                 'fields' => [
                     ['name' => 'menu', 'label' => 'Meniu', 'type' => 'select', 'options' => ['header' => 'Antet', 'footer' => 'Subsol'], 'rules' => 'required|in:header,footer'],
                     ['name' => 'label', 'label' => 'Text', 'type' => 'text', 'rules' => 'required|string|max:80'],
-                    ['name' => 'url', 'label' => 'Link', 'type' => 'url', 'rules' => ['required', 'string', 'max:500', 'regex:/^(https?:\/\/|\/|mailto:|tel:|#)/'], 'hint' => 'Ex. /servicii sau https://…'],
+                    ['name' => 'url', 'label' => 'Link', 'type' => 'url', 'rules' => ['required', 'string', 'max:500', 'regex:/^(https?:\/\/|\/|mailto:|tel:|#)/'], 'hint' => 'Ex. /servicii, /de/leistungen sau https://… – folosiți adresa paginii în limba meniului.'],
                     ['name' => 'is_button', 'label' => 'Afișat ca buton', 'type' => 'checkbox'],
                     ['name' => 'is_visible', 'label' => 'Vizibil', 'type' => 'checkbox'],
                     $sort,
@@ -121,7 +121,7 @@ class Resources
                 ],
             ],
             'knowledge' => [
-                'model' => Models\KnowledgeEntry::class, 'label' => 'Bază de cunoștințe AI', 'singular' => 'intrare', 'perm' => 'ai.knowledge',
+                'model' => Models\KnowledgeEntry::class, 'label' => 'Bază de cunoștințe AI', 'singular' => 'intrare', 'perm' => 'ai.knowledge', 'localized' => false,
                 'columns' => ['title' => 'Titlu', 'source_label' => 'Sursă', 'reviewed_at' => 'Verificat la', 'is_active' => 'Activ'], 'search' => ['title', 'content'], 'order' => 'sort',
                 'intro' => 'Asistentul AI răspunde doar pe baza intrărilor active de aici și a conținutului publicat. Fiecare salvare marchează intrarea ca verificată de dumneavoastră.',
                 'fields' => [

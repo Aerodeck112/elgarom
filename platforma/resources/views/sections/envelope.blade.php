@@ -18,7 +18,7 @@
         <div class="envelope">
             <figure class="envelope__drawing" style="margin:0">
                 <svg viewBox="0 0 {{ (int) ($sx + $sw + 40) }} {{ (int) ($y0 + $fh + 90) }}" role="img" aria-labelledby="env-t env-d">
-                    <title id="env-t">Gabarit maxim pe dispozitiv</title>
+                    <title id="env-t">{{ __('Gabarit maxim pe dispozitiv') }}</title>
                     <desc id="env-d">Desen schematic: gabaritul maxim al unei piese pe dispozitiv este {{ $env->value }} {{ $env->unit }}.</desc>
                     <defs>
                         <marker id="tick" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M1 9 L9 1" stroke="#0b7a69" stroke-width="1.6"/></marker>
@@ -36,10 +36,10 @@
                         @foreach ([0.3, 0.45, 0.6, 0.72] as $hx)
                             <circle cx="{{ $x0 + $fw * $hx }}" cy="{{ $y0 + $fh * .73 }}" r="{{ max(4, $fh * .022) }}" fill="#fff" stroke="#5c666e"/>
                         @endforeach
-                        <text x="{{ $x0 }}" y="{{ $y0 - 14 }}" font-size="13">Vedere din față</text>
+                        <text x="{{ $x0 }}" y="{{ $y0 - 14 }}" font-size="13">{{ __('Vedere din față') }}</text>
                         {{-- side view --}}
                         <rect x="{{ $sx }}" y="{{ $y0 }}" width="{{ $sw }}" height="{{ $fh }}" fill="rgba(169,188,203,.16)" stroke="#28387b" stroke-width="2" stroke-dasharray="10 6"/>
-                        <text x="{{ $sx }}" y="{{ $y0 - 14 }}" font-size="13">Vedere laterală</text>
+                        <text x="{{ $sx }}" y="{{ $y0 - 14 }}" font-size="13">{{ __('Vedere laterală') }}</text>
                         {{-- dimension lines --}}
                         <g stroke="#0b7a69" stroke-width="1.3" fill="none">
                             <path d="M{{ $x0 }} {{ $y0 + $fh + 18 }} v26 M{{ $x0 + $fw }} {{ $y0 + $fh + 18 }} v26"/>
@@ -54,10 +54,10 @@
                             <text transform="translate({{ $x0 - 44 }} {{ $y0 + $fh / 2 }}) rotate(-90)" text-anchor="middle" paint-order="stroke" stroke="#fff" stroke-width="6">{{ $fmt($b) }}</text>
                             <text x="{{ $sx + $sw / 2 }}" y="{{ $y0 + $fh + 30 }}" text-anchor="middle" paint-order="stroke" stroke="#fff" stroke-width="6">{{ $fmt($c) }}</text>
                         </g>
-                        <text x="{{ $sx + $sw + 30 }}" y="{{ $y0 + $fh + 72 }}" text-anchor="end" font-size="13">cote în {{ $env->unit ?: 'mm' }}</text>
+                        <text x="{{ $sx + $sw + 30 }}" y="{{ $y0 + $fh + 72 }}" text-anchor="end" font-size="13">{{ __('cote în :unit', ['unit' => $env->unit ?: 'mm']) }}</text>
                     </g>
                 </svg>
-                <figcaption class="envelope__src">Desen schematic, nu la scară reală. Piesa din desen este un exemplu. Orientarea pe dispozitiv și prinderea se stabilesc cu echipa tehnică.</figcaption>
+                <figcaption class="envelope__src">{{ __('Desen schematic, nu la scară reală. Piesa din desen este un exemplu. Orientarea pe dispozitiv și prinderea se stabilesc cu echipa tehnică.') }}</figcaption>
             </figure>
             <div class="envelope__data">
                 <dl>
@@ -68,7 +68,7 @@
                 </dl>
                 <p class="envelope__src">Sursa: {{ $env->source }}.</p>
                 <div class="btn-row" style="margin-top:1.5rem">
-                    <a class="btn" href="{{ url('/solicita-oferta') }}" data-track="cta_click" data-track-label="gabarit_oferta">Verificați piesa dvs.</a>
+                    <a class="btn" href="{{ page_url('solicita-oferta') }}" data-track="cta_click" data-track-label="gabarit_oferta">{{ __('Verificați piesa dvs.') }}</a>
                 </div>
             </div>
         </div>

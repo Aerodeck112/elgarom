@@ -121,7 +121,7 @@ class QuoteService
         }
         MailOutbox::create([
             'template' => 'client_confirmation', 'to_email' => $quote->email, 'to_name' => $quote->name,
-            'subject' => ($quote->kind === 'contact' ? 'Am primit mesajul dumneavoastră' : 'Am primit cererea de ofertă').' – '.$quote->reference,
+            'subject' => __($quote->kind === 'contact' ? 'Am primit mesajul dumneavoastră' : 'Am primit cererea de ofertă', [], $quote->locale).' – '.$quote->reference,
             'payload' => ['quote_id' => $quote->id], 'related_type' => 'quote', 'related_id' => $quote->id,
             'next_attempt_at' => now(),
         ]);

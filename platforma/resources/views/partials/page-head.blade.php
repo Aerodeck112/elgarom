@@ -1,8 +1,8 @@
 <header class="page-head on-dark">
     <div class="wrap">
-        <nav class="crumbs" aria-label="Fir de navigare">
+        <nav class="crumbs" aria-label="{{ __('Fir de navigare') }}">
             <ol>
-                <li><a href="{{ url('/') }}">Acasă</a></li>
+                <li><a href="{{ lurl('/') }}">{{ __('Acasă') }}</a></li>
                 @foreach ($crumbs ?? [] as [$label, $href])
                     <li>@if ($href)<a href="{{ $href }}">{{ $label }}</a>@else<span aria-current="page">{{ $label }}</span>@endif</li>
                 @endforeach

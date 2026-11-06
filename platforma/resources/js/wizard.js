@@ -1,4 +1,5 @@
 import { track } from './consent.js';
+import { t } from './i18n.js';
 
 const DRAFT_KEY = 'elg_quote_draft';
 const PREFILL_KEY = 'elg_ai_prefill';
@@ -44,7 +45,7 @@ export function initWizard() {
       const note = document.createElement('div');
       note.className = 'alert alert--ok';
       note.setAttribute('role', 'status');
-      note.textContent = 'Am precompletat câmpurile cu informațiile din conversația cu asistentul AI. Verificați-le înainte de trimitere.';
+      note.textContent = t('Am precompletat câmpurile cu informațiile din conversația cu asistentul AI. Verificați-le înainte de trimitere.');
       form.querySelector('[data-wizard-progress]').after(note);
     }
   } catch (_) { /* storage unavailable */ }
@@ -98,11 +99,11 @@ export function initWizard() {
   const fileProblems = () => {
     const out = [];
     const files = [...fileInput.files];
-    if (files.length > maxFiles) out.push(`Puteți atașa cel mult ${maxFiles} fișiere.`);
+    if (files.length > maxFiles) out.push(t('Puteți atașa cel mult :n fișiere.', { n: maxFiles }));
     files.forEach((f) => {
       const ext = f.name.split('.').pop().toLowerCase();
-      if (!exts.includes(ext)) out.push(`„${f.name}”: tipul fișierului nu este acceptat.`);
-      if (f.size > maxBytes) out.push(`„${f.name}” depășește ${Math.round(maxBytes / 1048576)} MB.`);
+      if (!exts.includes(ext)) out.push(t(':name: tipul fișierului nu este acceptat.', { name: '„' + f.name + '”' }));
+      if (f.size > maxBytes) out.push(t(':name depășește :mb MB.', { name: '„' + f.name + '”', mb: Math.round(maxBytes / 1048576) }));
     });
     return out;
   };
@@ -114,8 +115,8 @@ export function initWizard() {
       span.textContent = `${f.name} (${(f.size / 1048576).toFixed(1).replace('.', ',')} MB)`;
       const rm = document.createElement('button');
       rm.type = 'button';
-      rm.textContent = 'Elimină';
-      rm.setAttribute('aria-label', `Elimină ${f.name}`);
+      rm.textContent = t('Elimină');
+      rm.setAttribute('aria-label', t('Elimină :name', { name: f.name }));
       rm.addEventListener('click', () => {
         const dt = new DataTransfer();
         [...fileInput.files].forEach((x, j) => { if (j !== i) dt.items.add(x); });
@@ -160,7 +161,7 @@ export function initWizard() {
       if (el?.tagName === 'SELECT') return el.value ? el.options[el.selectedIndex].text : '';
       return el?.value || '';
     };
-    const rows = [['name'], ['company'], ['email'], ['phone'], ['city'], ['part_type', 'Tipul pieselor'], ['material'], ['process'], ['description', 'Descriere'], ['quantity'], ['weight'], ['dimensions'], ['deadline'], ['deadline_note']];
+    const rows = [['name'], ['company'], ['email'], ['phone'], ['city'], ['part_type', t('Tipul pieselor')], ['material'], ['process'], ['description', t('Descriere')], ['quantity'], ['weight'], ['dimensions'], ['deadline'], ['deadline_note']];
     rows.forEach(([n, l]) => {
       const v = val(n);
       if (!v) return;
@@ -175,7 +176,8 @@ export function initWizard() {
     const files = [...fileInput.files];
     if (files.length) {
       const d = document.createElement('div');
-      d.innerHTML = '<dt>Fișiere</dt><dd></dd>';
+      d.innerHTML = '<dt></dt><dd></dd>';
+      d.querySelector('dt').textContent = t('Fișiere');
       d.querySelector('dd').textContent = files.map((f) => f.name).join(', ');
       dl.appendChild(d);
     }
@@ -190,7 +192,7 @@ export function initWizard() {
     }
     const btn = form.querySelector('[data-submit]');
     btn.disabled = true;
-    btn.textContent = 'Se trimite…';
+    btn.textContent = t('Se trimite…');
   });
 
   show(current, Boolean(form.querySelector('[data-focus]')) === false && current !== 1);

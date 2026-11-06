@@ -3,9 +3,11 @@
 @section('content')
 <div class="page-title">
     <div><h1>{{ $r['label'] }}</h1>@if (! empty($r['intro']))<p>{{ $r['intro'] }}</p>@endif</div>
-    <a class="btn" href="{{ route('admin.res.create', $r['key']) }}">Adaugă {{ $r['singular'] }}</a>
+    <a class="btn" href="{{ route('admin.res.create', [$r['key'], 'locale' => $loc]) }}">Adaugă {{ $r['singular'] }}@if ($loc) ({{ strtoupper($loc) }})@endif</a>
 </div>
+@if ($loc)@include('admin.partials.locale-tabs', ['url' => fn ($code) => route('admin.res.index', [$r['key'], 'locale' => $code])])@endif
 <form class="filters" method="get">
+    @if ($loc)<input type="hidden" name="locale" value="{{ $loc }}">@endif
     <div class="field"><label for="q">Caută</label><input class="input" id="q" name="q" value="{{ request('q') }}"></div>
     @foreach ($r['filter'] ?? [] as $col => $opts)
         <div class="field"><label for="flt-{{ $col }}">Filtru</label><select class="select" id="flt-{{ $col }}" name="{{ $col }}"><option value="">Toate</option>@foreach ($opts as $k => $l)<option value="{{ $k }}" @selected(request($col) === $k)>{{ $l }}</option>@endforeach</select></div>

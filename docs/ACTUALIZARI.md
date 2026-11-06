@@ -58,7 +58,7 @@ php recover.php maintenance-off
 
 - `recover.php` nu depinde de framework, rulează doar în linia de comandă (din web răspunde 404) și verifică hash-urile backup-ului înainte de restaurare.
 - Ultima soluție: restaurați backup-ul complet zilnic cu `php artisan elgarom:restore <fișier>` sau din panou.
-- Fără Terminal: arhiva de backup se poate deschide cu File Manager. Folderul `code/` conține fișierele vechi, iar `database.sql` se importă din phpMyAdmin.
+- Fără Terminal: arhiva de backup se poate deschide cu File Manager. Folderul `code/` conține fișierele vechi; copiați-le peste cele curente fără să ștergeți `.env`, `storage/` și `public/media/`. Dacă folderul `bootstrap/cache/` lipsește, creați-l gol. Goliți apoi `storage/framework/views/` (vederile compilate ale versiunii noi). `database.sql` se importă din phpMyAdmin. De la 1.1.0 dump-ul conține și structura tabelelor de sesiuni și cache, deci importul merge și într-o bază goală.
 
 ## Crearea și semnarea unei actualizări (pe calculatorul de dezvoltare)
 

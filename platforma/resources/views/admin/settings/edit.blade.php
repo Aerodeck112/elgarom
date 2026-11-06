@@ -1,7 +1,7 @@
 @extends('admin.layout')
 @section('title', $g['label'])
 @section('content')
-<div class="page-title"><h1>{{ $g['label'] }}</h1></div>
+<div class="page-title"><div><h1>{{ $g['label'] }}</h1>@if (! empty($g['intro']))<p>{{ $g['intro'] }}</p>@endif</div></div>
 @if ($g['key'] === 'smtp')
     @php $configured = \App\Services\Mail\Outbox::configured(); @endphp
     <div class="panel {{ $configured ? 'panel--ok' : 'panel--warn' }}">
@@ -12,7 +12,7 @@
 <form class="panel" method="post" action="{{ route('admin.settings.update', $g['key']) }}">
     @csrf @method('PUT')
     @foreach ($g['fields'] as $f)
-        @php $in = $input($f['name']); $val = old($in, setting($f['name'])); @endphp
+        @php $in = $input($f['name']); $val = old($in, isset($f['current']) ? ($f['current'])() : setting($f['name'])); @endphp
         @if ($f['type'] === 'secret')
             <div class="field">
                 <label for="f-{{ $in }}">{{ $f['label'] }}</label>

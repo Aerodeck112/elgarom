@@ -47,7 +47,7 @@ class PageController extends Controller
         $crumbs = [[$data['title'], null]];
         $structured = [];
         if ($page->slug !== '/') {
-            $structured[] = StructuredData::breadcrumbs([['Acasă', url('/')], [$data['title'], $page->url()]]);
+            $structured[] = StructuredData::breadcrumbs([[__('Acasă'), lurl('/')], [$data['title'], $page->url()]]);
         }
         if ($page->template === 'faq') {
             $faqs = Faq::published()->get();
@@ -67,7 +67,7 @@ class PageController extends Controller
             'ogImageId' => $data['og_image_id'] ?? null,
             'canonical' => $page->url(),
             'noindex' => $page->noindex || $preview,
-            'alternates' => [$page->locale => $page->url()],
+            'alternates' => $preview ? [] : $page->alternates(),
             'preview' => $preview,
         ]);
     }
@@ -83,10 +83,11 @@ class PageController extends Controller
             'metaTitle' => $service->title.' | '.setting('seo.site_name', 'ELGAROM'),
             'metaDescription' => $service->summary,
             'ogImageId' => $service->image_id,
-            'canonical' => url('/servicii/'.$service->slug),
+            'canonical' => service_url($service),
+            'alternates' => $this->alternatesFor(Service::class, $service),
             'structured' => [
                 StructuredData::service($service),
-                StructuredData::breadcrumbs([['Acasă', url('/')], ['Servicii', url('/servicii')], [$service->title, url('/servicii/'.$service->slug)]]),
+                StructuredData::breadcrumbs([[__('Acasă'), lurl('/')], [__('Servicii'), page_url('servicii')], [$service->title, service_url($service)]]),
             ],
         ]);
     }
@@ -100,7 +101,21 @@ class PageController extends Controller
             'metaTitle' => $project->title.' | '.setting('seo.site_name', 'ELGAROM'),
             'metaDescription' => $project->summary,
             'ogImageId' => $project->cover_id,
-            'canonical' => url('/proiecte/'.$project->slug),
+            'canonical' => project_url($project),
+            'alternates' => $this->alternatesFor(Project::class, $project),
         ]);
+    }
+
+    private function alternatesFor(string $model, $item): array
+    {
+        if (! $item->translation_key) {
+            return [];
+        }
+        $out = [];
+        foreach ($model::where('translation_key', $item->translation_key)->where('is_published', true)->whereIn('locale', \App\Support\Locales::enabled())->get() as $t) {
+            $out[$t->locale] = $model === Service::class ? service_url($t) : project_url($t);
+        }
+
+        return $out;
     }
 }

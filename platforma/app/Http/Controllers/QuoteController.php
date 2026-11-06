@@ -17,11 +17,20 @@ class QuoteController extends Controller
 {
     public function __construct(private QuoteService $quotes, private UploadInspector $inspector) {}
 
+    private function useLocale(Request $request): void
+    {
+        $loc = (string) $request->input('_locale');
+        if (\App\Support\Locales::isEnabled($loc)) {
+            app()->setLocale($loc);
+        }
+    }
+
     public function store(Request $request)
     {
+        $this->useLocale($request);
         // Random key for the temporary upload folder, kept in the session (survives session id regeneration).
         $sid = $request->session()->get('quote_stash_key') ?? tap(bin2hex(random_bytes(16)), fn ($k) => $request->session()->put('quote_stash_key', $k));
-        $back = fn () => redirect()->to(url('/solicita-oferta').'#formular')->withInput($request->except(['files', '_t', 'website']));
+        $back = fn () => redirect()->to(page_url('solicita-oferta').'#formular')->withInput($request->except(['files', '_t', 'website']));
 
         if ($reason = FormGuard::check($request, 'description')) {
             return $back()->with('quote_failed', $reason);
@@ -30,7 +39,7 @@ class QuoteController extends Controller
         if (RateLimiter::tooManyAttempts($key, 6)) {
             $min = (int) ceil(RateLimiter::availableIn($key) / 60);
 
-            return $back()->with('quote_failed', 'Ați trimis mai multe cereri într-un timp scurt. Încercați din nou peste '.$min.' minute sau sunați-ne.');
+            return $back()->with('quote_failed', __('Ați trimis mai multe cereri într-un timp scurt. Încercați din nou peste :min minute sau sunați-ne.', ['min' => $min]));
         }
 
         $exts = config('elgarom.uploads.quote_extensions');
@@ -59,16 +68,16 @@ class QuoteController extends Controller
             'marketing' => ['nullable', 'boolean'],
             'source' => ['nullable', 'in:formular,asistent_ai'],
         ], [
-            'name.required' => 'Completați numele.',
-            'email.required' => 'Completați adresa de email.',
-            'email.email' => 'Adresa de email nu pare validă.',
-            'phone.regex' => 'Numărul de telefon poate conține doar cifre, spații și + ( ) - . /',
-            'description.required' => 'Descrieți pe scurt piesa și cerințele.',
-            'description.min' => 'Descrierea trebuie să aibă cel puțin 10 caractere.',
-            'deadline.after_or_equal' => 'Termenul dorit nu poate fi în trecut.',
-            'files.max' => 'Puteți atașa cel mult '.config('elgarom.uploads.quote_max_files').' fișiere în total.',
-            'files.*.max' => 'Fiecare fișier poate avea cel mult '.round($maxKb / 1024).' MB.',
-            'privacy.accepted' => 'Pentru a trimite cererea, confirmați că ați citit Politica de confidențialitate.',
+            'name.required' => __('Completați numele.'),
+            'email.required' => __('Completați adresa de email.'),
+            'email.email' => __('Adresa de email nu pare validă.'),
+            'phone.regex' => __('Numărul de telefon poate conține doar cifre, spații și + ( ) - . /'),
+            'description.required' => __('Descrieți pe scurt piesa și cerințele.'),
+            'description.min' => __('Descrierea trebuie să aibă cel puțin 10 caractere.'),
+            'deadline.after_or_equal' => __('Termenul dorit nu poate fi în trecut.'),
+            'files.max' => __('Puteți atașa cel mult :n fișiere în total.', ['n' => config('elgarom.uploads.quote_max_files')]),
+            'files.*.max' => __('Fiecare fișier poate avea cel mult :mb MB.', ['mb' => round($maxKb / 1024)]),
+            'privacy.accepted' => __('Pentru a trimite cererea, confirmați că ați citit Politica de confidențialitate.'),
         ]);
 
         $files = array_values(array_filter((array) $request->file('files', [])));
@@ -105,7 +114,7 @@ class QuoteController extends Controller
         } catch (\Throwable $e) {
             report($e);
 
-            return $back()->with('quote_failed', 'Cererea nu a putut fi salvată din cauza unei erori tehnice și NU a fost trimisă. Datele completate au fost păstrate – încercați din nou peste câteva minute sau sunați la '.(setting('company.phones', [])[0]['number'] ?? '').'.');
+            return $back()->with('quote_failed', __('Cererea nu a putut fi salvată din cauza unei erori tehnice și NU a fost trimisă. Datele completate au fost păstrate – încercați din nou peste câteva minute sau sunați la :phone.', ['phone' => setting('company.phones', [])[0]['number'] ?? '']));
         }
 
         $request->session()->forget(['quote_stash', 'quote_stash_key']);
@@ -115,18 +124,19 @@ class QuoteController extends Controller
         $this->quotes->clearStash($sid);
         defer(fn () => app(Outbox::class)->sendFor('quote', $quote->id));
 
-        return redirect()->route('quote.sent')->with('quote_ref', $quote->reference)->with('quote_kind', 'oferta');
+        return redirect()->to(lroute('quote.sent'))->with('quote_ref', $quote->reference)->with('quote_kind', 'oferta');
     }
 
     public function message(Request $request)
     {
+        $this->useLocale($request);
         $back = fn () => redirect()->to(url()->previous().'#mesaj')->withInput($request->except(['_t', 'website']));
         if ($reason = FormGuard::check($request, 'message')) {
             return $back()->withErrors(['message' => $reason], 'mesaj');
         }
         $key = 'msg:'.FormGuard::ipHash($request);
         if (RateLimiter::tooManyAttempts($key, 8)) {
-            return $back()->withErrors(['message' => 'Prea multe mesaje într-un timp scurt. Încercați din nou mai târziu sau sunați-ne.'], 'mesaj');
+            return $back()->withErrors(['message' => __('Prea multe mesaje într-un timp scurt. Încercați din nou mai târziu sau sunați-ne.')], 'mesaj');
         }
         $v = Validator::make($request->all(), [
             'name' => ['required', 'string', 'min:2', 'max:120'],
@@ -135,10 +145,10 @@ class QuoteController extends Controller
             'message' => ['required', 'string', 'min:10', 'max:4000'],
             'privacy' => ['accepted'],
         ], [
-            'name.required' => 'Completați numele.', 'email.required' => 'Completați adresa de email.',
-            'email.email' => 'Adresa de email nu pare validă.', 'message.required' => 'Scrieți mesajul.',
-            'message.min' => 'Mesajul trebuie să aibă cel puțin 10 caractere.',
-            'privacy.accepted' => 'Confirmați că ați citit Politica de confidențialitate.',
+            'name.required' => __('Completați numele.'), 'email.required' => __('Completați adresa de email.'),
+            'email.email' => __('Adresa de email nu pare validă.'), 'message.required' => __('Scrieți mesajul.'),
+            'message.min' => __('Mesajul trebuie să aibă cel puțin 10 caractere.'),
+            'privacy.accepted' => __('Confirmați că ați citit Politica de confidențialitate.'),
         ]);
         if ($v->fails()) {
             return $back()->withErrors($v, 'mesaj');
@@ -155,11 +165,11 @@ class QuoteController extends Controller
         } catch (\Throwable $e) {
             report($e);
 
-            return $back()->withErrors(['message' => 'Mesajul nu a putut fi salvat și NU a fost trimis. Încercați din nou sau sunați-ne.'], 'mesaj');
+            return $back()->withErrors(['message' => __('Mesajul nu a putut fi salvat și NU a fost trimis. Încercați din nou sau sunați-ne.')], 'mesaj');
         }
         defer(fn () => app(Outbox::class)->sendFor('quote', $quote->id));
 
-        return redirect()->route('quote.sent')->with('quote_ref', $quote->reference)->with('quote_kind', 'contact');
+        return redirect()->to(lroute('quote.sent'))->with('quote_ref', $quote->reference)->with('quote_kind', 'contact');
     }
 
     public function sent(Request $request)
@@ -170,7 +180,7 @@ class QuoteController extends Controller
             'ref' => $ref,
             'kind' => $request->session()->get('quote_kind', 'oferta'),
             'mailQueued' => true,
-            'metaTitle' => 'Cerere înregistrată | '.setting('seo.site_name', 'ELGAROM'),
+            'metaTitle' => __('Cerere înregistrată').' | '.setting('seo.site_name', 'ELGAROM'),
             'noindex' => true,
         ]);
     }

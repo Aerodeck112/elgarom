@@ -137,6 +137,11 @@ class BackupService
         foreach (DB::select('SHOW FULL TABLES WHERE Table_type = "BASE TABLE"') as $row) {
             $t = array_values((array) $row)[0];
             if (in_array($t, self::SKIP_TABLES, true)) {
+                // Structure only, without data: an import into an empty database (phpMyAdmin) still gets
+                // the session and cache tables, and a restore keeps the current sessions.
+                $create = array_values((array) DB::selectOne('SHOW CREATE TABLE `'.$t.'`'))[1];
+                fwrite($fh, preg_replace('/^CREATE TABLE/', 'CREATE TABLE IF NOT EXISTS', str_replace(["\r", "\n"], ' ', $create)).";\n");
+
                 continue;
             }
             $tables[] = $t;

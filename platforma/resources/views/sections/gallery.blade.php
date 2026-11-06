@@ -6,7 +6,7 @@
         <div class="gallery" data-gallery>
             @foreach ($imgs as $m)
                 <figure class="gallery__item">
-                    <button type="button" data-full="{{ $m->variantUrl(2400) }}" data-caption="{{ $m->caption ?: $m->alt }}" aria-label="Mărește: {{ $m->alt }}">
+                    <button type="button" data-full="{{ $m->variantUrl(2400) }}" data-caption="{{ $m->caption ?: $m->altText() }}" aria-label="{{ __('Mărește: :alt', ['alt' => $m->altText()]) }}">
                         <x-img :media="$m" sizes="(max-width: 760px) 100vw, {{ $loop->index % 6 === 0 ? '66vw' : '33vw' }}" />
                     </button>
                 </figure>

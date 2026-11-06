@@ -5,10 +5,10 @@
         @include('sections._head')
         <div class="services">
             @foreach ($services as $s)
-                <a class="service" href="{{ url('/servicii/'.$s->slug) }}">
+                <a class="service" href="{{ service_url($s) }}">
                     <h3>{{ $s->title }}</h3>
                     <p>{{ $s->summary }}</p>
-                    <span class="service__go">Detalii<span class="sr-only"> despre {{ $s->title }}</span></span>
+                    <span class="service__go">{{ __('Detalii') }}<span class="sr-only"> despre {{ $s->title }}</span></span>
                 </a>
             @endforeach
         </div>

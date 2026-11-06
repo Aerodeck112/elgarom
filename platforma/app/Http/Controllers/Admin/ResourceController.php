@@ -7,6 +7,8 @@ use App\Admin\Resources;
 use App\Http\Controllers\Controller;
 use App\Models\AuditLog;
 use App\Services\UploadInspector;
+use App\Support\Locales;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -20,12 +22,42 @@ class ResourceController extends Controller
         return $r;
     }
 
+    /** Resources with a locale column are managed per language (tabs in the list). */
+    private function localized(array $r): bool
+    {
+        return ($r['localized'] ?? true) && Schema::hasColumn((new $r['model'])->getTable(), 'locale');
+    }
+
+    private function linked(array $r): bool
+    {
+        return $this->localized($r) && Schema::hasColumn((new $r['model'])->getTable(), 'translation_key');
+    }
+
+    private function locale(Request $request): string
+    {
+        $loc = (string) $request->input('locale', $request->query('locale', Locales::default()));
+
+        return isset(Locales::all()[$loc]) ? $loc : Locales::default();
+    }
+
+    /** Versions of the same element in the other languages. */
+    private function translations(array $r, $item): array
+    {
+        if (! $this->linked($r) || ! $item->exists || ! $item->translation_key) {
+            return [];
+        }
+
+        return $r['model']::where('translation_key', $item->translation_key)->where('id', '!=', $item->id)->get()->keyBy('locale')->all();
+    }
+
     public function index(Request $request, string $key)
     {
         $r = $this->res($request, $key);
         $q = $r['model']::query();
-        if (in_array('locale', (new $r['model'])->getConnection()->getSchemaBuilder()->getColumnListing((new $r['model'])->getTable()), true)) {
-            $q->where('locale', $request->query('locale', config('elgarom.default_locale')));
+        $loc = null;
+        if ($this->localized($r)) {
+            $loc = $this->locale($request);
+            $q->where('locale', $loc);
         }
         if ($s = trim((string) $request->query('q'))) {
             $q->where(function ($w) use ($r, $s) {
@@ -41,7 +73,7 @@ class ResourceController extends Controller
         }
         $items = $q->orderBy($r['order'])->orderBy('id')->paginate(50)->withQueryString();
 
-        return view('admin.resources.index', ['r' => $r, 'items' => $items]);
+        return view('admin.resources.index', ['r' => $r, 'items' => $items, 'loc' => $loc]);
     }
 
     public function create(Request $request, string $key)
@@ -49,15 +81,35 @@ class ResourceController extends Controller
         $r = $this->res($request, $key);
         $item = new $r['model'];
         $item->forceFill(['is_published' => false, 'is_visible' => true, 'is_active' => true, 'status_code' => 301]);
+        $from = null;
+        if ($this->localized($r)) {
+            $item->locale = $this->locale($request);
+            // "Create translation": start from the element in another language.
+            if ($this->linked($r) && ($from = $r['model']::find((int) $request->query('from')))) {
+                foreach ($r['fields'] as $f) {
+                    if (! in_array($f['type'], ['slug', 'file'], true)) {
+                        $item->{$f['name']} = $from->{$f['name']};
+                    }
+                }
+                foreach (['key', 'group', 'unit', 'is_confirmed', 'show_on_home', 'is_public', 'valid_until', 'client_consent'] as $c) {
+                    if (Schema::hasColumn($item->getTable(), $c)) {
+                        $item->{$c} = $from->{$c};
+                    }
+                }
+                $item->translation_key = $from->translation_key;
+                $item->is_published = false;
+            }
+        }
 
-        return view('admin.resources.form', ['r' => $r, 'item' => $item]);
+        return view('admin.resources.form', ['r' => $r, 'item' => $item, 'from' => $from, 'translations' => [], 'linked' => $this->linked($r)]);
     }
 
     public function edit(Request $request, string $key, int $id)
     {
         $r = $this->res($request, $key);
+        $item = $r['model']::findOrFail($id);
 
-        return view('admin.resources.form', ['r' => $r, 'item' => $r['model']::findOrFail($id)]);
+        return view('admin.resources.form', ['r' => $r, 'item' => $item, 'from' => null, 'translations' => $this->translations($r, $item), 'linked' => $this->linked($r)]);
     }
 
     public function store(Request $request, string $key)
@@ -80,13 +132,25 @@ class ResourceController extends Controller
         $validated = $request->validate(FormData::rules($fields));
         $validated = FormData::checkboxesFromRequest($fields, $request, $validated);
         $data = FormData::values($fields, $validated);
+        $isNew = ! $item->exists;
+        if ($this->localized($r) && $isNew) {
+            $item->locale = $this->locale($request);
+            if ($this->linked($r)) {
+                $tk = (string) $request->input('translation_key');
+                // A translation must point to an existing element and the language must not have one already.
+                if ($tk !== '' && $r['model']::where('translation_key', $tk)->exists() && ! $r['model']::where('translation_key', $tk)->where('locale', $item->locale)->exists()) {
+                    $item->translation_key = $tk;
+                }
+            }
+        }
+        $locale = $item->locale ?? null;
 
         foreach ($fields as $f) {
             if ($f['type'] === 'slug') {
                 $slug = $data[$f['name']] ?: Str::slug($data[$f['from']] ?? '');
                 $base = $slug ?: 'element';
                 $i = 1;
-                while ($r['model']::where('slug', $slug)->where('id', '!=', $item->id ?? 0)->exists()) {
+                while ($r['model']::where('slug', $slug)->where('id', '!=', $item->id ?? 0)->when($locale, fn ($q) => $q->where('locale', $locale))->exists()) {
                     $slug = $base.'-'.(++$i);
                 }
                 $data[$f['name']] = $slug;
@@ -119,11 +183,13 @@ class ResourceController extends Controller
             $data['from_path'] = \App\Models\Redirect::normalize($data['from_path']);
             $data['status_code'] = (int) $data['status_code'];
         }
-        $isNew = ! $item->exists;
         $before = $item->getAttributes();
         $item->fill($data);
         $changed = array_keys($item->getDirty());
         $item->save();
+        if ($this->linked($r) && ! $item->translation_key) {
+            $item->forceFill(['translation_key' => $r['key'].'-'.$item->id])->saveQuietly();
+        }
         AuditLog::record($r['key'].($isNew ? '.creat' : '.modificat'), $item, ['campuri' => $changed]);
         if (in_array($r['key'], ['menu_items'], true)) {
             cache()->forget('menus');
@@ -142,14 +208,15 @@ class ResourceController extends Controller
         $item->delete();
         AuditLog::record($r['key'].'.sters', $item, ['id' => $id]);
 
-        return redirect()->route('admin.res.index', $key)->with('status', 'Element șters.');
+        return redirect()->route('admin.res.index', [$key, 'locale' => $item->locale ?? null])->with('status', 'Element șters.');
     }
 
     public function move(Request $request, string $key, int $id)
     {
         $r = $this->res($request, $key);
         abort_unless($r['order'] === 'sort', 404);
-        $items = $r['model']::orderBy('sort')->orderBy('id')->get()->values();
+        $current = $r['model']::findOrFail($id);
+        $items = $r['model']::when($this->localized($r), fn ($q) => $q->where('locale', $current->locale))->orderBy('sort')->orderBy('id')->get()->values();
         $idx = $items->search(fn ($m) => $m->id === $id);
         $swap = $request->input('dir') === 'up' ? $idx - 1 : $idx + 1;
         if ($idx !== false && isset($items[$swap])) {

@@ -1,7 +1,7 @@
 @php
     $siteName = setting('seo.site_name', 'ELGAROM');
     $metaTitle = $metaTitle ?? $siteName;
-    $metaDescription = $metaDescription ?? setting('seo.default_description');
+    $metaDescription = $metaDescription ?? lsetting('seo.default_description');
     $canonical = $canonical ?? url()->current();
     $ogImage = media_item($ogImageId ?? null) ?? media_item(setting('seo.default_og_image_id'));
     $logoDark = media_item(setting('company.logo_dark_id'));
@@ -23,16 +23,19 @@
     <meta property="og:title" content="{{ $metaTitle }}">
     @if ($metaDescription)<meta property="og:description" content="{{ $metaDescription }}">@endif
     <meta property="og:url" content="{{ $canonical }}">
-    <meta property="og:locale" content="ro_RO">
-    @if ($ogImage)<meta property="og:image" content="{{ $ogImage->variantUrl(1200, 'webp') }}"><meta property="og:image:alt" content="{{ $ogImage->alt }}">@endif
+    <meta property="og:locale" content="{{ config('elgarom.locales.'.app()->getLocale().'.og', 'ro_RO') }}">
+    @if ($ogImage)<meta property="og:image" content="{{ $ogImage->variantUrl(1200, 'webp') }}"><meta property="og:image:alt" content="{{ $ogImage->altText() }}">@endif
     <meta name="twitter:card" content="summary_large_image">
     <meta name="theme-color" content="#20262b">
     <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
-    @foreach (config('elgarom.locales') as $code => $loc)
-        @if ($loc['published'] && isset($alternates[$code]))<link rel="alternate" hreflang="{{ $code }}" href="{{ $alternates[$code] }}">@endif
-    @endforeach
+    @php $alternates = $alternates ?? []; @endphp
+    @if (count($alternates) > 1)
+        @foreach ($alternates as $code => $href)<link rel="alternate" hreflang="{{ $code }}" href="{{ $href }}">
+        @endforeach
+        @if (isset($alternates[\App\Support\Locales::default()]))<link rel="alternate" hreflang="x-default" href="{{ $alternates[\App\Support\Locales::default()] }}">@endif
+    @endif
     <script nonce="{{ csp_nonce() }}">(function(d){d.classList.replace('no-js','js');if(!document.querySelector)return;var s=matchMedia('(prefers-reduced-motion: reduce)').matches||(navigator.connection&&navigator.connection.saveData);if(!s&&!/scene-capture/.test(location.hash)){try{var c=document.createElement('canvas');s=!(c.getContext('webgl2')||c.getContext('webgl'));}catch(e){s=true;}}if(s)d.classList.add('scene-static');})(document.documentElement);</script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('head')
@@ -40,11 +43,12 @@
     @foreach (($structured ?? []) as $sd)
         <script type="application/ld+json" nonce="{{ csp_nonce() }}">{!! json_encode($sd, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) !!}</script>
     @endforeach
+    <script type="application/json" id="elg-i18n">{!! json_encode(\App\Support\JsStrings::all(), JSON_HEX_TAG | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE) !!}</script>
     <script type="application/json" id="elg-config">{!! json_encode(\App\Support\TagConfig::public(), JSON_HEX_TAG | JSON_HEX_AMP | JSON_UNESCAPED_SLASHES) !!}</script>
 </head>
 <body class="{{ $bodyClass ?? '' }}">
-    <a class="skip-link" href="#continut">Sari la conținut</a>
-    @include('partials.header', ['logo' => $logoDark])
+    <a class="skip-link" href="#continut">{{ __('Sari la conținut') }}</a>
+    @include('partials.header', ['logo' => $logoDark, 'alternates' => $alternates])
     <main id="continut" tabindex="-1">
         @yield('content')
     </main>

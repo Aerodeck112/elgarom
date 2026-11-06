@@ -18,6 +18,7 @@
             ['admin.res.index:menu_items', 'Meniuri', 'content', null],
             ['admin.media.index', 'Bibliotecă media', 'media', null],
             ['admin.settings.edit:company', 'Companie, contact, subsol', 'content', null],
+            ['admin.settings.edit:languages', 'Limbi', 'content', null],
         ],
         'Marketing' => [
             ['admin.settings.edit:seo', 'SEO', 'seo', null],

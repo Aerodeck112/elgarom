@@ -114,7 +114,9 @@ Toate redirect-urile sunt înregistrări în baza de date (Administrare → SEO 
 - [x] Securitate (2FA obligatoriu, roluri, CSP, rate limiting), backup/restaurare, actualizări ZIP semnate
 - [x] Pachet cPanel cu install.php, utilitar de release, documentație, verificări (docs/RAPORT.md)
 
-Versiune livrată: 1.0.0. Următoarea actualizare se construiește cu `--previous=livrare/files-1.0.0.json`.
+- [x] 1.1.0 – site în română, germană, engleză și maghiară. Include rute cu prefix, hreflang, sitemap multilingv, traduceri pentru conținut și interfață, emailuri în limba clientului, limbi în administrare și actualizare ZIP semnată.
+
+Versiune livrată: 1.1.0 (actualizare 1.0.0 → 1.1.0). Următoarea actualizare se construiește cu `--previous=livrare/files-1.1.0.json`.
 
 ## 7. Blocaje / întrebări pentru beneficiar
 

@@ -13,7 +13,7 @@
                 @endforeach
             </div>
         @else
-            <p class="lead" style="max-width:60ch">Acoperim piese de serie individuale, mici și mari, pentru industrii din domenii diverse. Spuneți-ne ce piesă aveți și vă confirmăm procesul potrivit.</p>
+            <p class="lead" style="max-width:60ch">{{ __('Acoperim piese de serie individuale, mici și mari, pentru industrii din domenii diverse. Spuneți-ne ce piesă aveți și vă confirmăm procesul potrivit.') }}</p>
         @endif
     </div>
 </section>

@@ -87,6 +87,22 @@ class SettingsController extends Controller
                     }
                 }
             }
+            if (isset($f['store'])) {
+                if (($f['current'])() !== $value) {
+                    ($f['store'])($value);
+                    $changed[] = $f['name'];
+                }
+
+                continue;
+            }
+            if (! empty($f['lang']) && ($value === null || $value === '')) {
+                if (Setting::has($f['name'])) {
+                    Setting::forget($f['name']);
+                    $changed[] = $f['name'];
+                }
+
+                continue;
+            }
             if (setting($f['name']) !== $value) {
                 Setting::put($f['name'], $value);
                 $changed[] = $f['name'];

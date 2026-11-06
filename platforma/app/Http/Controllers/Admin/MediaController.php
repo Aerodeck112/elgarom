@@ -69,8 +69,12 @@ class MediaController extends Controller
             'caption' => 'nullable|string|max:255',
             'folder' => 'nullable|string|max:60|regex:/^[a-z0-9\-]+$/',
             'focal' => ['nullable', 'regex:/^\d{1,3}% \d{1,3}%$/'],
+            'alt_i18n' => 'nullable|array',
+            'alt_i18n.*' => 'nullable|string|max:255',
         ]);
-        $media->update(array_filter($d, fn ($v) => $v !== null) + ['alt' => $d['alt'] ?? null, 'caption' => $d['caption'] ?? null]);
+        $i18n = array_filter(array_intersect_key($d['alt_i18n'] ?? [], \App\Support\Locales::all()), fn ($v) => $v !== null && $v !== '');
+        unset($d['alt_i18n']);
+        $media->update(array_filter($d, fn ($v) => $v !== null) + ['alt' => $d['alt'] ?? null, 'caption' => $d['caption'] ?? null, 'alt_i18n' => $i18n ?: null]);
         AuditLog::record('media.modificat', $media);
 
         return back()->with('status', 'Imaginea a fost actualizată.');

@@ -8,7 +8,15 @@ class Media extends Model
 {
     protected $guarded = ['id'];
 
-    protected $casts = ['variants' => 'array'];
+    protected $casts = ['variants' => 'array', 'alt_i18n' => 'array'];
+
+    /** Alternative text in the current language (falls back to the Romanian text). */
+    public function altText(?string $locale = null): ?string
+    {
+        $locale ??= app()->getLocale();
+
+        return ($this->alt_i18n[$locale] ?? null) ?: $this->alt;
+    }
 
     /** Public URL of the original (re-encoded) file. */
     public function url(): string

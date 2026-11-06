@@ -19,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin.auth' => \App\Http\Middleware\AdminAuthenticate::class,
             'admin.can' => \App\Http\Middleware\AdminCan::class,
             'admin.recent' => \App\Http\Middleware\RequireRecentConfirmation::class,
+            'locale' => \App\Http\Middleware\SetLocale::class,
         ]);
         $middleware->redirectGuestsTo(fn () => route('admin.login'));
     })

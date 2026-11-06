@@ -97,19 +97,23 @@ class Assistant
         foreach (KnowledgeEntry::where('is_active', true)->orderBy('sort')->get() as $k) {
             $kb[] = "<entry title=\"".e($k->title)."\" source=\"".e($k->source_label)."\">\n".$k->content."\n</entry>";
         }
+        $loc = app()->getLocale();
+        app()->setLocale(\App\Support\Locales::default());
         foreach (Capability::confirmed()->get() as $c) {
             $kb[] = "<entry title=\"Capacitate: ".e($c->label)."\" source=\"".e($c->source)."\">".$c->display().($c->note ? ' – '.$c->note : '')."</entry>";
         }
         foreach (Service::published()->get() as $s) {
-            $kb[] = "<entry title=\"Serviciu: ".e($s->title)."\" source=\"pagina /servicii/{$s->slug}\">\n".$s->summary."\n".$s->body."\n</entry>";
+            $kb[] = "<entry title=\"Serviciu: ".e($s->title)."\" source=\"".service_url($s)."\">\n".$s->summary."\n".$s->body."\n</entry>";
         }
         foreach (Faq::published()->get() as $f) {
             $kb[] = "<entry title=\"Întrebare frecventă: ".e($f->question)."\" source=\"pagina /intrebari-frecvente\">".$f->answer.'</entry>';
         }
+        app()->setLocale($loc);
         $kbText = implode("\n", $kb);
+        $language = config('elgarom.locales.'.app()->getLocale().'.name', 'Română');
 
         return <<<PROMPT
-You are the website assistant of {$company}, an electrolytic (weak-acid) zinc plating company in Târgu Mureș, Romania, part of Argento Group. Visitors are mostly industrial buyers and engineers. Reply in Romanian unless the visitor writes in another language. Be concise and concrete: a few short sentences or a short list.
+You are the website assistant of {$company}, an electrolytic (weak-acid) zinc plating company in Târgu Mureș, Romania, part of Argento Group. Visitors are mostly industrial buyers and engineers. The visitor is reading the {$language} version of the website: reply in {$language} unless the visitor writes in another language. The knowledge below is in Romanian; translate it accurately and keep technical values unchanged. Be concise and concrete: a few short sentences or a short list.
 
 What you can do:
 - Explain Elgarom's services and process using only the approved knowledge below.
@@ -146,7 +150,7 @@ PROMPT;
                     'part_type' => ['type' => 'string', 'enum' => array_merge(array_keys(QuoteRequest::PART_TYPES), [''])],
                     'material' => ['type' => 'string', 'description' => 'Steel type as described by the visitor, or empty.'],
                     'process' => ['type' => 'string', 'enum' => array_merge(array_keys(QuoteRequest::PROCESSES), [''])],
-                    'description' => ['type' => 'string', 'description' => 'Short description of the part and requirements, in Romanian, max 800 characters.'],
+                    'description' => ['type' => 'string', 'description' => 'Short description of the part and requirements, in the language of the visitor, max 800 characters.'],
                     'quantity' => ['type' => 'string'],
                     'weight' => ['type' => 'string'],
                     'dimensions' => ['type' => 'string'],
@@ -171,7 +175,7 @@ PROMPT;
         $max = (int) setting('ai.max_messages_per_session', 20);
         if ($conv->messages_count >= $max * 2) {
             $this->count('refused');
-            throw new AssistantLimit('Ați atins numărul maxim de mesaje pentru această conversație. Pentru detalii, folosiți formularul de ofertă sau sunați-ne.');
+            throw new AssistantLimit(__('Ați atins numărul maxim de mesaje pentru această conversație. Pentru detalii, folosiți formularul de ofertă sau sunați-ne.'));
         }
 
         $history = [];
@@ -249,12 +253,12 @@ PROMPT;
         }
         $stop = $resp->stopReason ?? null;
         if ($stop === 'refusal') {
-            $reply = 'Nu pot răspunde la această întrebare. Pentru detalii tehnice, contactați echipa Elgarom sau folosiți formularul de ofertă.';
+            $reply = __('Nu pot răspunde la această întrebare. Pentru detalii tehnice, contactați echipa Elgarom sau folosiți formularul de ofertă.');
         } elseif ($stop === 'max_tokens' && $reply === '') {
-            $reply = 'Răspunsul a fost prea lung. Reformulați întrebarea mai concret sau contactați echipa.';
+            $reply = __('Răspunsul a fost prea lung. Reformulați întrebarea mai concret sau contactați echipa.');
         }
         if ($reply === '' && $prefill) {
-            $reply = 'Am pregătit o propunere pentru formularul de ofertă. Verificați-o mai jos.';
+            $reply = __('Am pregătit o propunere pentru formularul de ofertă. Verificați-o mai jos.');
         }
 
         DB::transaction(function () use ($conv, $text, $userContent, $raw, $reply, $in, $out, $cw, $cr, $cost, $stop) {

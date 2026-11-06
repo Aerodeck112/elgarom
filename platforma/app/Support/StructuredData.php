@@ -16,7 +16,8 @@ class StructuredData
             '@id' => url('/').'#organizatie',
             'name' => setting('company.name', 'ELGAROM'),
             'url' => url('/'),
-            'description' => setting('company.tagline'),
+            'inLanguage' => app()->getLocale(),
+            'description' => lsetting('company.tagline'),
             'address' => array_filter([
                 '@type' => 'PostalAddress',
                 'streetAddress' => setting('company.street'),
@@ -87,7 +88,7 @@ class StructuredData
             'description' => $service->summary,
             'provider' => ['@id' => url('/').'#organizatie'],
             'areaServed' => 'RO',
-            'url' => url('/servicii/'.$service->slug),
+            'url' => service_url($service),
         ];
     }
 }

@@ -30,6 +30,22 @@ Operațiunile sensibile cer din nou parola și un cod 2FA **nou** (nefolosit ant
 - **Documente:** fișierele (PDF/JPG/PNG) sunt private. Doar cele marcate „Public” se pot descărca de pe site.
 - **Meniuri, companie, subsol:** din „Meniuri” și „Companie, contact, subsol”. Telefoanele, emailurile și adresa apar peste tot în site și în datele structurate.
 
+## Limbi (de la versiunea 1.1.0)
+
+Site-ul are patru limbi: **română** (principală, la adresele fără prefix), **germană** (`/de/…`), **engleză** (`/en/…`) și **maghiară** (`/hu/…`).
+
+- **Activare/dezactivare:** Administrare → Conținut → **Limbi**. Româna rămâne mereu activă. O limbă dezactivată dispare din comutatorul de limbă, din sitemap și din etichetele hreflang, iar adresele ei răspund cu 404. Conținutul ei rămâne în administrare și reapare la reactivare.
+- **Tab-uri de limbă:** listele Pagini, Servicii, Capacități tehnice, Aplicații și industrii, Proiecte, Documente, Întrebări frecvente și Meniuri au câte un tab pe limbă. Fiecare limbă are propriile texte, adrese și meniuri.
+- **Legătura dintre traduceri:** versiunile aceluiași element în limbi diferite sunt legate între ele. Comutatorul de limbă de pe site și hreflang trimit la pagina corespunzătoare. Pe pagina de editare, panoul **„Alte limbi”** arată versiunile existente și are linkul **„creează traducerea”** pentru limbile lipsă.
+- **„Creează traducerea”:** la o pagină se creează o ciornă în limba aleasă, cu toate secțiunile copiate din original. La celelalte elemente se deschide formularul precompletat. Traduceți textele, adresa URL și câmpurile SEO, apoi publicați. Tab-ul unei limbi listează și paginile românești care nu au încă versiune în acea limbă.
+- **Valori tehnice:** capacitățile din germană, engleză și maghiară au aceleași valori, unități și stare „Confirmat” ca originalul în română; se traduc doar denumirile. Când modificați o valoare în română, actualizați-o și în celelalte limbi.
+- **Setări traductibile:** în „Companie, contact, subsol” și „SEO” câmpurile Descriere scurtă, Program, Text subsol și Descriere implicită au câte o variantă pe limbă. Dacă o variantă rămâne goală, se afișează textul în română.
+- **Text alternativ imagini:** în Bibliotecă media fiecare imagine are text alternativ pe limbă.
+- **Emailuri:** clientul primește confirmarea în limba paginii de pe care a trimis formularul. Limba apare și în detaliile cererii.
+- **Asistentul AI** răspunde în limba vizitatorului, pe baza bazei de cunoștințe (în română).
+
+> **Important:** textele în germană, engleză și maghiară livrate cu 1.1.0 sunt traduceri automate din română. Rugați un vorbitor nativ să le verifice înainte de a le promova, mai ales politicile de confidențialitate și cookies (verificare juridică). Panoul principal afișează avertismentul până îl debifați în Limbi.
+
 ## Bibliotecă media
 
 La încărcare (JPG/PNG/WebP, max. 20 MB), fiecare imagine este:

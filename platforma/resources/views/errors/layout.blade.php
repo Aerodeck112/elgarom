@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ro">
+@php app()->setLocale(\App\Support\Locales::fromPath(request()->getPathInfo())); @endphp
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
@@ -13,8 +14,8 @@
         <h1>@yield('title')</h1>
         <p class="lead">@yield('message')</p>
         <div class="btn-row" style="margin-top:2rem">
-            <a class="btn" href="{{ url('/') }}">Pagina principală</a>
-            <a class="btn btn--line" href="{{ url('/contact') }}">Contact</a>
+            <a class="btn" href="{{ lurl('/') }}">{{ __('Pagina principală') }}</a>
+            <a class="btn btn--line" href="{{ page_url('contact') }}">{{ __('Contact') }}</a>
         </div>
     </div>
 </main>

@@ -155,3 +155,10 @@ dialog.picker::backdrop { background: rgba(20, 24, 27, 0.6); }
 .topbar .menu-btn { display: none; }
 @media (max-width: 960px) { .topbar .menu-btn { display: inline-flex; } }
 .side { min-height: 100vh; }
+
+/* Languages (1.1.0) */
+.locale-tabs { display: flex; flex-wrap: wrap; gap: 0.25rem; margin: 0 0 1.25rem; border-bottom: 1px solid var(--zinc); }
+.locale-tabs a { padding: 0.55rem 1rem; text-decoration: none; color: inherit; border: 1px solid transparent; border-bottom: 0; margin-bottom: -1px; font-weight: 600; }
+.locale-tabs a:hover { background: var(--zinc-50); }
+.locale-tabs a[aria-current="page"] { background: var(--alb); border-color: var(--zinc); }
+.lang-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; }

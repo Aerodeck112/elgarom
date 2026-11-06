@@ -135,13 +135,24 @@ class Outbox
         return $pw !== '' ? str_replace($pw, '[ascuns]', $msg) : $msg;
     }
 
+    private function inLocale(?string $locale, \Closure $fn): string
+    {
+        $prev = app()->getLocale();
+        app()->setLocale($locale && \App\Support\Locales::isEnabled($locale) ? $locale : $prev);
+        try {
+            return $fn();
+        } finally {
+            app()->setLocale($prev);
+        }
+    }
+
     public function render(MailOutbox $m): string
     {
         $quote = QuoteRequest::with('files')->find($m->payload['quote_id'] ?? 0);
 
         return match ($m->template) {
             'team_new_quote' => view('emails.team-quote', ['q' => $quote])->render(),
-            'client_confirmation' => view('emails.client-confirmation', ['q' => $quote])->render(),
+            'client_confirmation' => $this->inLocale($quote?->locale, fn () => view('emails.client-confirmation', ['q' => $quote])->render()),
             'test' => view('emails.test')->render(),
             default => throw new \RuntimeException('Șablon email necunoscut: '.$m->template),
         };

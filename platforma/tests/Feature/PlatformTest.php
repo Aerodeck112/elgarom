@@ -156,4 +156,18 @@ class PlatformTest extends TestCase
         file_put_contents($tmp, "\xFF\xD8\xFF<?php echo 1; ?>");
         app(\App\Services\MediaService::class)->storeImage($tmp, 'poza.jpg');
     }
+
+    public function test_backup_dump_restores_into_an_empty_database(): void
+    {
+        $b = app(\App\Services\BackupService::class)->create('db', null, 'test');
+        $zip = new \ZipArchive;
+        $zip->open($b->absolutePath());
+        $sql = $zip->getFromName('database.sql');
+        $zip->close();
+        @unlink($b->absolutePath());
+        // session and cache tables: structure only, never dropped (a restore keeps the logged-in sessions)
+        $this->assertStringContainsString('CREATE TABLE IF NOT EXISTS `sessions`', $sql);
+        $this->assertStringNotContainsString('DROP TABLE IF EXISTS `sessions`', $sql);
+        $this->assertStringContainsString('DROP TABLE IF EXISTS `pages`', $sql);
+    }
 }

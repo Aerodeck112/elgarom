@@ -2,13 +2,33 @@
 @section('title', $page->title)
 @section('content')
 <div class="page-title">
-    <div><p><a href="{{ route('admin.pages.index') }}">Pagini</a></p><h1>{{ $page->title }}</h1>
+    <div><p><a href="{{ route('admin.pages.index', ['locale' => $page->locale]) }}">Pagini</a></p><h1>{{ $page->title }} <span class="tag">{{ \App\Support\Locales::all()[$page->locale]['name'] ?? $page->locale }}</span></h1>
         <p>@if ($page->status === 'published')<span class="tag tag--ok">Publicată {{ $page->published_at?->format('d.m.Y H:i') }}</span>@else<span class="tag">Ciornă</span>@endif
            @if ($page->has_unpublished_changes) <span class="tag tag--warn">Există modificări nepublicate</span>@endif</p></div>
     <div class="btn-row">
         <a class="btn btn--line" href="{{ route('admin.pages.preview-link', $page) }}" target="_blank" rel="noopener">Previzualizează ciorna</a>
         <form method="post" action="{{ route('admin.pages.publish', $page) }}">@csrf<button class="btn" type="submit">Publică</button></form>
     </div>
+</div>
+
+<div class="panel">
+    <h2>Alte limbi</h2>
+    <ul class="lang-list">
+    @foreach (\App\Support\Locales::all() as $code => $l)
+        @continue($code === $page->locale)
+        <li><strong>{{ $l['name'] }}:</strong>
+            @if (isset($translations[$code]))
+                <a href="{{ route('admin.pages.edit', $translations[$code]) }}">{{ $translations[$code]->title }}</a>
+                @if ($translations[$code]->status === 'published')<span class="tag tag--ok">publicată</span>@else<span class="tag">ciornă</span>@endif
+                @if ($translations[$code]->has_unpublished_changes)<span class="tag tag--warn">modificări nepublicate</span>@endif
+            @else
+                <span class="muted">nu există</span>
+                <form method="post" action="{{ route('admin.pages.translate', $page) }}" style="display:inline">@csrf<input type="hidden" name="locale" value="{{ $code }}"><button class="link-btn" type="submit">creează traducerea</button></form>
+            @endif
+        </li>
+    @endforeach
+    </ul>
+    <p class="hint">Versiunile aceleiași pagini în limbi diferite sunt legate între ele: comutatorul de limbă de pe site și etichetele hreflang trimit la pagina corespunzătoare.</p>
 </div>
 
 <form class="panel" method="post" action="{{ route('admin.pages.update', $page) }}">
@@ -19,7 +39,7 @@
         <div class="field"><label for="p-nav">Titlu scurt (meniu)</label><input class="input" id="p-nav" name="nav_title" maxlength="60" value="{{ old('nav_title', $page->nav_title) }}"></div>
     </div>
     <div class="field"><label for="p-lead">Text introductiv</label><textarea class="textarea" id="p-lead" name="lead" rows="3" maxlength="500">{{ old('lead', $page->lead) }}</textarea></div>
-    @unless ($page->is_system || $page->slug === '/')
+    @unless ($page->slug === '/' || ($page->is_system && $page->locale === \App\Support\Locales::default()))
         <div class="field"><label for="p-slug">Adresă URL</label><input class="input" id="p-slug" name="slug" value="{{ old('slug', $page->slug) }}"><p class="hint">La schimbare se creează automat un redirect 301 de la adresa veche.</p></div>
     @endunless
     <div class="grid-2">

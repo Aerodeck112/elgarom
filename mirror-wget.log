@@ -1,0 +1,2047 @@
+--2026-11-06 08:50:07--  https://elgarom.ro/
+Connecting to 127.0.0.1:33355... connected.
+Proxy request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: 'mirror/elgarom.ro/index.html'
+
+     0K .......... .......... .......... .......... ..........  212K
+    50K .......... .......... .......... .......... ..........  417K
+   100K .......... .......... .                                 190M=0.4s
+
+Last-modified header missing -- time-stamps turned off.
+2026-11-06 08:50:09 (340 KB/s) - 'mirror/elgarom.ro/index.html' saved [124216]
+
+--2026-11-06 08:50:09--  https://elgarom.ro/feed
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: unspecified [application/rss+xml]
+Saving to: 'mirror/elgarom.ro/feed'
+
+     0K .                                                       248M=0s
+
+2026-11-06 08:50:09 (248 MB/s) - 'mirror/elgarom.ro/feed' saved [1061]
+
+--2026-11-06 08:50:09--  https://elgarom.ro/comments/feed
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: unspecified [application/rss+xml]
+Saving to: 'mirror/elgarom.ro/comments/feed'
+
+     0K                                                         195M=0s
+
+2026-11-06 08:50:10 (195 MB/s) - 'mirror/elgarom.ro/comments/feed' saved [753]
+
+--2026-11-06 08:50:10--  https://elgarom.ro/wp-content/uploads/elementor/css/custom-frontend.min.css?ver=1793628042
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 54692 (53K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/elementor/css/custom-frontend.min.css?ver=1793628042.css'
+
+     0K .......... .......... .......... .......... .......... 93% 2.72M 0s
+    50K ...                                                   100% 6.35T=0.02s
+
+2026-11-06 08:50:10 (2.91 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/elementor/css/custom-frontend.min.css?ver=1793628042.css' saved [54692/54692]
+
+--2026-11-06 08:50:10--  https://elgarom.ro/wp-content/uploads/elementor/css/post-824.css?ver=1793628042
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 39793 (39K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/elementor/css/post-824.css?ver=1793628042.css'
+
+     0K .......... .......... .......... ........             100% 17.8M=0.002s
+
+2026-11-06 08:50:10 (17.8 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/elementor/css/post-824.css?ver=1793628042.css' saved [39793/39793]
+
+--2026-11-06 08:50:10--  https://elgarom.ro/wp-content/uploads/elementor/css/post-275.css?ver=1793628042
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 18759 (18K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/elementor/css/post-275.css?ver=1793628042.css'
+
+     0K .......... ........                                   100% 80.3M=0s
+
+2026-11-06 08:50:10 (80.3 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/elementor/css/post-275.css?ver=1793628042.css' saved [18759/18759]
+
+--2026-11-06 08:50:10--  https://elgarom.ro/wp-content/uploads/elementor/css/custom-widget-icon-list.min.css?ver=1793628042
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 10282 (10K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/elementor/css/custom-widget-icon-list.min.css?ver=1793628042.css'
+
+     0K ..........                                            100%  110M=0s
+
+2026-11-06 08:50:10 (110 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/elementor/css/custom-widget-icon-list.min.css?ver=1793628042.css' saved [10282/10282]
+
+--2026-11-06 08:50:10--  https://elgarom.ro/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=3.34.2
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 560 [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=3.34.2.css'
+
+     0K                                                       100%  560M=0s
+
+2026-11-06 08:50:10 (560 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=3.34.2.css' saved [560/560]
+
+--2026-11-06 08:50:10--  https://elgarom.ro/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=3.34.2
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 214 [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=3.34.2.css'
+
+     0K                                                       100%  157M=0s
+
+2026-11-06 08:50:11 (157 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=3.34.2.css' saved [214/214]
+
+--2026-11-06 08:50:11--  https://elgarom.ro/wp-content/plugins/elementor/assets/css/widget-divider.min.css?ver=3.34.2
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 4258 (4.2K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/css/widget-divider.min.css?ver=3.34.2.css'
+
+     0K ....                                                  100% 3.67G=0s
+
+2026-11-06 08:50:11 (3.67 GB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/css/widget-divider.min.css?ver=3.34.2.css' saved [4258/4258]
+
+--2026-11-06 08:50:11--  https://elgarom.ro/wp-content/uploads/elementor/css/post-281.css?ver=1793628042
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 13520 (13K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/elementor/css/post-281.css?ver=1793628042.css'
+
+     0K .......... ...                                        100%  217M=0s
+
+2026-11-06 08:50:11 (217 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/elementor/css/post-281.css?ver=1793628042.css' saved [13520/13520]
+
+--2026-11-06 08:50:11--  https://elgarom.ro/wp-content/themes/royal-elementor-kit/style.css?ver=1.0
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 13600 (13K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/themes/royal-elementor-kit/style.css?ver=1.0.css'
+
+     0K .......... ...                                        100%  321M=0s
+
+2026-11-06 08:50:11 (321 MB/s) - 'mirror/elgarom.ro/wp-content/themes/royal-elementor-kit/style.css?ver=1.0.css' saved [13600/13600]
+
+--2026-11-06 08:50:11--  https://elgarom.ro/wp-content/uploads/elementor/css/post-6.css?ver=1793628042
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 1265 (1.2K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/elementor/css/post-6.css?ver=1793628042.css'
+
+     0K .                                                     100% 1.66G=0s
+
+2026-11-06 08:50:11 (1.66 GB/s) - 'mirror/elgarom.ro/wp-content/uploads/elementor/css/post-6.css?ver=1793628042.css' saved [1265/1265]
+
+--2026-11-06 08:50:11--  https://elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/lib/animations/wpr-animations.min.css?ver=1.7.1045
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 32070 (31K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/lib/animations/wpr-animations.min.css?ver=1.7.1045.css'
+
+     0K .......... .......... .......... .                    100%  287M=0s
+
+2026-11-06 08:50:11 (287 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/lib/animations/wpr-animations.min.css?ver=1.7.1045.css' saved [32070/32070]
+
+--2026-11-06 08:50:11--  https://elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/lib/animations/wpr-link-animations.min.css?ver=1.7.1045
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 5359 (5.2K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/lib/animations/wpr-link-animations.min.css?ver=1.7.1045.css'
+
+     0K .....                                                 100% 7.23G=0s
+
+2026-11-06 08:50:11 (7.23 GB/s) - 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/lib/animations/wpr-link-animations.min.css?ver=1.7.1045.css' saved [5359/5359]
+
+--2026-11-06 08:50:11--  https://elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/lib/animations/button-animations.min.css?ver=1.7.1045
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 40935 (40K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/lib/animations/button-animations.min.css?ver=1.7.1045.css'
+
+     0K .......... .......... .......... .........            100% 27.7M=0.001s
+
+2026-11-06 08:50:12 (27.7 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/lib/animations/button-animations.min.css?ver=1.7.1045.css' saved [40935/40935]
+
+--2026-11-06 08:50:12--  https://elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/lib/animations/text-animations.min.css?ver=1.7.1045
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 14235 (14K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/lib/animations/text-animations.min.css?ver=1.7.1045.css'
+
+     0K .......... ...                                        100%  293M=0s
+
+2026-11-06 08:50:12 (293 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/lib/animations/text-animations.min.css?ver=1.7.1045.css' saved [14235/14235]
+
+--2026-11-06 08:50:12--  https://elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/frontend.min.css?ver=1.7.1045
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 422392 (412K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/frontend.min.css?ver=1.7.1045.css'
+
+     0K .......... .......... .......... .......... .......... 12% 16.6M 0s
+    50K .......... .......... .......... .......... .......... 24% 2.98M 0s
+   100K .......... .......... .......... .......... .......... 36%  490K 0s
+   150K .......... .......... .......... .......... .......... 48% 89.1M 0s
+   200K .......... .......... .......... .......... .......... 60% 82.8M 0s
+   250K .......... .......... .......... .......... .......... 72% 3.57M 0s
+   300K .......... .......... .......... .......... .......... 84% 31.4M 0s
+   350K .......... .......... .......... .......... .......... 96%  500K 0s
+   400K .......... ..                                         100%  189M=0.2s
+
+2026-11-06 08:50:12 (1.69 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/frontend.min.css?ver=1.7.1045.css' saved [422392/422392]
+
+--2026-11-06 08:50:12--  https://elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=1.7.1045
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 59344 (58K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=1.7.1045.css'
+
+     0K .......... .......... .......... .......... .......... 86% 47.4M 0s
+    50K .......                                               100%  339M=0.001s
+
+2026-11-06 08:50:12 (53.8 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=1.7.1045.css' saved [59344/59344]
+
+--2026-11-06 08:50:12--  https://elgarom.ro/wp-content/plugins/burst-statistics/assets/js/timeme/timeme.min.js?ver=1769068219
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 6448 (6.3K) [text/javascript]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/burst-statistics/assets/js/timeme/timeme.min.js?ver=1769068219'
+
+     0K ......                                                100% 4.95G=0s
+
+2026-11-06 08:50:12 (4.95 GB/s) - 'mirror/elgarom.ro/wp-content/plugins/burst-statistics/assets/js/timeme/timeme.min.js?ver=1769068219' saved [6448/6448]
+
+--2026-11-06 08:50:12--  https://elgarom.ro/wp-content/uploads/burst/js/burst.min.js?ver=1793951546
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 9427 (9.2K) [text/javascript]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/burst/js/burst.min.js?ver=1793951546'
+
+     0K .........                                             100%  225M=0s
+
+2026-11-06 08:50:13 (225 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/burst/js/burst.min.js?ver=1793951546' saved [9427/9427]
+
+--2026-11-06 08:50:13--  https://elgarom.ro/wp-includes/js/jquery/jquery.min.js?ver=3.7.1
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 87553 (86K) [text/javascript]
+Saving to: 'mirror/elgarom.ro/wp-includes/js/jquery/jquery.min.js?ver=3.7.1'
+
+     0K .......... .......... .......... .......... .......... 58% 20.5M 0s
+    50K .......... .......... .......... .....                100% 34.1M=0.003s
+
+2026-11-06 08:50:13 (24.6 MB/s) - 'mirror/elgarom.ro/wp-includes/js/jquery/jquery.min.js?ver=3.7.1' saved [87553/87553]
+
+--2026-11-06 08:50:13--  https://elgarom.ro/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 13577 (13K) [text/javascript]
+Saving to: 'mirror/elgarom.ro/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1'
+
+     0K .......... ...                                        100% 31.3M=0s
+
+2026-11-06 08:50:13 (31.3 MB/s) - 'mirror/elgarom.ro/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1' saved [13577/13577]
+
+--2026-11-06 08:50:13--  https://elgarom.ro/wp-content/uploads/2023/08/cropped-logo-white-32x32.png
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 633 [image/png]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2023/08/cropped-logo-white-32x32.png'
+
+     0K                                                       100% 1.08G=0s
+
+2026-11-06 08:50:13 (1.08 GB/s) - 'mirror/elgarom.ro/wp-content/uploads/2023/08/cropped-logo-white-32x32.png' saved [633/633]
+
+--2026-11-06 08:50:13--  https://elgarom.ro/wp-content/uploads/2023/08/cropped-logo-white-192x192.png
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 2597 (2.5K) [image/png]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2023/08/cropped-logo-white-192x192.png'
+
+     0K ..                                                    100% 3.32G=0s
+
+2026-11-06 08:50:13 (3.32 GB/s) - 'mirror/elgarom.ro/wp-content/uploads/2023/08/cropped-logo-white-192x192.png' saved [2597/2597]
+
+--2026-11-06 08:50:13--  https://elgarom.ro/wp-content/uploads/2023/08/cropped-logo-white-180x180.png
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 2484 (2.4K) [image/png]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2023/08/cropped-logo-white-180x180.png'
+
+     0K ..                                                    100% 3.41G=0s
+
+2026-11-06 08:50:13 (3.41 GB/s) - 'mirror/elgarom.ro/wp-content/uploads/2023/08/cropped-logo-white-180x180.png' saved [2484/2484]
+
+--2026-11-06 08:50:13--  https://elgarom.ro/wp-content/uploads/2023/08/logo-white.png
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 23929 (23K) [image/png]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2023/08/logo-white.png'
+
+     0K .......... .......... ...                             100% 23.8M=0.001s
+
+2026-11-06 08:50:13 (23.8 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2023/08/logo-white.png' saved [23929/23929]
+
+--2026-11-06 08:50:13--  https://elgarom.ro/despre-noi
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: 'mirror/elgarom.ro/despre-noi.html'
+
+     0K .......... .......... .......... .......... .......... 25.0M
+    50K .......... .......... .......... .......... .......... 20.2M
+   100K .......... .......... .....                            15.4M=0.006s
+
+Last-modified header missing -- time-stamps turned off.
+2026-11-06 08:50:14 (20.5 MB/s) - 'mirror/elgarom.ro/despre-noi.html' saved [128007]
+
+--2026-11-06 08:50:14--  https://elgarom.ro/tehnologie
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: 'mirror/elgarom.ro/tehnologie.html'
+
+     0K .......... .......... .......... .......... .......... 60.1M
+    50K .......... .......... .......... .......... .......... 30.3M
+   100K .......... ........                                     177M=0.003s
+
+Last-modified header missing -- time-stamps turned off.
+2026-11-06 08:50:14 (45.8 MB/s) - 'mirror/elgarom.ro/tehnologie.html' saved [121167]
+
+--2026-11-06 08:50:14--  https://elgarom.ro/contact
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: 'mirror/elgarom.ro/contact.html'
+
+     0K .......... .......... .......... .......... .......... 74.0M
+    50K .......... .......... .......... .......... .......... 41.9M
+   100K .......... ...                                         15.7M=0.003s
+
+Last-modified header missing -- time-stamps turned off.
+2026-11-06 08:50:15 (41.6 MB/s) - 'mirror/elgarom.ro/contact.html' saved [116189]
+
+--2026-11-06 08:50:15--  https://elgarom.ro/wp-content/uploads/2024/06/19fbcffd7aa1af7041d92d7f58c1b89c.png
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 2744320 (2.6M) [image/png]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/19fbcffd7aa1af7041d92d7f58c1b89c.png'
+
+     0K .......... .......... .......... .......... ..........  1% 27.1M 0s
+    50K .......... .......... .......... .......... ..........  3% 12.0M 0s
+   100K .......... .......... .......... .......... ..........  5% 10.3M 0s
+   150K .......... .......... .......... .......... ..........  7%  167M 0s
+   200K .......... .......... .......... .......... ..........  9%  456K 1s
+   250K .......... .......... .......... .......... .......... 11% 49.1M 1s
+   300K .......... .......... .......... .......... .......... 13% 61.8M 1s
+   350K .......... .......... .......... .......... .......... 14%  171M 1s
+   400K .......... .......... .......... .......... .......... 16% 30.1M 1s
+   450K .......... .......... .......... .......... .......... 18% 21.7M 1s
+   500K .......... .......... .......... .......... .......... 20% 98.4M 0s
+   550K .......... .......... .......... .......... .......... 22% 20.9M 0s
+   600K .......... .......... .......... .......... .......... 24% 59.1M 0s
+   650K .......... .......... .......... .......... .......... 26% 6.51M 0s
+   700K .......... .......... .......... .......... .......... 27%  492K 1s
+   750K .......... .......... .......... .......... .......... 29% 40.0M 1s
+   800K .......... .......... .......... .......... .......... 31%  140M 1s
+   850K .......... .......... .......... .......... .......... 33%  124M 0s
+   900K .......... .......... .......... .......... .......... 35%  183M 0s
+   950K .......... .......... .......... .......... .......... 37%  105M 0s
+  1000K .......... .......... .......... .......... .......... 39% 28.6M 0s
+  1050K .......... .......... .......... .......... .......... 41%  159M 0s
+  1100K .......... .......... .......... .......... .......... 42%  121M 0s
+  1150K .......... .......... .......... .......... .......... 44%  166M 0s
+  1200K .......... .......... .......... .......... .......... 46%  134M 0s
+  1250K .......... .......... .......... .......... .......... 48% 72.9M 0s
+  1300K .......... .......... .......... .......... .......... 50%  106M 0s
+  1350K .......... .......... .......... .......... .......... 52% 4.70M 0s
+  1400K .......... .......... .......... .......... .......... 54%  137M 0s
+  1450K .......... .......... .......... .......... .......... 55%  141M 0s
+  1500K .......... .......... .......... .......... .......... 57%  106M 0s
+  1550K .......... .......... .......... .......... .......... 59% 37.5M 0s
+  1600K .......... .......... .......... .......... .......... 61% 1.20M 0s
+  1650K .......... .......... .......... .......... .......... 63%  861K 0s
+  1700K .......... .......... .......... .......... .......... 65% 42.8M 0s
+  1750K .......... .......... .......... .......... .......... 67%  199M 0s
+  1800K .......... .......... .......... .......... .......... 69% 60.9M 0s
+  1850K .......... .......... .......... .......... .......... 70% 59.0M 0s
+  1900K .......... .......... .......... .......... .......... 72%  231M 0s
+  1950K .......... .......... .......... .......... .......... 74% 28.8M 0s
+  2000K .......... .......... .......... .......... .......... 76%  255M 0s
+  2050K .......... .......... .......... .......... .......... 78%  224M 0s
+  2100K .......... .......... .......... .......... .......... 80%  311M 0s
+  2150K .......... .......... .......... .......... .......... 82%  338M 0s
+  2200K .......... .......... .......... .......... .......... 83%  320M 0s
+  2250K .......... .......... .......... .......... .......... 85%  370M 0s
+  2300K .......... .......... .......... .......... .......... 87%  130M 0s
+  2350K .......... .......... .......... .......... .......... 89%  208M 0s
+  2400K .......... .......... .......... .......... .......... 91% 47.9M 0s
+  2450K .......... .......... .......... .......... .......... 93% 4.96M 0s
+  2500K .......... .......... .......... .......... .......... 95% 63.5M 0s
+  2550K .......... .......... .......... .......... .......... 97% 40.3M 0s
+  2600K .......... .......... .......... .......... .......... 98% 51.0M 0s
+  2650K .......... .......... ..........                      100% 98.4M=0.4s
+
+2026-11-06 08:50:15 (6.92 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/19fbcffd7aa1af7041d92d7f58c1b89c.png' saved [2744320/2744320]
+
+--2026-11-06 08:50:15--  https://elgarom.ro/wp-content/uploads/2024/06/ac3deb71e4e950c9bf4eaf86c47992b5.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 491520 (480K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/ac3deb71e4e950c9bf4eaf86c47992b5.jpg'
+
+     0K .......... .......... .......... .......... .......... 10%  199M 0s
+    50K .......... .......... .......... .......... .......... 20% 28.3M 0s
+   100K .......... .......... .......... .......... .......... 31% 13.2M 0s
+   150K .......... .......... .......... .......... .......... 41% 19.0M 0s
+   200K .......... .......... .......... .......... .......... 52% 32.5M 0s
+   250K .......... .......... .......... .......... .......... 62% 42.9M 0s
+   300K .......... .......... .......... .......... .......... 72% 15.5M 0s
+   350K .......... .......... .......... .......... .......... 83%  172M 0s
+   400K .......... .......... .......... .......... .......... 93%  167M 0s
+   450K .......... .......... ..........                      100%  170M=0.01s
+
+2026-11-06 08:50:15 (31.8 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/ac3deb71e4e950c9bf4eaf86c47992b5.jpg' saved [491520/491520]
+
+--2026-11-06 08:50:15--  https://elgarom.ro/wp-content/uploads/2024/06/bdc9a46319e2e9ba8baee38b57202fd1-1.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 200704 (196K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/bdc9a46319e2e9ba8baee38b57202fd1-1.jpg'
+
+     0K .......... .......... .......... .......... .......... 25% 45.1M 0s
+    50K .......... .......... .......... .......... .......... 51% 24.6M 0s
+   100K .......... .......... .......... .......... .......... 76% 15.7M 0s
+   150K .......... .......... .......... .......... ......    100% 18.2M=0.009s
+
+2026-11-06 08:50:16 (22.1 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/bdc9a46319e2e9ba8baee38b57202fd1-1.jpg' saved [200704/200704]
+
+--2026-11-06 08:50:16--  https://elgarom.ro/wp-content/uploads/2023/08/pic-3.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 80105 (78K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2023/08/pic-3.jpg'
+
+     0K .......... .......... .......... .......... .......... 63% 29.2M 0s
+    50K .......... .......... ........                        100%  112M=0.002s
+
+2026-11-06 08:50:16 (39.8 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2023/08/pic-3.jpg' saved [80105/80105]
+
+--2026-11-06 08:50:16--  https://elgarom.ro/wp-content/uploads/2024/06/ac3deb71e4e950c9bf4eaf86c47992b5-300x207.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 19319 (19K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/ac3deb71e4e950c9bf4eaf86c47992b5-300x207.jpg'
+
+     0K .......... ........                                   100% 71.1M=0s
+
+2026-11-06 08:50:16 (71.1 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/ac3deb71e4e950c9bf4eaf86c47992b5-300x207.jpg' saved [19319/19319]
+
+--2026-11-06 08:50:16--  https://elgarom.ro/wp-content/uploads/2024/06/ac3deb71e4e950c9bf4eaf86c47992b5-1024x706.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 150683 (147K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/ac3deb71e4e950c9bf4eaf86c47992b5-1024x706.jpg'
+
+     0K .......... .......... .......... .......... .......... 33% 34.4M 0s
+    50K .......... .......... .......... .......... .......... 67% 24.4M 0s
+   100K .......... .......... .......... .......... .......   100% 16.2M=0.006s
+
+2026-11-06 08:50:16 (23.0 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/ac3deb71e4e950c9bf4eaf86c47992b5-1024x706.jpg' saved [150683/150683]
+
+--2026-11-06 08:50:16--  https://elgarom.ro/wp-content/uploads/2024/06/ac3deb71e4e950c9bf4eaf86c47992b5-768x529.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 93829 (92K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/ac3deb71e4e950c9bf4eaf86c47992b5-768x529.jpg'
+
+     0K .......... .......... .......... .......... .......... 54% 49.7M 0s
+    50K .......... .......... .......... .......... .         100%  125M=0.001s
+
+2026-11-06 08:50:16 (68.4 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/ac3deb71e4e950c9bf4eaf86c47992b5-768x529.jpg' saved [93829/93829]
+
+--2026-11-06 08:50:16--  https://elgarom.ro/wp-content/uploads/2023/08/logo-white-1024x345.png
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 7688 (7.5K) [image/png]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2023/08/logo-white-1024x345.png'
+
+     0K .......                                               100% 8.11G=0s
+
+2026-11-06 08:50:16 (8.11 GB/s) - 'mirror/elgarom.ro/wp-content/uploads/2023/08/logo-white-1024x345.png' saved [7688/7688]
+
+--2026-11-06 08:50:16--  https://elgarom.ro/wp-content/uploads/2023/08/logo-white-300x101.png
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 2381 (2.3K) [image/png]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2023/08/logo-white-300x101.png'
+
+     0K ..                                                    100%  988M=0s
+
+2026-11-06 08:50:16 (988 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2023/08/logo-white-300x101.png' saved [2381/2381]
+
+--2026-11-06 08:50:16--  https://elgarom.ro/wp-content/uploads/2023/08/logo-white-768x259.png
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 5583 (5.5K) [image/png]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2023/08/logo-white-768x259.png'
+
+     0K .....                                                 100% 3.77G=0s
+
+2026-11-06 08:50:17 (3.77 GB/s) - 'mirror/elgarom.ro/wp-content/uploads/2023/08/logo-white-768x259.png' saved [5583/5583]
+
+--2026-11-06 08:50:17--  https://elgarom.ro/wp-content/uploads/2023/08/logo-white-1536x518.png
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 11847 (12K) [image/png]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2023/08/logo-white-1536x518.png'
+
+     0K .......... .                                          100% 13.8M=0.001s
+
+2026-11-06 08:50:17 (13.8 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2023/08/logo-white-1536x518.png' saved [11847/11847]
+
+--2026-11-06 08:50:17--  https://elgarom.ro/wp-content/uploads/2023/08/anpc-sal1-1-1.png
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 24576 (24K) [image/png]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2023/08/anpc-sal1-1-1.png'
+
+     0K .......... .......... ....                            100% 28.2M=0.001s
+
+2026-11-06 08:50:17 (28.2 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2023/08/anpc-sal1-1-1.png' saved [24576/24576]
+
+--2026-11-06 08:50:17--  https://elgarom.ro/wp-content/uploads/2023/08/anpc-sal1-1-1-300x74.png
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 10417 (10K) [image/png]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2023/08/anpc-sal1-1-1-300x74.png'
+
+     0K ..........                                            100% 77.8M=0s
+
+2026-11-06 08:50:17 (77.8 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2023/08/anpc-sal1-1-1-300x74.png' saved [10417/10417]
+
+--2026-11-06 08:50:17--  https://elgarom.ro/wp-content/uploads/2023/08/anpc-sol-1.png
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 4096 (4.0K) [image/png]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2023/08/anpc-sol-1.png'
+
+     0K ....                                                  100% 4.27G=0s
+
+2026-11-06 08:50:17 (4.27 GB/s) - 'mirror/elgarom.ro/wp-content/uploads/2023/08/anpc-sol-1.png' saved [4096/4096]
+
+--2026-11-06 08:50:17--  https://elgarom.ro/wp-content/uploads/2023/08/anpc-sol-1-300x74.png
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 4349 (4.2K) [image/png]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2023/08/anpc-sol-1-300x74.png'
+
+     0K ....                                                  100% 3.20G=0s
+
+2026-11-06 08:50:17 (3.20 GB/s) - 'mirror/elgarom.ro/wp-content/uploads/2023/08/anpc-sol-1-300x74.png' saved [4349/4349]
+
+--2026-11-06 08:50:17--  https://elgarom.ro/wp-content/uploads/elementor/css/post-616.css?ver=1793628042
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 12847 (13K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/elementor/css/post-616.css?ver=1793628042.css'
+
+     0K .......... ..                                         100%  299M=0s
+
+2026-11-06 08:50:17 (299 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/elementor/css/post-616.css?ver=1793628042.css' saved [12847/12847]
+
+--2026-11-06 08:50:17--  https://elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/lib/animations/loading-animations.min.css?ver=1.7.1045
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 15485 (15K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/lib/animations/loading-animations.min.css?ver=1.7.1045.css'
+
+     0K .......... .....                                      100% 29.6M=0s
+
+2026-11-06 08:50:18 (29.6 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/lib/animations/loading-animations.min.css?ver=1.7.1045.css' saved [15485/15485]
+
+--2026-11-06 08:50:18--  https://elgarom.ro/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=3.34.2
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 5677 (5.5K) [text/javascript]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=3.34.2'
+
+     0K .....                                                 100% 6.25G=0s
+
+2026-11-06 08:50:18 (6.25 GB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=3.34.2' saved [5677/5677]
+
+--2026-11-06 08:50:18--  https://elgarom.ro/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=3.34.2
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 87335 (85K) [text/javascript]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=3.34.2'
+
+     0K .......... .......... .......... .......... .......... 58% 28.5M 0s
+    50K .......... .......... .......... .....                100% 25.5M=0.003s
+
+2026-11-06 08:50:18 (27.2 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=3.34.2' saved [87335/87335]
+
+--2026-11-06 08:50:18--  https://elgarom.ro/wp-includes/js/jquery/ui/core.min.js?ver=1.14.2
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 18674 (18K) [text/javascript]
+Saving to: 'mirror/elgarom.ro/wp-includes/js/jquery/ui/core.min.js?ver=1.14.2'
+
+     0K .......... ........                                   100%  300M=0s
+
+2026-11-06 08:50:18 (300 MB/s) - 'mirror/elgarom.ro/wp-includes/js/jquery/ui/core.min.js?ver=1.14.2' saved [18674/18674]
+
+--2026-11-06 08:50:18--  https://elgarom.ro/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=3.34.2
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 31880 (31K) [text/javascript]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=3.34.2'
+
+     0K .......... .......... .......... .                    100% 72.0M=0s
+
+2026-11-06 08:50:18 (72.0 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=3.34.2' saved [31880/31880]
+
+--2026-11-06 08:50:18--  https://elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/js/lib/particles/particles.js?ver=3.0.6
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 43009 (42K) [text/javascript]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/js/lib/particles/particles.js?ver=3.0.6'
+
+     0K .......... .......... .......... .......... ..        100%  316M=0s
+
+2026-11-06 08:50:18 (316 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/js/lib/particles/particles.js?ver=3.0.6' saved [43009/43009]
+
+--2026-11-06 08:50:18--  https://elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/js/lib/jarallax/jarallax.min.js?ver=1.12.7
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 15408 (15K) [text/javascript]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/js/lib/jarallax/jarallax.min.js?ver=1.12.7'
+
+     0K .......... .....                                      100%  132M=0s
+
+2026-11-06 08:50:19 (132 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/js/lib/jarallax/jarallax.min.js?ver=1.12.7' saved [15408/15408]
+
+--2026-11-06 08:50:19--  https://elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/js/lib/parallax/parallax.min.js?ver=1.0
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 17272 (17K) [text/javascript]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/js/lib/parallax/parallax.min.js?ver=1.0'
+
+     0K .......... ......                                     100%  261M=0s
+
+2026-11-06 08:50:19 (261 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/js/lib/parallax/parallax.min.js?ver=1.0' saved [17272/17272]
+
+--2026-11-06 08:50:19--  https://elgarom.ro/wp-content/plugins/gtranslate/js/float.js?ver=7.1.4
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 22996 (22K) [text/javascript]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/gtranslate/js/float.js?ver=7.1.4'
+
+     0K .......... .......... ..                              100% 21.8M=0.001s
+
+2026-11-06 08:50:19 (21.8 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/gtranslate/js/float.js?ver=7.1.4' saved [22996/22996]
+
+--2026-11-06 08:50:19--  https://elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/js/lib/perfect-scrollbar/perfect-scrollbar.min.js?ver=0.4.9
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 17902 (17K) [text/javascript]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/js/lib/perfect-scrollbar/perfect-scrollbar.min.js?ver=0.4.9'
+
+     0K .......... .......                                    100% 11.4M=0.002s
+
+2026-11-06 08:50:19 (11.4 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/js/lib/perfect-scrollbar/perfect-scrollbar.min.js?ver=0.4.9' saved [17902/17902]
+
+--2026-11-06 08:50:19--  https://elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/js/lib/dompurify/dompurify.min.js?ver=3.0.6
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 22304 (22K) [text/javascript]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/js/lib/dompurify/dompurify.min.js?ver=3.0.6'
+
+     0K .......... .......... .                               100% 46.3M=0s
+
+2026-11-06 08:50:19 (46.3 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/js/lib/dompurify/dompurify.min.js?ver=3.0.6' saved [22304/22304]
+
+--2026-11-06 08:50:19--  https://elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/js/frontend.min.js?ver=1.7.1045
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 268065 (262K) [text/javascript]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/js/frontend.min.js?ver=1.7.1045'
+
+     0K .......... .......... .......... .......... .......... 19% 25.4M 0s
+    50K .......... .......... .......... .......... .......... 38% 18.9M 0s
+   100K .......... .......... .......... .......... .......... 57% 10.9M 0s
+   150K .......... .......... .......... .......... .......... 76%  129M 0s
+   200K .......... .......... .......... .......... .......... 95% 28.2M 0s
+   250K .......... .                                          100%  357M=0.01s
+
+2026-11-06 08:50:19 (23.0 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/js/frontend.min.js?ver=1.7.1045' saved [268065/268065]
+
+--2026-11-06 08:50:19--  https://elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/js/modal-popups.min.js?ver=1.7.1045
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 11524 (11K) [text/javascript]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/js/modal-popups.min.js?ver=1.7.1045'
+
+     0K .......... .                                          100%  154M=0s
+
+2026-11-06 08:50:19 (154 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/js/modal-popups.min.js?ver=1.7.1045' saved [11524/11524]
+
+--2026-11-06 08:50:19--  https://elgarom.ro/wp-content/uploads/2024/06/bdc9a46319e2e9ba8baee38b57202fd1.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 208683 (204K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/bdc9a46319e2e9ba8baee38b57202fd1.jpg'
+
+     0K .......... .......... .......... .......... .......... 24% 38.9M 0s
+    50K .......... .......... .......... .......... .......... 49% 48.9M 0s
+   100K .......... .......... .......... .......... .......... 73% 24.7M 0s
+   150K .......... .......... .......... .......... .......... 98% 30.5M 0s
+   200K ...                                                   100% 59.6M=0.006s
+
+2026-11-06 08:50:20 (33.8 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/bdc9a46319e2e9ba8baee38b57202fd1.jpg' saved [208683/208683]
+
+--2026-11-06 08:50:20--  https://elgarom.ro/wp-content/uploads/2024/06/7a1b32c5798497d44e85fd3950b033fc.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 212992 (208K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/7a1b32c5798497d44e85fd3950b033fc.jpg'
+
+     0K .......... .......... .......... .......... .......... 24% 27.0M 0s
+    50K .......... .......... .......... .......... .......... 48% 17.5M 0s
+   100K .......... .......... .......... .......... .......... 72% 24.1M 0s
+   150K .......... .......... .......... .......... .......... 96% 15.2M 0s
+   200K ........                                              100%  269M=0.01s
+
+2026-11-06 08:50:20 (20.6 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/7a1b32c5798497d44e85fd3950b033fc.jpg' saved [212992/212992]
+
+--2026-11-06 08:50:20--  https://elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.eot
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 151556 (148K) [application/vnd.ms-fontobject]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.eot'
+
+     0K .......... .......... .......... .......... .......... 33% 25.8M 0s
+    50K .......... .......... .......... .......... .......... 67% 16.1M 0s
+   100K .......... .......... .......... .......... ........  100% 19.1M=0.007s
+
+2026-11-06 08:50:20 (19.6 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.eot' saved [151556/151556]
+
+--2026-11-06 08:50:20--  https://elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.eot?
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 151556 (148K) [application/vnd.ms-fontobject]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.eot?'
+
+     0K .......... .......... .......... .......... .......... 33%  310M 0s
+    50K .......... .......... .......... .......... .......... 67%  262M 0s
+   100K .......... .......... .......... .......... ........  100% 7.17M=0.007s
+
+2026-11-06 08:50:20 (21.0 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.eot?' saved [151556/151556]
+
+--2026-11-06 08:50:20--  https://elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.woff2
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 81612 (80K) [font/woff2]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.woff2'
+
+     0K .......... .......... .......... .......... .......... 62%  283M 0s
+    50K .......... .......... .........                       100% 21.9M=0.001s
+
+2026-11-06 08:50:20 (52.0 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.woff2' saved [81612/81612]
+
+--2026-11-06 08:50:20--  https://elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.woff
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 97804 (96K) [font/woff]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.woff'
+
+     0K .......... .......... .......... .......... .......... 52% 33.7M 0s
+    50K .......... .......... .......... .......... .....     100% 19.9M=0.004s
+
+2026-11-06 08:50:20 (25.4 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.woff' saved [97804/97804]
+
+--2026-11-06 08:50:20--  https://elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.ttf
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 151368 (148K) [font/ttf]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.ttf'
+
+     0K .......... .......... .......... .......... .......... 33%  104M 0s
+    50K .......... .......... .......... .......... .......... 67%  350M 0s
+   100K .......... .......... .......... .......... .......   100%  354M=0.001s
+
+2026-11-06 08:50:21 (194 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.ttf' saved [151368/151368]
+
+--2026-11-06 08:50:21--  https://elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.svg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 749223 (732K) [image/svg+xml]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.svg'
+
+     0K .......... .......... .......... .......... ..........  6% 20.0M 0s
+    50K .......... .......... .......... .......... .......... 13%  350M 0s
+   100K .......... .......... .......... .......... .......... 20% 14.1M 0s
+   150K .......... .......... .......... .......... .......... 27% 22.7M 0s
+   200K .......... .......... .......... .......... .......... 34% 86.0M 0s
+   250K .......... .......... .......... .......... .......... 41% 25.5M 0s
+   300K .......... .......... .......... .......... .......... 47% 27.6M 0s
+   350K .......... .......... .......... .......... .......... 54% 24.3M 0s
+   400K .......... .......... .......... .......... .......... 61%  383M 0s
+   450K .......... .......... .......... .......... .......... 68%  122M 0s
+   500K .......... .......... .......... .......... .......... 75% 79.2M 0s
+   550K .......... .......... .......... .......... .......... 82% 27.3M 0s
+   600K .......... .......... .......... .......... .......... 88%  126M 0s
+   650K .......... .......... .......... .......... .......... 95%  243M 0s
+   700K .......... .......... .......... .                    100% 92.4M=0.02s
+
+2026-11-06 08:50:21 (39.0 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.svg' saved [749223/749223]
+
+--2026-11-06 08:50:21--  https://elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.eot
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 34034 (33K) [application/vnd.ms-fontobject]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.eot'
+
+     0K .......... .......... .......... ...                  100%  184M=0s
+
+2026-11-06 08:50:21 (184 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.eot' saved [34034/34034]
+
+--2026-11-06 08:50:21--  https://elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.eot?
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 34034 (33K) [application/vnd.ms-fontobject]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.eot?'
+
+     0K .......... .......... .......... ...                  100%  177M=0s
+
+2026-11-06 08:50:21 (177 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.eot?' saved [34034/34034]
+
+--2026-11-06 08:50:21--  https://elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.woff2
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 13276 (13K) [font/woff2]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.woff2'
+
+     0K .......... ..                                         100% 16.9M=0.001s
+
+2026-11-06 08:50:21 (16.9 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.woff2' saved [13276/13276]
+
+--2026-11-06 08:50:21--  https://elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.woff
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 16276 (16K) [font/woff]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.woff'
+
+     0K .......... .....                                      100% 11.5M=0.001s
+
+2026-11-06 08:50:21 (11.5 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.woff' saved [16276/16276]
+
+--2026-11-06 08:50:21--  https://elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.ttf
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 33736 (33K) [font/ttf]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.ttf'
+
+     0K .......... .......... .......... ..                   100%  273M=0s
+
+2026-11-06 08:50:21 (273 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.ttf' saved [33736/33736]
+
+--2026-11-06 08:50:21--  https://elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.svg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 144714 (141K) [image/svg+xml]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.svg'
+
+     0K .......... .......... .......... .......... .......... 35%  311M 0s
+    50K .......... .......... .......... .......... .......... 70% 23.5M 0s
+   100K .......... .......... .......... .......... .         100% 20.1M=0.004s
+
+2026-11-06 08:50:22 (32.5 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-regular-400.svg' saved [144714/144714]
+
+--2026-11-06 08:50:22--  https://elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.eot
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 203030 (198K) [application/vnd.ms-fontobject]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.eot'
+
+     0K .......... .......... .......... .......... .......... 25% 20.4M 0s
+    50K .......... .......... .......... .......... .......... 50%  150M 0s
+   100K .......... .......... .......... .......... .......... 75% 9.34M 0s
+   150K .......... .......... .......... .......... ........  100% 27.3M=0.01s
+
+2026-11-06 08:50:22 (20.0 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.eot' saved [203030/203030]
+
+--2026-11-06 08:50:22--  https://elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.eot?
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 203030 (198K) [application/vnd.ms-fontobject]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.eot?'
+
+     0K .......... .......... .......... .......... .......... 25% 19.9M 0s
+    50K .......... .......... .......... .......... .......... 50% 29.1M 0s
+   100K .......... .......... .......... .......... .......... 75% 32.4M 0s
+   150K .......... .......... .......... .......... ........  100%  200M=0.006s
+
+2026-11-06 08:50:22 (32.9 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.eot?' saved [203030/203030]
+
+--2026-11-06 08:50:22--  https://elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.woff2
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 78196 (76K) [font/woff2]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.woff2'
+
+     0K .......... .......... .......... .......... .......... 65% 17.1M 0s
+    50K .......... .......... ......                          100%  357M=0.003s
+
+2026-11-06 08:50:22 (25.5 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.woff2' saved [78196/78196]
+
+--2026-11-06 08:50:22--  https://elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.woff
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 101652 (99K) [font/woff]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.woff'
+
+     0K .......... .......... .......... .......... .......... 50% 21.4M 0s
+    50K .......... .......... .......... .......... ......... 100% 21.9M=0.004s
+
+2026-11-06 08:50:22 (21.6 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.woff' saved [101652/101652]
+
+--2026-11-06 08:50:22--  https://elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.ttf
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 202744 (198K) [font/ttf]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.ttf'
+
+     0K .......... .......... .......... .......... .......... 25% 46.4M 0s
+    50K .......... .......... .......... .......... .......... 50% 17.9M 0s
+   100K .......... .......... .......... .......... .......... 75% 31.1M 0s
+   150K .......... .......... .......... .......... .......   100% 25.5M=0.007s
+
+2026-11-06 08:50:22 (26.9 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.ttf' saved [202744/202744]
+
+--2026-11-06 08:50:22--  https://elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.svg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 918991 (897K) [image/svg+xml]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.svg'
+
+     0K .......... .......... .......... .......... ..........  5% 34.4M 0s
+    50K .......... .......... .......... .......... .......... 11% 23.2M 0s
+   100K .......... .......... .......... .......... .......... 16% 20.3M 0s
+   150K .......... .......... .......... .......... .......... 22% 27.2M 0s
+   200K .......... .......... .......... .......... .......... 27% 35.1M 0s
+   250K .......... .......... .......... .......... .......... 33% 30.0M 0s
+   300K .......... .......... .......... .......... .......... 38% 32.0M 0s
+   350K .......... .......... .......... .......... .......... 44% 28.7M 0s
+   400K .......... .......... .......... .......... .......... 50% 10.9M 0s
+   450K .......... .......... .......... .......... .......... 55% 22.2M 0s
+   500K .......... .......... .......... .......... .......... 61%  267M 0s
+   550K .......... .......... .......... .......... .......... 66% 62.6M 0s
+   600K .......... .......... .......... .......... .......... 72% 71.0M 0s
+   650K .......... .......... .......... .......... .......... 77% 45.1M 0s
+   700K .......... .......... .......... .......... .......... 83% 70.5M 0s
+   750K .......... .......... .......... .......... .......... 89% 14.1M 0s
+   800K .......... .......... .......... .......... .......... 94%  209M 0s
+   850K .......... .......... .......... .......... .......   100%  198M=0.03s
+
+2026-11-06 08:50:23 (31.3 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-solid-900.svg' saved [918991/918991]
+
+--2026-11-06 08:50:23--  https://elgarom.ro/wp-content/uploads/elementor/css/post-11.css?ver=1793634205
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 13099 (13K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/elementor/css/post-11.css?ver=1793634205.css'
+
+     0K .......... ..                                         100% 32.2M=0s
+
+2026-11-06 08:50:23 (32.2 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/elementor/css/post-11.css?ver=1793634205.css' saved [13099/13099]
+
+--2026-11-06 08:50:23--  https://elgarom.ro/wp-content/uploads/elementor/css/post-551.css?ver=1793628669
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 312 [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/elementor/css/post-551.css?ver=1793628669.css'
+
+     0K                                                       100%  262M=0s
+
+2026-11-06 08:50:23 (262 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/elementor/css/post-551.css?ver=1793628669.css' saved [312/312]
+
+--2026-11-06 08:50:23--  https://elgarom.ro/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css?ver=8.4.5
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 16471 (16K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css?ver=8.4.5.css'
+
+     0K .......... ......                                     100%  193M=0s
+
+2026-11-06 08:50:23 (193 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css?ver=8.4.5.css' saved [16471/16471]
+
+--2026-11-06 08:50:23--  https://elgarom.ro/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min.css?ver=3.34.2
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 5486 (5.4K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min.css?ver=3.34.2.css'
+
+     0K .....                                                 100% 4.39G=0s
+
+2026-11-06 08:50:23 (4.39 GB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min.css?ver=3.34.2.css' saved [5486/5486]
+
+--2026-11-06 08:50:23--  https://elgarom.ro/wp-content/uploads/elementor/css/custom-widget-image-gallery.min.css?ver=1793628042
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 2419 (2.4K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/elementor/css/custom-widget-image-gallery.min.css?ver=1793628042.css'
+
+     0K ..                                                    100% 2.12G=0s
+
+2026-11-06 08:50:23 (2.12 GB/s) - 'mirror/elgarom.ro/wp-content/uploads/elementor/css/custom-widget-image-gallery.min.css?ver=1793628042.css' saved [2419/2419]
+
+--2026-11-06 08:50:23--  https://elgarom.ro/?p=11
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 301 Moved Permanently
+Location: https://elgarom.ro/despre-noi [following]
+--2026-11-06 08:50:24--  https://elgarom.ro/despre-noi
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: 'mirror/elgarom.ro/index.html?p=11.html'
+
+     0K .......... .......... .......... .......... ..........  202M
+    50K .......... .......... .......... .......... .......... 3.17M
+   100K .......... .......... .....                            13.3M=0.02s
+
+Last-modified header missing -- time-stamps turned off.
+2026-11-06 08:50:24 (6.98 MB/s) - 'mirror/elgarom.ro/index.html?p=11.html' saved [128007]
+
+--2026-11-06 08:50:24--  https://elgarom.ro/wp-content/uploads/2024/06/bdc9a46319e2e9ba8baee38b57202fd1-1-300x116.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 10013 (9.8K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/bdc9a46319e2e9ba8baee38b57202fd1-1-300x116.jpg'
+
+     0K .........                                             100%  328M=0s
+
+2026-11-06 08:50:24 (328 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/bdc9a46319e2e9ba8baee38b57202fd1-1-300x116.jpg' saved [10013/10013]
+
+--2026-11-06 08:50:24--  https://elgarom.ro/wp-content/uploads/2024/06/bdc9a46319e2e9ba8baee38b57202fd1-1-1024x396.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 77770 (76K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/bdc9a46319e2e9ba8baee38b57202fd1-1-1024x396.jpg'
+
+     0K .......... .......... .......... .......... .......... 65% 43.7M 0s
+    50K .......... .......... .....                           100% 10.9M=0.003s
+
+2026-11-06 08:50:24 (21.5 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/bdc9a46319e2e9ba8baee38b57202fd1-1-1024x396.jpg' saved [77770/77770]
+
+--2026-11-06 08:50:24--  https://elgarom.ro/wp-content/uploads/2024/06/bdc9a46319e2e9ba8baee38b57202fd1-1-768x297.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 48072 (47K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/bdc9a46319e2e9ba8baee38b57202fd1-1-768x297.jpg'
+
+     0K .......... .......... .......... .......... ......    100%  172M=0s
+
+2026-11-06 08:50:25 (172 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/bdc9a46319e2e9ba8baee38b57202fd1-1-768x297.jpg' saved [48072/48072]
+
+--2026-11-06 08:50:25--  https://elgarom.ro/wp-content/uploads/2026/01/Elgarom-scaled.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 638054 (623K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2026/01/Elgarom-scaled.jpg'
+
+     0K .......... .......... .......... .......... ..........  8% 17.9M 0s
+    50K .......... .......... .......... .......... .......... 16% 46.7M 0s
+   100K .......... .......... .......... .......... .......... 24% 21.4M 0s
+   150K .......... .......... .......... .......... .......... 32% 28.7M 0s
+   200K .......... .......... .......... .......... .......... 40% 3.85M 0s
+   250K .......... .......... .......... .......... .......... 48%  133M 0s
+   300K .......... .......... .......... .......... .......... 56%  204M 0s
+   350K .......... .......... .......... .......... .......... 64% 55.0M 0s
+   400K .......... .......... .......... .......... .......... 72% 58.6M 0s
+   450K .......... .......... .......... .......... .......... 80%  151M 0s
+   500K .......... .......... .......... .......... .......... 88% 39.0M 0s
+   550K .......... .......... .......... .......... .......... 96% 52.0M 0s
+   600K .......... .......... ...                             100%  342M=0.03s
+
+2026-11-06 08:50:25 (24.0 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2026/01/Elgarom-scaled.jpg' saved [638054/638054]
+
+--2026-11-06 08:50:25--  https://elgarom.ro/wp-content/uploads/2026/01/Elgarom-300x203.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 47135 (46K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2026/01/Elgarom-300x203.jpg'
+
+     0K .......... .......... .......... .......... ......    100% 23.3M=0.002s
+
+2026-11-06 08:50:25 (23.3 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2026/01/Elgarom-300x203.jpg' saved [47135/47135]
+
+--2026-11-06 08:50:25--  https://elgarom.ro/wp-content/uploads/2026/01/Elgarom-1024x692.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 144878 (141K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2026/01/Elgarom-1024x692.jpg'
+
+     0K .......... .......... .......... .......... .......... 35%  245M 0s
+    50K .......... .......... .......... .......... .......... 70% 42.2M 0s
+   100K .......... .......... .......... .......... .         100% 34.8M=0.003s
+
+2026-11-06 08:50:25 (54.8 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2026/01/Elgarom-1024x692.jpg' saved [144878/144878]
+
+--2026-11-06 08:50:25--  https://elgarom.ro/wp-content/uploads/2026/01/Elgarom-768x519.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 99715 (97K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2026/01/Elgarom-768x519.jpg'
+
+     0K .......... .......... .......... .......... .......... 51%  165M 0s
+    50K .......... .......... .......... .......... .......   100%  211M=0.001s
+
+2026-11-06 08:50:25 (185 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2026/01/Elgarom-768x519.jpg' saved [99715/99715]
+
+--2026-11-06 08:50:25--  https://elgarom.ro/wp-content/uploads/2026/01/Elgarom-1536x1038.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 269766 (263K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2026/01/Elgarom-1536x1038.jpg'
+
+     0K .......... .......... .......... .......... .......... 18% 35.5M 0s
+    50K .......... .......... .......... .......... .......... 37%  242M 0s
+   100K .......... .......... .......... .......... .......... 56% 17.5M 0s
+   150K .......... .......... .......... .......... .......... 75% 22.9M 0s
+   200K .......... .......... .......... .......... .......... 94% 19.4M 0s
+   250K .......... ...                                        100%  384M=0.009s
+
+2026-11-06 08:50:25 (28.4 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2026/01/Elgarom-1536x1038.jpg' saved [269766/269766]
+
+--2026-11-06 08:50:25--  https://elgarom.ro/wp-content/uploads/2026/01/Elgarom-2048x1383.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 433325 (423K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2026/01/Elgarom-2048x1383.jpg'
+
+     0K .......... .......... .......... .......... .......... 11% 21.4M 0s
+    50K .......... .......... .......... .......... .......... 23% 53.3M 0s
+   100K .......... .......... .......... .......... .......... 35% 10.9M 0s
+   150K .......... .......... .......... .......... .......... 47% 25.5M 0s
+   200K .......... .......... .......... .......... .......... 59% 31.3M 0s
+   250K .......... .......... .......... .......... .......... 70% 23.2M 0s
+   300K .......... .......... .......... .......... .......... 82% 30.3M 0s
+   350K .......... .......... .......... .......... .......... 94%  123M 0s
+   400K .......... .......... ...                             100%  149M=0.02s
+
+2026-11-06 08:50:26 (26.8 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2026/01/Elgarom-2048x1383.jpg' saved [433325/433325]
+
+--2026-11-06 08:50:26--  https://elgarom.ro/wp-content/uploads/2024/06/9a892617ed60b047a067cffb67e29d9f-scaled.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 569344 (556K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/9a892617ed60b047a067cffb67e29d9f-scaled.jpg'
+
+     0K .......... .......... .......... .......... ..........  8%  112M 0s
+    50K .......... .......... .......... .......... .......... 17%  136M 0s
+   100K .......... .......... .......... .......... .......... 26% 17.6M 0s
+   150K .......... .......... .......... .......... .......... 35% 7.21M 0s
+   200K .......... .......... .......... .......... .......... 44%  136M 0s
+   250K .......... .......... .......... .......... .......... 53%  108M 0s
+   300K .......... .......... .......... .......... .......... 62% 5.52M 0s
+   350K .......... .......... .......... .......... .......... 71%  131M 0s
+   400K .......... .......... .......... .......... .......... 80%  134M 0s
+   450K .......... .......... .......... .......... .......... 89%  134M 0s
+   500K .......... .......... .......... .......... .......... 98%  168M 0s
+   550K ......                                                100%  114M=0.02s
+
+2026-11-06 08:50:26 (25.3 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/9a892617ed60b047a067cffb67e29d9f-scaled.jpg' saved [569344/569344]
+
+--2026-11-06 08:50:26--  https://elgarom.ro/wp-content/uploads/2024/06/9a892617ed60b047a067cffb67e29d9f-300x200.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 11606 (11K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/9a892617ed60b047a067cffb67e29d9f-300x200.jpg'
+
+     0K .......... .                                          100%  117M=0s
+
+2026-11-06 08:50:26 (117 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/9a892617ed60b047a067cffb67e29d9f-300x200.jpg' saved [11606/11606]
+
+--2026-11-06 08:50:26--  https://elgarom.ro/wp-content/uploads/2024/06/9a892617ed60b047a067cffb67e29d9f-1024x682.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 89875 (88K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/9a892617ed60b047a067cffb67e29d9f-1024x682.jpg'
+
+     0K .......... .......... .......... .......... .......... 56%  295M 0s
+    50K .......... .......... .......... .......              100%  326M=0s
+
+2026-11-06 08:50:26 (308 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/9a892617ed60b047a067cffb67e29d9f-1024x682.jpg' saved [89875/89875]
+
+--2026-11-06 08:50:26--  https://elgarom.ro/wp-content/uploads/2024/06/9a892617ed60b047a067cffb67e29d9f-768x511.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 53564 (52K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/9a892617ed60b047a067cffb67e29d9f-768x511.jpg'
+
+     0K .......... .......... .......... .......... .......... 95% 63.1M 0s
+    50K ..                                                    100% 4.30T=0.001s
+
+2026-11-06 08:50:26 (66.1 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/9a892617ed60b047a067cffb67e29d9f-768x511.jpg' saved [53564/53564]
+
+--2026-11-06 08:50:26--  https://elgarom.ro/wp-content/uploads/2024/06/9a892617ed60b047a067cffb67e29d9f-1536x1022.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 194844 (190K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/9a892617ed60b047a067cffb67e29d9f-1536x1022.jpg'
+
+     0K .......... .......... .......... .......... .......... 26% 35.8M 0s
+    50K .......... .......... .......... .......... .......... 52% 24.0M 0s
+   100K .......... .......... .......... .......... .......... 78% 11.9M 0s
+   150K .......... .......... .......... ..........           100% 39.1M=0.009s
+
+2026-11-06 08:50:26 (21.8 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/9a892617ed60b047a067cffb67e29d9f-1536x1022.jpg' saved [194844/194844]
+
+--2026-11-06 08:50:26--  https://elgarom.ro/wp-content/uploads/2024/06/9a892617ed60b047a067cffb67e29d9f-2048x1363.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 352733 (344K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/9a892617ed60b047a067cffb67e29d9f-2048x1363.jpg'
+
+     0K .......... .......... .......... .......... .......... 14% 10.3M 0s
+    50K .......... .......... .......... .......... .......... 29% 14.5M 0s
+   100K .......... .......... .......... .......... .......... 43% 14.3M 0s
+   150K .......... .......... .......... .......... .......... 58% 11.0M 0s
+   200K .......... .......... .......... .......... .......... 72%  211M 0s
+   250K .......... .......... .......... .......... .......... 87% 25.2M 0s
+   300K .......... .......... .......... .......... ....      100% 46.5M=0.02s
+
+2026-11-06 08:50:27 (17.7 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/9a892617ed60b047a067cffb67e29d9f-2048x1363.jpg' saved [352733/352733]
+
+--2026-11-06 08:50:27--  https://elgarom.ro/wp-content/uploads/2024/06/37aec4558b9e18a26b7ac9ec29ac87e2-scaled.jpg
+Connecting to 127.0.0.1:33355... connected.
+Proxy request sent, awaiting response... 200 OK
+Length: 835584 (816K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/37aec4558b9e18a26b7ac9ec29ac87e2-scaled.jpg'
+
+     0K .......... .......... .......... .......... ..........  6%  200K 4s
+    50K .......... .......... .......... .......... .......... 12%  402K 3s
+   100K .......... .......... .......... .......... .......... 18% 40.5M 2s
+   150K .......... .......... .......... .......... .......... 24%  415K 2s
+   200K .......... .......... .......... .......... .......... 30% 18.9M 1s
+   250K .......... .......... .......... .......... .......... 36% 45.7M 1s
+   300K .......... .......... .......... .......... .......... 42% 28.0M 1s
+   350K .......... .......... .......... .......... .......... 49% 77.2M 1s
+   400K .......... .......... .......... .......... .......... 55%  418K 1s
+   450K .......... .......... .......... .......... .......... 61% 37.7M 0s
+   500K .......... .......... .......... .......... .......... 67% 20.0M 0s
+   550K .......... .......... .......... .......... .......... 73%  103M 0s
+   600K .......... .......... .......... .......... .......... 79%  131M 0s
+   650K .......... .......... .......... .......... .......... 85%  137M 0s
+   700K .......... .......... .......... .......... .......... 91%  144M 0s
+   750K .......... .......... .......... .......... .......... 98%  171M 0s
+   800K .......... ......                                     100%  154M=0.6s
+
+2026-11-06 08:50:28 (1.27 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/37aec4558b9e18a26b7ac9ec29ac87e2-scaled.jpg' saved [835584/835584]
+
+--2026-11-06 08:50:28--  https://elgarom.ro/wp-content/uploads/2024/06/37aec4558b9e18a26b7ac9ec29ac87e2-300x200.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 14340 (14K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/37aec4558b9e18a26b7ac9ec29ac87e2-300x200.jpg'
+
+     0K .......... ....                                       100% 13.5M=0.001s
+
+2026-11-06 08:50:28 (13.5 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/37aec4558b9e18a26b7ac9ec29ac87e2-300x200.jpg' saved [14340/14340]
+
+--2026-11-06 08:50:28--  https://elgarom.ro/wp-content/uploads/2024/06/37aec4558b9e18a26b7ac9ec29ac87e2-1024x682.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 144286 (141K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/37aec4558b9e18a26b7ac9ec29ac87e2-1024x682.jpg'
+
+     0K .......... .......... .......... .......... .......... 35%  127M 0s
+    50K .......... .......... .......... .......... .......... 70%  139M 0s
+   100K .......... .......... .......... ..........           100%  132M=0.001s
+
+2026-11-06 08:50:28 (132 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/37aec4558b9e18a26b7ac9ec29ac87e2-1024x682.jpg' saved [144286/144286]
+
+--2026-11-06 08:50:28--  https://elgarom.ro/wp-content/uploads/2024/06/37aec4558b9e18a26b7ac9ec29ac87e2-768x511.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 82444 (81K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/37aec4558b9e18a26b7ac9ec29ac87e2-768x511.jpg'
+
+     0K .......... .......... .......... .......... .......... 62% 6.60M 0s
+    50K .......... .......... ..........                      100% 12.5M=0.01s
+
+2026-11-06 08:50:28 (8.04 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/37aec4558b9e18a26b7ac9ec29ac87e2-768x511.jpg' saved [82444/82444]
+
+--2026-11-06 08:50:28--  https://elgarom.ro/wp-content/uploads/2024/06/37aec4558b9e18a26b7ac9ec29ac87e2-1536x1022.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 314615 (307K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/37aec4558b9e18a26b7ac9ec29ac87e2-1536x1022.jpg'
+
+     0K .......... .......... .......... .......... .......... 16% 26.1M 0s
+    50K .......... .......... .......... .......... .......... 32% 18.1M 0s
+   100K .......... .......... .......... .......... .......... 48% 12.6M 0s
+   150K .......... .......... .......... .......... .......... 65% 27.7M 0s
+   200K .......... .......... .......... .......... .......... 81% 59.8M 0s
+   250K .......... .......... .......... .......... .......... 97% 46.2M 0s
+   300K .......                                               100%  128M=0.01s
+
+2026-11-06 08:50:29 (24.8 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/37aec4558b9e18a26b7ac9ec29ac87e2-1536x1022.jpg' saved [314615/314615]
+
+--2026-11-06 08:50:29--  https://elgarom.ro/wp-content/uploads/2024/06/37aec4558b9e18a26b7ac9ec29ac87e2-2048x1363.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 546120 (533K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/37aec4558b9e18a26b7ac9ec29ac87e2-2048x1363.jpg'
+
+     0K .......... .......... .......... .......... ..........  9% 36.8M 0s
+    50K .......... .......... .......... .......... .......... 18% 14.6M 0s
+   100K .......... .......... .......... .......... .......... 28% 33.7M 0s
+   150K .......... .......... .......... .......... .......... 37% 20.7M 0s
+   200K .......... .......... .......... .......... .......... 46% 69.6M 0s
+   250K .......... .......... .......... .......... .......... 56% 15.6M 0s
+   300K .......... .......... .......... .......... .......... 65% 22.5M 0s
+   350K .......... .......... .......... .......... .......... 75% 33.2M 0s
+   400K .......... .......... .......... .......... .......... 84%  160M 0s
+   450K .......... .......... .......... .......... .......... 93% 60.8M 0s
+   500K .......... .......... .......... ...                  100%  149M=0.02s
+
+2026-11-06 08:50:29 (30.1 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/37aec4558b9e18a26b7ac9ec29ac87e2-2048x1363.jpg' saved [546120/546120]
+
+--2026-11-06 08:50:29--  https://elgarom.ro/wp-content/uploads/2024/06/53f83fec7cb14174c9d4c256a92a42a5-scaled.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 315392 (308K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/53f83fec7cb14174c9d4c256a92a42a5-scaled.jpg'
+
+     0K .......... .......... .......... .......... .......... 16% 26.6M 0s
+    50K .......... .......... .......... .......... .......... 32% 23.2M 0s
+   100K .......... .......... .......... .......... .......... 48% 16.0M 0s
+   150K .......... .......... .......... .......... .......... 64% 29.7M 0s
+   200K .......... .......... .......... .......... .......... 81% 16.6M 0s
+   250K .......... .......... .......... .......... .......... 97% 42.7M 0s
+   300K ........                                              100%  151M=0.01s
+
+2026-11-06 08:50:29 (23.6 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/53f83fec7cb14174c9d4c256a92a42a5-scaled.jpg' saved [315392/315392]
+
+--2026-11-06 08:50:29--  https://elgarom.ro/wp-content/uploads/2024/06/53f83fec7cb14174c9d4c256a92a42a5-300x200.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 9854 (9.6K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/53f83fec7cb14174c9d4c256a92a42a5-300x200.jpg'
+
+     0K .........                                             100% 89.4M=0s
+
+2026-11-06 08:50:29 (89.4 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/53f83fec7cb14174c9d4c256a92a42a5-300x200.jpg' saved [9854/9854]
+
+--2026-11-06 08:50:29--  https://elgarom.ro/wp-content/uploads/2024/06/53f83fec7cb14174c9d4c256a92a42a5-1024x682.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 67106 (66K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/53f83fec7cb14174c9d4c256a92a42a5-1024x682.jpg'
+
+     0K .......... .......... .......... .......... .......... 76%  129M 0s
+    50K .......... .....                                      100%  139M=0s
+
+2026-11-06 08:50:29 (131 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/53f83fec7cb14174c9d4c256a92a42a5-1024x682.jpg' saved [67106/67106]
+
+--2026-11-06 08:50:29--  https://elgarom.ro/wp-content/uploads/2024/06/53f83fec7cb14174c9d4c256a92a42a5-768x511.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 42424 (41K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/53f83fec7cb14174c9d4c256a92a42a5-768x511.jpg'
+
+     0K .......... .......... .......... .......... .         100% 3.95M=0.01s
+
+2026-11-06 08:50:29 (3.95 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/53f83fec7cb14174c9d4c256a92a42a5-768x511.jpg' saved [42424/42424]
+
+--2026-11-06 08:50:29--  https://elgarom.ro/wp-content/uploads/2024/06/53f83fec7cb14174c9d4c256a92a42a5-1536x1022.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 129251 (126K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/53f83fec7cb14174c9d4c256a92a42a5-1536x1022.jpg'
+
+     0K .......... .......... .......... .......... .......... 39% 21.9M 0s
+    50K .......... .......... .......... .......... .......... 79% 16.7M 0s
+   100K .......... .......... ......                          100%  106M=0.005s
+
+2026-11-06 08:50:30 (22.8 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/53f83fec7cb14174c9d4c256a92a42a5-1536x1022.jpg' saved [129251/129251]
+
+--2026-11-06 08:50:30--  https://elgarom.ro/wp-content/uploads/2024/06/53f83fec7cb14174c9d4c256a92a42a5-2048x1363.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 209296 (204K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/53f83fec7cb14174c9d4c256a92a42a5-2048x1363.jpg'
+
+     0K .......... .......... .......... .......... .......... 24% 18.5M 0s
+    50K .......... .......... .......... .......... .......... 48% 17.4M 0s
+   100K .......... .......... .......... .......... .......... 73% 13.4M 0s
+   150K .......... .......... .......... .......... .......... 97% 38.4M 0s
+   200K ....                                                  100% 69.2M=0.01s
+
+2026-11-06 08:50:30 (19.1 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/53f83fec7cb14174c9d4c256a92a42a5-2048x1363.jpg' saved [209296/209296]
+
+--2026-11-06 08:50:30--  https://elgarom.ro/wp-content/uploads/2024/06/bc916fff32e77d7144fb2fe468e886a0-scaled.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 565248 (552K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/bc916fff32e77d7144fb2fe468e886a0-scaled.jpg'
+
+     0K .......... .......... .......... .......... ..........  9% 90.1M 0s
+    50K .......... .......... .......... .......... .......... 18% 27.5M 0s
+   100K .......... .......... .......... .......... .......... 27% 25.4M 0s
+   150K .......... .......... .......... .......... .......... 36% 26.0M 0s
+   200K .......... .......... .......... .......... .......... 45% 21.1M 0s
+   250K .......... .......... .......... .......... .......... 54% 23.7M 0s
+   300K .......... .......... .......... .......... .......... 63% 23.5M 0s
+   350K .......... .......... .......... .......... .......... 72% 60.4M 0s
+   400K .......... .......... .......... .......... .......... 81% 38.0M 0s
+   450K .......... .......... .......... .......... .......... 90% 43.3M 0s
+   500K .......... .......... .......... .......... .......... 99% 53.7M 0s
+   550K ..                                                    100% 3.73T=0.02s
+
+2026-11-06 08:50:30 (32.3 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/bc916fff32e77d7144fb2fe468e886a0-scaled.jpg' saved [565248/565248]
+
+--2026-11-06 08:50:30--  https://elgarom.ro/wp-content/uploads/2024/06/bc916fff32e77d7144fb2fe468e886a0-300x200.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 18682 (18K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/bc916fff32e77d7144fb2fe468e886a0-300x200.jpg'
+
+     0K .......... ........                                   100% 48.1M=0s
+
+2026-11-06 08:50:30 (48.1 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/bc916fff32e77d7144fb2fe468e886a0-300x200.jpg' saved [18682/18682]
+
+--2026-11-06 08:50:30--  https://elgarom.ro/wp-content/uploads/2024/06/bc916fff32e77d7144fb2fe468e886a0-1024x682.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 134374 (131K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/bc916fff32e77d7144fb2fe468e886a0-1024x682.jpg'
+
+     0K .......... .......... .......... .......... .......... 38% 41.0M 0s
+    50K .......... .......... .......... .......... .......... 76% 28.3M 0s
+   100K .......... .......... .......... .                    100% 22.4M=0.004s
+
+2026-11-06 08:50:30 (30.0 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/bc916fff32e77d7144fb2fe468e886a0-1024x682.jpg' saved [134374/134374]
+
+--2026-11-06 08:50:30--  https://elgarom.ro/wp-content/uploads/2024/06/bc916fff32e77d7144fb2fe468e886a0-768x511.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 85515 (84K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/bc916fff32e77d7144fb2fe468e886a0-768x511.jpg'
+
+     0K .......... .......... .......... .......... .......... 59% 10.9M 0s
+    50K .......... .......... .......... ...                  100% 13.3M=0.007s
+
+2026-11-06 08:50:30 (11.7 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/bc916fff32e77d7144fb2fe468e886a0-768x511.jpg' saved [85515/85515]
+
+--2026-11-06 08:50:30--  https://elgarom.ro/wp-content/uploads/2024/06/bc916fff32e77d7144fb2fe468e886a0-1536x1022.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 248043 (242K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/bc916fff32e77d7144fb2fe468e886a0-1536x1022.jpg'
+
+     0K .......... .......... .......... .......... .......... 20% 17.9M 0s
+    50K .......... .......... .......... .......... .......... 41% 44.8M 0s
+   100K .......... .......... .......... .......... .......... 61% 16.7M 0s
+   150K .......... .......... .......... .......... .......... 82% 25.5M 0s
+   200K .......... .......... .......... .......... ..        100% 32.5M=0.01s
+
+2026-11-06 08:50:31 (23.8 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/bc916fff32e77d7144fb2fe468e886a0-1536x1022.jpg' saved [248043/248043]
+
+--2026-11-06 08:50:31--  https://elgarom.ro/wp-content/uploads/2024/06/bc916fff32e77d7144fb2fe468e886a0-2048x1363.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 387357 (378K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/bc916fff32e77d7144fb2fe468e886a0-2048x1363.jpg'
+
+     0K .......... .......... .......... .......... .......... 13%  132M 0s
+    50K .......... .......... .......... .......... .......... 26% 22.2M 0s
+   100K .......... .......... .......... .......... .......... 39% 17.9M 0s
+   150K .......... .......... .......... .......... .......... 52% 16.0M 0s
+   200K .......... .......... .......... .......... .......... 66% 12.9M 0s
+   250K .......... .......... .......... .......... .......... 79%  112M 0s
+   300K .......... .......... .......... .......... .......... 92%  226M 0s
+   350K .......... .......... ........                        100% 29.0M=0.01s
+
+2026-11-06 08:50:31 (26.9 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/bc916fff32e77d7144fb2fe468e886a0-2048x1363.jpg' saved [387357/387357]
+
+--2026-11-06 08:50:31--  https://elgarom.ro/wp-content/uploads/2024/06/f5a589b34c3ff63185bd82550facd2a3-scaled.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 814006 (795K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/f5a589b34c3ff63185bd82550facd2a3-scaled.jpg'
+
+     0K .......... .......... .......... .......... ..........  6% 8.28M 0s
+    50K .......... .......... .......... .......... .......... 12%  388M 0s
+   100K .......... .......... .......... .......... .......... 18% 15.5M 0s
+   150K .......... .......... .......... .......... .......... 25% 73.9M 0s
+   200K .......... .......... .......... .......... .......... 31% 5.88M 0s
+   250K .......... .......... .......... .......... .......... 37%  179M 0s
+   300K .......... .......... .......... .......... .......... 44%  180M 0s
+   350K .......... .......... .......... .......... .......... 50% 13.7M 0s
+   400K .......... .......... .......... .......... .......... 56%  247M 0s
+   450K .......... .......... .......... .......... .......... 62%  158M 0s
+   500K .......... .......... .......... .......... .......... 69%  253M 0s
+   550K .......... .......... .......... .......... .......... 75%  339M 0s
+   600K .......... .......... .......... .......... .......... 81%  285M 0s
+   650K .......... .......... .......... .......... .......... 88%  418M 0s
+   700K .......... .......... .......... .......... .......... 94%  110M 0s
+   750K .......... .......... .......... .......... ....      100%  208M=0.02s
+
+2026-11-06 08:50:31 (32.3 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/f5a589b34c3ff63185bd82550facd2a3-scaled.jpg' saved [814006/814006]
+
+--2026-11-06 08:50:31--  https://elgarom.ro/wp-content/uploads/2024/06/f5a589b34c3ff63185bd82550facd2a3-300x200.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 16247 (16K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/f5a589b34c3ff63185bd82550facd2a3-300x200.jpg'
+
+     0K .......... .....                                      100% 15.5M=0.001s
+
+2026-11-06 08:50:31 (15.5 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/f5a589b34c3ff63185bd82550facd2a3-300x200.jpg' saved [16247/16247]
+
+--2026-11-06 08:50:31--  https://elgarom.ro/wp-content/uploads/2024/06/f5a589b34c3ff63185bd82550facd2a3-1024x682.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 148186 (145K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/f5a589b34c3ff63185bd82550facd2a3-1024x682.jpg'
+
+     0K .......... .......... .......... .......... .......... 34% 25.6M 0s
+    50K .......... .......... .......... .......... .......... 69% 38.8M 0s
+   100K .......... .......... .......... .......... ....      100% 11.6M=0.007s
+
+2026-11-06 08:50:31 (20.4 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/f5a589b34c3ff63185bd82550facd2a3-1024x682.jpg' saved [148186/148186]
+
+--2026-11-06 08:50:31--  https://elgarom.ro/wp-content/uploads/2024/06/f5a589b34c3ff63185bd82550facd2a3-768x511.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 86466 (84K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/f5a589b34c3ff63185bd82550facd2a3-768x511.jpg'
+
+     0K .......... .......... .......... .......... .......... 59% 6.85M 0s
+    50K .......... .......... .......... ....                 100%  363M=0.007s
+
+2026-11-06 08:50:31 (11.4 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/f5a589b34c3ff63185bd82550facd2a3-768x511.jpg' saved [86466/86466]
+
+--2026-11-06 08:50:31--  https://elgarom.ro/wp-content/uploads/2024/06/f5a589b34c3ff63185bd82550facd2a3-1536x1022.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 313245 (306K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/f5a589b34c3ff63185bd82550facd2a3-1536x1022.jpg'
+
+     0K .......... .......... .......... .......... .......... 16% 13.0M 0s
+    50K .......... .......... .......... .......... .......... 32% 76.2M 0s
+   100K .......... .......... .......... .......... .......... 49% 11.3M 0s
+   150K .......... .......... .......... .......... .......... 65% 21.6M 0s
+   200K .......... .......... .......... .......... .......... 81% 72.2M 0s
+   250K .......... .......... .......... .......... .......... 98% 21.9M 0s
+   300K .....                                                 100%  240M=0.01s
+
+2026-11-06 08:50:32 (21.5 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/f5a589b34c3ff63185bd82550facd2a3-1536x1022.jpg' saved [313245/313245]
+
+--2026-11-06 08:50:32--  https://elgarom.ro/wp-content/uploads/2024/06/f5a589b34c3ff63185bd82550facd2a3-2048x1363.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 535826 (523K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/f5a589b34c3ff63185bd82550facd2a3-2048x1363.jpg'
+
+     0K .......... .......... .......... .......... ..........  9% 16.6M 0s
+    50K .......... .......... .......... .......... .......... 19% 30.1M 0s
+   100K .......... .......... .......... .......... .......... 28%  243M 0s
+   150K .......... .......... .......... .......... .......... 38% 22.6M 0s
+   200K .......... .......... .......... .......... .......... 47% 15.1M 0s
+   250K .......... .......... .......... .......... .......... 57% 95.8M 0s
+   300K .......... .......... .......... .......... .......... 66% 44.5M 0s
+   350K .......... .......... .......... .......... .......... 76% 57.7M 0s
+   400K .......... .......... .......... .......... .......... 85% 24.3M 0s
+   450K .......... .......... .......... .......... .......... 95% 82.9M 0s
+   500K .......... .......... ...                             100%  449M=0.02s
+
+2026-11-06 08:50:32 (33.5 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/f5a589b34c3ff63185bd82550facd2a3-2048x1363.jpg' saved [535826/535826]
+
+--2026-11-06 08:50:32--  https://elgarom.ro/wp-content/plugins/elementor/assets/lib/swiper/v8/swiper.min.js?ver=8.4.5
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 143709 (140K) [text/javascript]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/swiper/v8/swiper.min.js?ver=8.4.5'
+
+     0K .......... .......... .......... .......... .......... 35% 28.5M 0s
+    50K .......... .......... .......... .......... .......... 71% 21.4M 0s
+   100K .......... .......... .......... ..........           100% 21.7M=0.006s
+
+2026-11-06 08:50:32 (23.6 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/swiper/v8/swiper.min.js?ver=8.4.5' saved [143709/143709]
+
+--2026-11-06 08:50:32--  https://elgarom.ro/wp-content/uploads/elementor/css/post-19.css?ver=1793628669
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 10525 (10K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/elementor/css/post-19.css?ver=1793628669.css'
+
+     0K ..........                                            100%  186M=0s
+
+2026-11-06 08:50:32 (186 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/elementor/css/post-19.css?ver=1793628669.css' saved [10525/10525]
+
+--2026-11-06 08:50:32--  https://elgarom.ro/?p=19
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 301 Moved Permanently
+Location: https://elgarom.ro/tehnologie [following]
+--2026-11-06 08:50:32--  https://elgarom.ro/tehnologie
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: 'mirror/elgarom.ro/index.html?p=19.html'
+
+     0K .......... .......... .......... .......... .......... 32.8M
+    50K .......... .......... .......... .......... ..........  248M
+   100K .......... ........                                    37.6M=0.002s
+
+Last-modified header missing -- time-stamps turned off.
+2026-11-06 08:50:33 (53.4 MB/s) - 'mirror/elgarom.ro/index.html?p=19.html' saved [121167]
+
+--2026-11-06 08:50:33--  https://elgarom.ro/wp-content/uploads/2024/06/b0515c42151c24f033cc42778ded0907-scaled.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 724812 (708K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/b0515c42151c24f033cc42778ded0907-scaled.jpg'
+
+     0K .......... .......... .......... .......... ..........  7% 17.1M 0s
+    50K .......... .......... .......... .......... .......... 14% 13.3M 0s
+   100K .......... .......... .......... .......... .......... 21% 20.2M 0s
+   150K .......... .......... .......... .......... .......... 28% 38.0M 0s
+   200K .......... .......... .......... .......... .......... 35% 5.21M 0s
+   250K .......... .......... .......... .......... .......... 42% 25.6M 0s
+   300K .......... .......... .......... .......... .......... 49%  282M 0s
+   350K .......... .......... .......... .......... .......... 56%  475K 0s
+   400K .......... .......... .......... .......... .......... 63% 26.9M 0s
+   450K .......... .......... .......... .......... .......... 70%  204M 0s
+   500K .......... .......... .......... .......... .......... 77% 37.6M 0s
+   550K .......... .......... .......... .......... .......... 84% 33.3M 0s
+   600K .......... .......... .......... .......... .......... 91%  290M 0s
+   650K .......... .......... .......... .......... .......... 98% 15.4M 0s
+   700K .......                                               100%  243M=0.1s
+
+2026-11-06 08:50:33 (5.11 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/b0515c42151c24f033cc42778ded0907-scaled.jpg' saved [724812/724812]
+
+--2026-11-06 08:50:33--  https://elgarom.ro/wp-content/uploads/2024/06/b0515c42151c24f033cc42778ded0907-300x200.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 17444 (17K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/b0515c42151c24f033cc42778ded0907-300x200.jpg'
+
+     0K .......... .......                                    100%  263M=0s
+
+2026-11-06 08:50:33 (263 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/b0515c42151c24f033cc42778ded0907-300x200.jpg' saved [17444/17444]
+
+--2026-11-06 08:50:33--  https://elgarom.ro/wp-content/uploads/2024/06/b0515c42151c24f033cc42778ded0907-1024x682.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 144167 (141K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/b0515c42151c24f033cc42778ded0907-1024x682.jpg'
+
+     0K .......... .......... .......... .......... .......... 35%  251M 0s
+    50K .......... .......... .......... .......... .......... 71%  307M 0s
+   100K .......... .......... .......... ..........           100% 4.65M=0.009s
+
+2026-11-06 08:50:34 (15.4 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/b0515c42151c24f033cc42778ded0907-1024x682.jpg' saved [144167/144167]
+
+--2026-11-06 08:50:34--  https://elgarom.ro/wp-content/uploads/2024/06/b0515c42151c24f033cc42778ded0907-768x511.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 87491 (85K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/b0515c42151c24f033cc42778ded0907-768x511.jpg'
+
+     0K .......... .......... .......... .......... .......... 58% 8.71M 0s
+    50K .......... .......... .......... .....                100% 19.3M=0.007s
+
+2026-11-06 08:50:34 (11.3 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/b0515c42151c24f033cc42778ded0907-768x511.jpg' saved [87491/87491]
+
+--2026-11-06 08:50:34--  https://elgarom.ro/wp-content/uploads/2024/06/b0515c42151c24f033cc42778ded0907-1536x1022.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 289950 (283K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/b0515c42151c24f033cc42778ded0907-1536x1022.jpg'
+
+     0K .......... .......... .......... .......... .......... 17% 21.0M 0s
+    50K .......... .......... .......... .......... .......... 35% 29.3M 0s
+   100K .......... .......... .......... .......... .......... 52% 24.3M 0s
+   150K .......... .......... .......... .......... .......... 70% 22.6M 0s
+   200K .......... .......... .......... .......... .......... 88% 32.5M 0s
+   250K .......... .......... .......... ...                  100% 43.0M=0.01s
+
+2026-11-06 08:50:34 (26.5 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/b0515c42151c24f033cc42778ded0907-1536x1022.jpg' saved [289950/289950]
+
+--2026-11-06 08:50:34--  https://elgarom.ro/wp-content/uploads/2024/06/b0515c42151c24f033cc42778ded0907-2048x1363.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 481349 (470K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/b0515c42151c24f033cc42778ded0907-2048x1363.jpg'
+
+     0K .......... .......... .......... .......... .......... 10% 75.4M 0s
+    50K .......... .......... .......... .......... .......... 21% 22.4M 0s
+   100K .......... .......... .......... .......... .......... 31% 26.5M 0s
+   150K .......... .......... .......... .......... .......... 42% 24.2M 0s
+   200K .......... .......... .......... .......... .......... 53% 39.9M 0s
+   250K .......... .......... .......... .......... .......... 63% 9.27M 0s
+   300K .......... .......... .......... .......... .......... 74%  290M 0s
+   350K .......... .......... .......... .......... .......... 85%  255M 0s
+   400K .......... .......... .......... .......... .......... 95% 47.1M 0s
+   450K .......... ..........                                 100%  285M=0.01s
+
+2026-11-06 08:50:34 (31.4 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/b0515c42151c24f033cc42778ded0907-2048x1363.jpg' saved [481349/481349]
+
+--2026-11-06 08:50:34--  https://elgarom.ro/wp-content/uploads/2024/06/2f6f71c6d5595f7f3ef215819961aeb0-scaled.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 766979 (749K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/2f6f71c6d5595f7f3ef215819961aeb0-scaled.jpg'
+
+     0K .......... .......... .......... .......... ..........  6%  228M 0s
+    50K .......... .......... .......... .......... .......... 13%  322M 0s
+   100K .......... .......... .......... .......... .......... 20%  325M 0s
+   150K .......... .......... .......... .......... .......... 26%  344M 0s
+   200K .......... .......... .......... .......... .......... 33% 69.5M 0s
+   250K .......... .......... .......... .......... .......... 40%  171M 0s
+   300K .......... .......... .......... .......... .......... 46%  243M 0s
+   350K .......... .......... .......... .......... .......... 53%  548M 0s
+   400K .......... .......... .......... .......... .......... 60%  288M 0s
+   450K .......... .......... .......... .......... .......... 66% 70.7M 0s
+   500K .......... .......... .......... .......... .......... 73%  328M 0s
+   550K .......... .......... .......... .......... .......... 80%  345M 0s
+   600K .......... .......... .......... .......... .......... 86%  311M 0s
+   650K .......... .......... .......... .......... .......... 93%  491M 0s
+   700K .......... .......... .......... .......... ......... 100%  390M=0.003s
+
+2026-11-06 08:50:34 (211 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/2f6f71c6d5595f7f3ef215819961aeb0-scaled.jpg' saved [766979/766979]
+
+--2026-11-06 08:50:34--  https://elgarom.ro/wp-content/uploads/2024/06/2f6f71c6d5595f7f3ef215819961aeb0-300x200.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 17487 (17K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/2f6f71c6d5595f7f3ef215819961aeb0-300x200.jpg'
+
+     0K .......... .......                                    100% 55.7M=0s
+
+2026-11-06 08:50:34 (55.7 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/2f6f71c6d5595f7f3ef215819961aeb0-300x200.jpg' saved [17487/17487]
+
+--2026-11-06 08:50:34--  https://elgarom.ro/wp-content/uploads/2024/06/2f6f71c6d5595f7f3ef215819961aeb0-1024x682.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 150122 (147K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/2f6f71c6d5595f7f3ef215819961aeb0-1024x682.jpg'
+
+     0K .......... .......... .......... .......... .......... 34% 18.4M 0s
+    50K .......... .......... .......... .......... .......... 68% 22.7M 0s
+   100K .......... .......... .......... .......... ......    100% 29.4M=0.006s
+
+2026-11-06 08:50:35 (22.5 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/2f6f71c6d5595f7f3ef215819961aeb0-1024x682.jpg' saved [150122/150122]
+
+--2026-11-06 08:50:35--  https://elgarom.ro/wp-content/uploads/2024/06/2f6f71c6d5595f7f3ef215819961aeb0-768x511.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 89921 (88K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/2f6f71c6d5595f7f3ef215819961aeb0-768x511.jpg'
+
+     0K .......... .......... .......... .......... .......... 56% 5.67M 0s
+    50K .......... .......... .......... .......              100%  199M=0.009s
+
+2026-11-06 08:50:35 (9.75 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/2f6f71c6d5595f7f3ef215819961aeb0-768x511.jpg' saved [89921/89921]
+
+--2026-11-06 08:50:35--  https://elgarom.ro/wp-content/uploads/2024/06/2f6f71c6d5595f7f3ef215819961aeb0-1536x1022.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 307022 (300K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/2f6f71c6d5595f7f3ef215819961aeb0-1536x1022.jpg'
+
+     0K .......... .......... .......... .......... .......... 16%  100M 0s
+    50K .......... .......... .......... .......... .......... 33%  337M 0s
+   100K .......... .......... .......... .......... .......... 50% 17.9M 0s
+   150K .......... .......... .......... .......... .......... 66% 17.1M 0s
+   200K .......... .......... .......... .......... .......... 83% 22.7M 0s
+   250K .......... .......... .......... .......... ......... 100% 35.0M=0.01s
+
+2026-11-06 08:50:35 (30.0 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/2f6f71c6d5595f7f3ef215819961aeb0-1536x1022.jpg' saved [307022/307022]
+
+--2026-11-06 08:50:35--  https://elgarom.ro/wp-content/uploads/2024/06/2f6f71c6d5595f7f3ef215819961aeb0-2048x1363.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 513788 (502K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/2f6f71c6d5595f7f3ef215819961aeb0-2048x1363.jpg'
+
+     0K .......... .......... .......... .......... ..........  9% 9.66M 0s
+    50K .......... .......... .......... .......... .......... 19% 75.0M 0s
+   100K .......... .......... .......... .......... .......... 29% 23.2M 0s
+   150K .......... .......... .......... .......... .......... 39% 55.6M 0s
+   200K .......... .......... .......... .......... .......... 49% 19.1M 0s
+   250K .......... .......... .......... .......... .......... 59% 72.0M 0s
+   300K .......... .......... .......... .......... .......... 69%  164M 0s
+   350K .......... .......... .......... .......... .......... 79% 37.8M 0s
+   400K .......... .......... .......... .......... .......... 89% 94.2M 0s
+   450K .......... .......... .......... .......... .......... 99% 13.1M 0s
+   500K .                                                     100% 3.25T=0.02s
+
+2026-11-06 08:50:35 (27.6 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/2f6f71c6d5595f7f3ef215819961aeb0-2048x1363.jpg' saved [513788/513788]
+
+--2026-11-06 08:50:35--  https://elgarom.ro/wp-content/uploads/2024/06/e69cf76ddbe860f3942fa82c49fb0944-scaled.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 492532 (481K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/e69cf76ddbe860f3942fa82c49fb0944-scaled.jpg'
+
+     0K .......... .......... .......... .......... .......... 10% 14.4M 0s
+    50K .......... .......... .......... .......... .......... 20% 5.00M 0s
+   100K .......... .......... .......... .......... .......... 31% 17.3M 0s
+   150K .......... .......... .......... .......... .......... 41% 26.6M 0s
+   200K .......... .......... .......... .......... .......... 51% 16.4M 0s
+   250K .......... .......... .......... .......... .......... 62% 53.4M 0s
+   300K .......... .......... .......... .......... .......... 72% 17.5M 0s
+   350K .......... .......... .......... .......... .......... 83% 95.0M 0s
+   400K .......... .......... .......... .......... .......... 93% 34.8M 0s
+   450K .......... .......... ..........                      100% 24.8M=0.03s
+
+2026-11-06 08:50:35 (17.0 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/e69cf76ddbe860f3942fa82c49fb0944-scaled.jpg' saved [492532/492532]
+
+--2026-11-06 08:50:35--  https://elgarom.ro/wp-content/uploads/2024/06/e69cf76ddbe860f3942fa82c49fb0944-300x200.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 16701 (16K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/e69cf76ddbe860f3942fa82c49fb0944-300x200.jpg'
+
+     0K .......... ......                                     100%  104M=0s
+
+2026-11-06 08:50:35 (104 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/e69cf76ddbe860f3942fa82c49fb0944-300x200.jpg' saved [16701/16701]
+
+--2026-11-06 08:50:35--  https://elgarom.ro/wp-content/uploads/2024/06/e69cf76ddbe860f3942fa82c49fb0944-1024x682.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 119172 (116K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/e69cf76ddbe860f3942fa82c49fb0944-1024x682.jpg'
+
+     0K .......... .......... .......... .......... .......... 42% 49.3M 0s
+    50K .......... .......... .......... .......... .......... 85% 47.0M 0s
+   100K .......... ......                                     100% 7.97M=0.004s
+
+2026-11-06 08:50:36 (28.2 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/e69cf76ddbe860f3942fa82c49fb0944-1024x682.jpg' saved [119172/119172]
+
+--2026-11-06 08:50:36--  https://elgarom.ro/wp-content/uploads/2024/06/e69cf76ddbe860f3942fa82c49fb0944-768x511.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 75718 (74K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/e69cf76ddbe860f3942fa82c49fb0944-768x511.jpg'
+
+     0K .......... .......... .......... .......... .......... 67% 18.6M 0s
+    50K .......... .......... ...                             100%  145M=0.003s
+
+2026-11-06 08:50:36 (25.9 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/e69cf76ddbe860f3942fa82c49fb0944-768x511.jpg' saved [75718/75718]
+
+--2026-11-06 08:50:36--  https://elgarom.ro/wp-content/uploads/2024/06/e69cf76ddbe860f3942fa82c49fb0944-1536x1022.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 222483 (217K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/e69cf76ddbe860f3942fa82c49fb0944-1536x1022.jpg'
+
+     0K .......... .......... .......... .......... .......... 23% 21.6M 0s
+    50K .......... .......... .......... .......... .......... 46% 49.2M 0s
+   100K .......... .......... .......... .......... .......... 69% 13.2M 0s
+   150K .......... .......... .......... .......... .......... 92% 14.6M 0s
+   200K .......... .......                                    100%  348M=0.01s
+
+2026-11-06 08:50:36 (20.5 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/e69cf76ddbe860f3942fa82c49fb0944-1536x1022.jpg' saved [222483/222483]
+
+--2026-11-06 08:50:36--  https://elgarom.ro/wp-content/uploads/2024/06/e69cf76ddbe860f3942fa82c49fb0944-2048x1363.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 346734 (339K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/e69cf76ddbe860f3942fa82c49fb0944-2048x1363.jpg'
+
+     0K .......... .......... .......... .......... .......... 14%  207M 0s
+    50K .......... .......... .......... .......... .......... 29% 24.2M 0s
+   100K .......... .......... .......... .......... .......... 44% 7.67M 0s
+   150K .......... .......... .......... .......... .......... 59%  239M 0s
+   200K .......... .......... .......... .......... .......... 73% 14.6M 0s
+   250K .......... .......... .......... .......... .......... 88%  316M 0s
+   300K .......... .......... .......... ........             100%  322M=0.01s
+
+2026-11-06 08:50:36 (26.6 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/e69cf76ddbe860f3942fa82c49fb0944-2048x1363.jpg' saved [346734/346734]
+
+--2026-11-06 08:50:36--  https://elgarom.ro/wp-content/uploads/2024/06/3e8fe1fc57d8f207e8891e97aa76b6a8-scaled.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 515458 (503K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/3e8fe1fc57d8f207e8891e97aa76b6a8-scaled.jpg'
+
+     0K .......... .......... .......... .......... ..........  9% 22.5M 0s
+    50K .......... .......... .......... .......... .......... 19% 36.2M 0s
+   100K .......... .......... .......... .......... .......... 29% 13.7M 0s
+   150K .......... .......... .......... .......... .......... 39% 25.4M 0s
+   200K .......... .......... .......... .......... .......... 49% 15.7M 0s
+   250K .......... .......... .......... .......... .......... 59% 24.9M 0s
+   300K .......... .......... .......... .......... .......... 69% 17.4M 0s
+   350K .......... .......... .......... .......... .......... 79%  215M 0s
+   400K .......... .......... .......... .......... .......... 89%  361M 0s
+   450K .......... .......... .......... .......... .......... 99% 28.3M 0s
+   500K ...                                                   100% 6.29T=0.02s
+
+2026-11-06 08:50:36 (25.9 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/3e8fe1fc57d8f207e8891e97aa76b6a8-scaled.jpg' saved [515458/515458]
+
+--2026-11-06 08:50:36--  https://elgarom.ro/wp-content/uploads/2024/06/3e8fe1fc57d8f207e8891e97aa76b6a8-300x193.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 13622 (13K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/3e8fe1fc57d8f207e8891e97aa76b6a8-300x193.jpg'
+
+     0K .......... ...                                        100%  358M=0s
+
+2026-11-06 08:50:36 (358 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/3e8fe1fc57d8f207e8891e97aa76b6a8-300x193.jpg' saved [13622/13622]
+
+--2026-11-06 08:50:36--  https://elgarom.ro/wp-content/uploads/2024/06/3e8fe1fc57d8f207e8891e97aa76b6a8-1024x660.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 104966 (103K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/3e8fe1fc57d8f207e8891e97aa76b6a8-1024x660.jpg'
+
+     0K .......... .......... .......... .......... .......... 48% 46.9M 0s
+    50K .......... .......... .......... .......... .......... 97%  346M 0s
+   100K ..                                                    100% 93.0M=0.001s
+
+2026-11-06 08:50:36 (82.8 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/3e8fe1fc57d8f207e8891e97aa76b6a8-1024x660.jpg' saved [104966/104966]
+
+--2026-11-06 08:50:36--  https://elgarom.ro/wp-content/uploads/2024/06/3e8fe1fc57d8f207e8891e97aa76b6a8-768x495.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 63885 (62K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/3e8fe1fc57d8f207e8891e97aa76b6a8-768x495.jpg'
+
+     0K .......... .......... .......... .......... .......... 80% 13.7M 0s
+    50K .......... ..                                         100% 11.2M=0.005s
+
+2026-11-06 08:50:37 (13.2 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/3e8fe1fc57d8f207e8891e97aa76b6a8-768x495.jpg' saved [63885/63885]
+
+--2026-11-06 08:50:37--  https://elgarom.ro/wp-content/uploads/2024/06/3e8fe1fc57d8f207e8891e97aa76b6a8-1536x990.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 212524 (208K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/3e8fe1fc57d8f207e8891e97aa76b6a8-1536x990.jpg'
+
+     0K .......... .......... .......... .......... .......... 24% 32.1M 0s
+    50K .......... .......... .......... .......... .......... 48% 26.7M 0s
+   100K .......... .......... .......... .......... .......... 72% 21.4M 0s
+   150K .......... .......... .......... .......... .......... 96% 33.0M 0s
+   200K .......                                               100%  450M=0.007s
+
+2026-11-06 08:50:37 (28.4 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/3e8fe1fc57d8f207e8891e97aa76b6a8-1536x990.jpg' saved [212524/212524]
+
+--2026-11-06 08:50:37--  https://elgarom.ro/wp-content/uploads/2024/06/3e8fe1fc57d8f207e8891e97aa76b6a8-2048x1320.jpg
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 352023 (344K) [image/jpeg]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/2024/06/3e8fe1fc57d8f207e8891e97aa76b6a8-2048x1320.jpg'
+
+     0K .......... .......... .......... .......... .......... 14% 46.8M 0s
+    50K .......... .......... .......... .......... .......... 29% 19.7M 0s
+   100K .......... .......... .......... .......... .......... 43% 13.2M 0s
+   150K .......... .......... .......... .......... .......... 58% 11.2M 0s
+   200K .......... .......... .......... .......... .......... 72% 63.3M 0s
+   250K .......... .......... .......... .......... .......... 87% 53.1M 0s
+   300K .......... .......... .......... .......... ...       100% 69.2M=0.01s
+
+2026-11-06 08:50:37 (24.2 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/2024/06/3e8fe1fc57d8f207e8891e97aa76b6a8-2048x1320.jpg' saved [352023/352023]
+
+--2026-11-06 08:50:37--  https://elgarom.ro/wp-content/uploads/elementor/css/post-24.css?ver=1793634459
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 22675 (22K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/elementor/css/post-24.css?ver=1793634459.css'
+
+     0K .......... .......... ..                              100% 19.0M=0.001s
+
+2026-11-06 08:50:37 (19.0 MB/s) - 'mirror/elgarom.ro/wp-content/uploads/elementor/css/post-24.css?ver=1793634459.css' saved [22675/22675]
+
+--2026-11-06 08:50:37--  https://elgarom.ro/wp-content/uploads/elementor/css/custom-widget-icon-box.min.css?ver=1793628042
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 4753 (4.6K) [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/uploads/elementor/css/custom-widget-icon-box.min.css?ver=1793628042.css'
+
+     0K ....                                                  100% 5.86G=0s
+
+2026-11-06 08:50:37 (5.86 GB/s) - 'mirror/elgarom.ro/wp-content/uploads/elementor/css/custom-widget-icon-box.min.css?ver=1793628042.css' saved [4753/4753]
+
+--2026-11-06 08:50:37--  https://elgarom.ro/wp-content/plugins/elementor/assets/css/widget-google_maps.min.css?ver=3.34.2
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: 261 [text/css]
+Saving to: 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/css/widget-google_maps.min.css?ver=3.34.2.css'
+
+     0K                                                       100%  298M=0s
+
+2026-11-06 08:50:37 (298 MB/s) - 'mirror/elgarom.ro/wp-content/plugins/elementor/assets/css/widget-google_maps.min.css?ver=3.34.2.css' saved [261/261]
+
+--2026-11-06 08:50:37--  https://elgarom.ro/?p=24
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 301 Moved Permanently
+Location: https://elgarom.ro/contact [following]
+--2026-11-06 08:50:38--  https://elgarom.ro/contact
+Reusing existing connection to elgarom.ro:443.
+Proxy request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: 'mirror/elgarom.ro/index.html?p=24.html'
+
+     0K .......... .......... .......... .......... .......... 15.4M
+    50K .......... .......... .......... .......... .......... 3.23M
+   100K .......... ...                                          238M=0.02s
+
+Last-modified header missing -- time-stamps turned off.
+2026-11-06 08:50:38 (6.03 MB/s) - 'mirror/elgarom.ro/index.html?p=24.html' saved [116189]
+
+FINISHED --2026-11-06 08:50:38--
+Total wall clock time: 31s
+Downloaded: 155 files, 24M in 2.5s (9.72 MB/s)
+Converting links in mirror/elgarom.ro/index.html... 87.
+86-1
+Converting links in mirror/elgarom.ro/index.html?p=11.html... 116.
+115-1
+Converting links in mirror/elgarom.ro/index.html?p=19.html... 99.
+98-1
+Converting links in mirror/elgarom.ro/index.html?p=24.html... 67.
+66-1
+Converting links in mirror/elgarom.ro/contact.html... 67.
+66-1
+Converting links in mirror/elgarom.ro/despre-noi.html... 116.
+115-1
+Converting links in mirror/elgarom.ro/tehnologie.html... 99.
+98-1
+Converting links in mirror/elgarom.ro/wp-content/uploads/elementor/css/post-616.css?ver=1793628042.css... nothing to do.
+Converting links in mirror/elgarom.ro/wp-content/uploads/elementor/css/custom-widget-icon-list.min.css?ver=1793628042.css... nothing to do.
+Converting links in mirror/elgarom.ro/wp-content/uploads/elementor/css/post-281.css?ver=1793628042.css... nothing to do.
+Converting links in mirror/elgarom.ro/wp-content/themes/royal-elementor-kit/style.css?ver=1.0.css... nothing to do.
+Converting links in mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/frontend.min.css?ver=1.7.1045.css... nothing to do.
+Converting links in mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/lib/animations/button-animations.min.css?ver=1.7.1045.css... nothing to do.
+Converting links in mirror/elgarom.ro/wp-content/uploads/elementor/css/post-824.css?ver=1793628042.css... 2.
+2-0
+Converting links in mirror/elgarom.ro/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=3.34.2.css... nothing to do.
+Converting links in mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/lib/animations/loading-animations.min.css?ver=1.7.1045.css... nothing to do.
+Converting links in mirror/elgarom.ro/wp-content/uploads/elementor/css/post-6.css?ver=1793628042.css... nothing to do.
+Converting links in mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/lib/animations/wpr-link-animations.min.css?ver=1.7.1045.css... nothing to do.
+Converting links in mirror/elgarom.ro/wp-content/uploads/elementor/css/post-11.css?ver=1793634205.css... 1.
+1-0
+Converting links in mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/lib/animations/text-animations.min.css?ver=1.7.1045.css... nothing to do.
+Converting links in mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css?ver=8.4.5.css... nothing to do.
+Converting links in mirror/elgarom.ro/wp-content/uploads/elementor/css/post-551.css?ver=1793628669.css... nothing to do.
+Converting links in mirror/elgarom.ro/wp-content/uploads/elementor/css/post-19.css?ver=1793628669.css... 1.
+1-0
+Converting links in mirror/elgarom.ro/wp-content/uploads/elementor/css/post-275.css?ver=1793628042.css... nothing to do.
+Converting links in mirror/elgarom.ro/wp-content/uploads/elementor/css/custom-frontend.min.css?ver=1793628042.css... nothing to do.
+Converting links in mirror/elgarom.ro/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min.css?ver=3.34.2.css... nothing to do.
+Converting links in mirror/elgarom.ro/wp-content/plugins/elementor/assets/css/widget-google_maps.min.css?ver=3.34.2.css... nothing to do.
+Converting links in mirror/elgarom.ro/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=3.34.2.css... nothing to do.
+Converting links in mirror/elgarom.ro/wp-content/uploads/elementor/css/custom-widget-icon-box.min.css?ver=1793628042.css... nothing to do.
+Converting links in mirror/elgarom.ro/wp-content/uploads/elementor/css/post-24.css?ver=1793634459.css... 1.
+1-0
+Converting links in mirror/elgarom.ro/wp-content/plugins/royal-elementor-addons/assets/css/lib/animations/wpr-animations.min.css?ver=1.7.1045.css... nothing to do.
+Converting links in mirror/elgarom.ro/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=1.7.1045.css... 18.
+18-0
+Converting links in mirror/elgarom.ro/wp-content/uploads/elementor/css/custom-widget-image-gallery.min.css?ver=1793628042.css... nothing to do.
+Converting links in mirror/elgarom.ro/wp-content/plugins/elementor/assets/css/widget-divider.min.css?ver=3.34.2.css... nothing to do.
+Converted links in 34 files in 0.02 seconds.

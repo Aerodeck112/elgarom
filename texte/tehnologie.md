@@ -1,0 +1,29 @@
+# Tehnologie
+
+URL: https://elgarom.ro/tehnologie
+
+Tehnologie
+
+					Furnizorul dumneavoastră de servicii pentru acoperirea suprafețelor
+
+									Linia de zincare ELGAROM este o linie complexă care are posibilitatea constructivă de a executa procese de zincare electrolitică slab acidă, întreg procesul fiind unul automatizat.
+Monitorizarea electronică a parametrilor tehnologici ai procesului de zincare electrolitică asigură depunerea controlată a stratului de zinc pentru ca toată suprafața zincată a piesei să corespundă cerințelor tehnologice.
+Pe dispozitive piesele zincate pot avea dimensiuni de până la 1900x1200x450 mm, în timp ce tamburii au o capacitate maximă de încărcare cu piese de 100 kg.
+Soluțiile chimice utilizate în procesul de zincare slab acidă conțin un sistem performant de agenți de luciu, soluții de pasivare și top coating, toate pentru a obține rezistență foarte bună la coroziune.
+
+					Linia de zincare electrolitică
+
+									Linia de zincare electrolitică ELGAROM este una dintre cele mai performante linii de zincare din România, proiectată și construită împreună cu parteneri cu renume la nivel european, cu peste 40 de ani experiență în acest domeniu .
+Întreg procesul de zincare este unul automatizat, intervenția umană fiind redusă la minimum datorită sistemelor complexe care alcătuiesc , supraveghează și coordonează funcționarea echipamentelor.
+
+					Stația de epurare și neutralizare a apelor reziduale colectate
+
+									Stația de epurare și neutralizare a apelor reziduale acido-alcaline colectate în urma procesului de zincare asigură o tratare chimică automatizată, intervenția umană fiind redusă la minimum datorită monitorizării electronice prin intermediul calculatorului de proces asigurând extragerea din apa deversată a elementelor chimice dăunătoare mediului astfel încât aceasta să corespundă normelor de mediu aflate în vigoare arătând în acest fel grija companiei noastre pentru protejarea mediului înconjurător.
+
+					Laboratorul chimic
+
+									Laboratorul chimic din cadrul ELGAROM este dotat cu echipamente care asigură posibilitatea efectuării de analize chimice pentru determinarea concentrației diferitelor componente chimice aflate în băile active ale liniei de zincare, analize chimice și spectrofotometrice pentru apele tratate și evacuate în rețeaua de canal a orașului, respectiv determinări ale grosimii de strat de zinc depuse.
+
+					Linia de centrifuge pentru aplicarea tratamentului de sigilare (topcoating) pentru piese mici
+
+									Produsele mici zincate si pasivizate sunt supuse unui proces de sigilare a suprafeței prin care se mărește rezistența la coroziune a pieselor. Tratamentul de sigilare constă în imersarea pieselor într-o soluție chimică urmată de un proces de scurgere, centrifugare și în final de uscare (polimerizare) a soluției aplicate pe piese.

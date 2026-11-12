@@ -21,7 +21,9 @@
         {{-- Legal data is printed only after an administrator has confirmed it. --}}
         @if ($group?->legal_confirmed_at)<p>@if ($group->tax_id)CUI {{ $group->tax_id }}@endif @if ($group->reg_no)· Nr. Reg. Com. {{ $group->reg_no }}@endif<br>{{ $group->fullAddress() }}</p>@endif</div>
     <div><h2>Companii</h2><ul>@foreach ($companies ?? [] as $c)@if ($c->website)<li><a href="{{ safe_url($c->website) }}" rel="noopener">{{ $c->name }}</a></li>@endif @endforeach</ul></div>
+    @if (setting('site.contact_email') || setting('site.contact_phone') || filled(setting('site.privacy')))
     <div><h2>Contact</h2><ul>@if (setting('site.contact_email'))<li><a href="mailto:{{ setting('site.contact_email') }}">{{ setting('site.contact_email') }}</a></li>@endif @if (setting('site.contact_phone'))<li>{{ setting('site.contact_phone') }}</li>@endif
         @if (filled(setting('site.privacy')))<li><a href="{{ route('privacy') }}">Politica de confidențialitate</a></li>@endif</ul></div>
+    @endif
 </div><div class="wrap ftr__base">© {{ date('Y') }} {{ $group?->legal_name ?: 'GRUP SIMEX SRL' }}</div></footer>
 </body></html>

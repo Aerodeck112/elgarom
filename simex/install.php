@@ -168,7 +168,7 @@ if ($step === 'install' && ! $errors) {
         'admin_email' => strtolower(trim((string) ($_POST['admin_email'] ?? ''))),
         'admin_pass' => (string) ($_POST['admin_pass'] ?? ''),
         'admin_pass2' => (string) ($_POST['admin_pass2'] ?? ''),
-        'notify' => strtolower(trim((string) ($_POST['notify'] ?? ''))),
+        'notify' => '',
     ];
     if ($blocking) {
         $errors[] = 'Serverul nu îndeplinește cerințele obligatorii.';
@@ -203,7 +203,7 @@ if ($step === 'install' && ! $errors) {
             $key = 'base64:'.base64_encode(random_bytes(32));
             $https = str_starts_with($d['app_url'], 'https://');
             $env = implode("\n", [
-                'APP_NAME=GRUP SIMEX', 'APP_ENV=production', 'APP_KEY='.$key, 'APP_DEBUG=false', 'APP_URL='.$d['app_url'],
+                'APP_NAME="GRUP SIMEX"', 'APP_ENV=production', 'APP_KEY='.$key, 'APP_DEBUG=false', 'APP_URL='.$d['app_url'],
                 'APP_LOCALE=ro', 'APP_FALLBACK_LOCALE=ro', 'APP_TIMEZONE=Europe/Bucharest',
                 'LOG_CHANNEL=daily', 'LOG_LEVEL=warning', 'LOG_DAILY_DAYS=30',
                 'DB_CONNECTION=mysql', 'DB_HOST='.env_value($d['db_host']), 'DB_PORT='.$d['db_port'], 'DB_DATABASE='.env_value($d['db_name']),
@@ -225,17 +225,14 @@ if ($step === 'install' && ! $errors) {
             Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
             $log[] = 'Tabelele bazei de date au fost create.';
             Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
-            $log[] = 'Conținutul inițial (pagini, servicii, imagini, redirect-uri) a fost importat.';
+            $log[] = 'Datele de referință (companiile grupului, utilajele, operațiile) au fost create. Fără prețuri sau tarife.';
 
-            $user = new App\Models\User(['name' => $d['admin_name'], 'email' => $d['admin_email'], 'role' => 'admin', 'is_active' => true]);
+            $user = new App\Models\User(['name' => $d['admin_name'], 'email' => $d['admin_email'], 'role' => 'super_admin', 'is_active' => true]);
             $user->password = Illuminate\Support\Facades\Hash::make($d['admin_pass']);
             $user->password_changed_at = now();
             $user->save();
             $log[] = 'Administratorul '.$d['admin_email'].' a fost creat. La prima autentificare configurați 2FA.';
 
-            if ($d['notify'] !== '') {
-                App\Models\Setting::put('notifications.recipients', [$d['notify']]);
-            }
             file_put_contents($ROOT.'/storage/app/private/health.token', bin2hex(random_bytes(24)));
             App\Models\AuditLog::record('instalare.finalizata', $user, ['versiune' => config('simex.version')], $user->id);
 
@@ -271,11 +268,17 @@ if ($step === 'install' && ! $errors) {
                 $html .= '<tr><td><code>'.e($p).'</code> ('.e($exp).')</td><td>'.e((string) $c).'</td><td class="'.($ok ? 'ok' : 'bad').'">'.($ok ? 'OK' : 'VERIFICAȚI').'</td></tr>';
             }
             $php = e(PHP_BINARY && ! str_contains(PHP_BINARY, 'fpm') ? PHP_BINARY : '/usr/local/bin/php');
-            $html .= '</table><p class="hint">Dacă /.env răspunde cu 200, mutați documentul rădăcină al domeniului pe directorul <code>public</code> (cPanel → Domains) – vezi docs/INSTALARE.md.</p>
+            $html .= '</table><p class="hint">Dacă /.env răspunde cu 200, mutați documentul rădăcină al domeniului pe directorul <code>public</code> (cPanel → Domains) – vezi docs/DEPLOYMENT_CPANEL.md.</p>
             <h2>Pas obligatoriu: cron</h2><p>În cPanel → Cron Jobs, adăugați o sarcină care rulează în fiecare minut:</p>
             <p><code>* * * * * '.$php.' '.e($ROOT).'/artisan schedule:run &gt;/dev/null 2&gt;&amp;1</code></p>
             <p class="hint">Cron-ul trimite emailurile din coadă și le reîncearcă, face backup zilnic și aplică retenția datelor. Fără cron, emailurile se reîncearcă doar la vizitele în administrare.</p>
-            <h2>Următorii pași</h2><ol><li><a href="'.e($d['app_url']).'/admin">Autentificați-vă în administrare</a> și configurați 2FA.</li><li>Configurați SMTP (Administrare → SMTP și notificări) și trimiteți un email de test.</li><li>Completați lista „De completat” din panoul principal.</li><li>Creați primul backup (Administrare → Backup).</li></ol>';
+            <h2>Următorii pași</h2><ol>
+            <li><a href="'.e($d['app_url']).'/crm">Autentificați-vă în platformă</a> (adresa: <code>/crm</code>) și configurați 2FA cu o aplicație de autentificare.</li>
+            <li>Calcul de costuri → Modele Excel: încărcați cele 5 fișiere Excel de calcul. Fiecare este validat automat și apoi îl activați.</li>
+            <li>Administrare → Companiile grupului: completați și confirmați datele juridice ale emitenților, încărcați siglele.</li>
+            <li>Bibliotecă → Utilaje: introduceți tarifele orare. Configurări: curs, TVA, praguri de marjă.</li>
+            <li>Administrare → SMTP și email: configurați serverul și trimiteți un email de test.</li>
+            <li>Administrare → Utilizatori: creați conturile colegilor, cu rolul potrivit.</li></ol>';
             session_destroy();
             page('Instalare finalizată', $html);
             exit;
@@ -308,7 +311,6 @@ if ($blocking) {
     <h2>5. Administrator</h2><div class="grid"><div><label for="admin_name">Nume</label><input id="admin_name" name="admin_name" value="'.$v('admin_name').'" required></div><div><label for="admin_email">Email</label><input id="admin_email" name="admin_email" type="email" value="'.$v('admin_email').'" required></div>
     <div><label for="admin_pass">Parolă</label><input id="admin_pass" name="admin_pass" type="password" minlength="12" required></div><div><label for="admin_pass2">Confirmare parolă</label><input id="admin_pass2" name="admin_pass2" type="password" minlength="12" required></div></div>
     <p class="hint">Minimum 12 caractere, cu litere mari, mici și cifre. La prima autentificare se configurează obligatoriu 2FA.</p>
-    <label for="notify">Email pentru notificări cereri noi <span class="hint">(opțional)</span></label><input id="notify" name="notify" type="email" value="'.$v('notify', 'vanzari@domeniu.ro').'">
     <button type="submit">Instalează</button></form>';
 }
 page('Instalare GRUP SIMEX', $body);

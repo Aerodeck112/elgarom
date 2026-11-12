@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('website')->nullable();
             $table->string('logo_path')->nullable();
+            $table->boolean('logo_on_dark')->default(false);
             $table->string('accent_color', 9)->nullable();
             $table->boolean('show_on_site')->default(true);
             $table->boolean('is_issuer')->default(false);

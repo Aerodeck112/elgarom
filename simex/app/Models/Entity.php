@@ -9,7 +9,7 @@ class Entity extends Model
 {
     protected $guarded = ['id'];
 
-    protected $casts = ['show_on_site' => 'boolean', 'is_issuer' => 'boolean', 'legal_confirmed_at' => 'datetime'];
+    protected $casts = ['show_on_site' => 'boolean', 'logo_on_dark' => 'boolean', 'is_issuer' => 'boolean', 'legal_confirmed_at' => 'datetime'];
 
     public function templates()
     {

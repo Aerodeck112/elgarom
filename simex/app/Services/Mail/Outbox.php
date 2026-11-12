@@ -4,8 +4,8 @@ namespace App\Services\Mail;
 
 use App\Models\MailOutbox;
 use App\Models\Quote;
-use App\Services\Quotes\QuotePdf;
 use App\Models\Setting;
+use App\Services\Quotes\QuotePdf;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;

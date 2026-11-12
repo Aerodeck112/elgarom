@@ -4,6 +4,7 @@ namespace Tests\Unit\Calc;
 
 use App\Calc\Engine\CalcException;
 use App\Calc\Engine\ExcelError;
+use App\Calc\Engine\FormulaParser;
 use App\Calc\Engine\Workbook;
 use PHPUnit\Framework\TestCase;
 
@@ -16,7 +17,7 @@ class EngineTest extends TestCase
         $maxR = $maxC = 1;
         foreach ($cells as $addr => $v) {
             preg_match('/^([A-Z]+)(\d+)$/', $addr, $m);
-            $c = \App\Calc\Engine\FormulaParser::colToNum($m[1]);
+            $c = FormulaParser::colToNum($m[1]);
             $r = (int) $m[2];
             $rows[$r][$c] = is_string($v) && str_starts_with($v, '=') ? ['f' => substr($v, 1), 'v' => null] : (is_int($v) ? (float) $v : $v);
             $maxR = max($maxR, $r);

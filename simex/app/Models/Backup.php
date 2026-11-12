@@ -10,7 +10,13 @@ class Backup extends Model
 
     protected $casts = ['verified_at' => 'datetime'];
 
-    public function creator() { return $this->belongsTo(User::class, 'created_by'); }
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 
-    public function absolutePath(): string { return storage_path('app/private/backups/'.$this->filename); }
+    public function absolutePath(): string
+    {
+        return storage_path('app/private/backups/'.$this->filename);
+    }
 }

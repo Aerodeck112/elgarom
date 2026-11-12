@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             // Official logos available from verified sources; the others are uploaded by an administrator.
             if ($logo && ! $entity->logo_path && is_file(database_path('seed-logos/'.$logo))) {
                 Storage::disk('local')->put('logos/'.$logo, file_get_contents(database_path('seed-logos/'.$logo)));
-                $entity->update(['logo_path' => 'logos/'.$logo]);
+                $entity->update(['logo_path' => 'logos/'.$logo, 'logo_on_dark' => $code === 'argento']);
             }
         }
 

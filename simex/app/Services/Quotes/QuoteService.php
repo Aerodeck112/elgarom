@@ -3,6 +3,7 @@
 namespace App\Services\Quotes;
 
 use App\Models\Calculation;
+use App\Models\Entity;
 use App\Models\Quote;
 use App\Models\QuoteItem;
 use App\Models\User;
@@ -123,7 +124,7 @@ final class QuoteService
         return [
             'formula_version' => self::FORMULA_VERSION,
             'frozen_at' => now()->toIso8601String(),
-            'issuer' => $e->only(['code', 'name', 'legal_name', 'tax_id', 'reg_no', 'address', 'city', 'county', 'postal_code', 'country', 'phone', 'email', 'website', 'bank', 'iban', 'accent_color', 'logo_path']),
+            'issuer' => $e->only(['code', 'name', 'legal_name', 'tax_id', 'reg_no', 'address', 'city', 'county', 'postal_code', 'country', 'phone', 'email', 'website', 'bank', 'iban', 'accent_color', 'logo_path', 'logo_on_dark']),
             'client' => $c->only(['name', 'legal_name', 'tax_id', 'reg_no', 'address', 'city', 'county', 'postal_code', 'country']),
             'contact' => $quote->contact ? ['name' => $quote->contact->fullName(), 'position' => $quote->contact->position, 'email' => $quote->contact->email, 'phone' => $quote->contact->phone] : null,
             'owner' => $quote->owner ? ['name' => $quote->owner->name, 'email' => $quote->owner->email, 'phone' => $quote->owner->phone, 'job_title' => $quote->owner->job_title] : null,
@@ -144,7 +145,7 @@ final class QuoteService
 
     public function create(array $data, User $user): Quote
     {
-        $entity = \App\Models\Entity::findOrFail($data['entity_id']);
+        $entity = Entity::findOrFail($data['entity_id']);
 
         return Quote::create($data + [
             'number' => Numbering::next('quote-'.$entity->code, $entity->quote_prefix ?: 'OF'), 'revision' => 0, 'status' => 'ciorna', 'owner_id' => $user->id,

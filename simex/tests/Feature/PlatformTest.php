@@ -203,6 +203,8 @@ class PlatformTest extends TestCase
         $this->post('/crm/calculator/rectificare-okamoto', ['title' => 'Placă test', 'inputs' => json_encode($inputs)])->assertRedirect();
         $calc = Calculation::firstOrFail();
         $this->assertEqualsWithDelta(1.831, $calc->hours, 0.001);
+        $this->get('/crm/calculator/laser-abkant-finisaje')->assertOk()->assertSee('calc-config')->assertSee('2 · Configurare');
+        $this->get("/crm/calcule/{$calc->id}")->assertOk()->assertSee($calc->reference);
         $this->assertNull($calc->machineCost());
         $this->assertSame(config('simex.engine_version'), $calc->results['engine_version']);
 

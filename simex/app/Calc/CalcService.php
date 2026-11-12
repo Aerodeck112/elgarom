@@ -2,6 +2,7 @@
 
 namespace App\Calc;
 
+use App\Calc\Engine\Workbook;
 use App\Calc\Engine\XlsxModelReader;
 use App\Models\CalcModelVersion;
 use App\Models\CalcParameterSet;
@@ -50,7 +51,7 @@ final class CalcService
             throw new RuntimeException('Calculatorul nu are încă un model Excel activ.');
         }
         $session = new CalcSession($def, $this->model($def, $version));
-        $session->wb->today = \App\Calc\Engine\Workbook::dateSerial(strtotime(($calcDate ?? now()->toDateString()).' 12:00:00 UTC'));
+        $session->wb->today = Workbook::dateSerial(strtotime(($calcDate ?? now()->toDateString()).' 12:00:00 UTC'));
         $paramOverrides ??= $version->activeParameterSet()?->overrides ?? [];
         if ($paramOverrides !== []) {
             $session->apply($paramOverrides, ['params']);

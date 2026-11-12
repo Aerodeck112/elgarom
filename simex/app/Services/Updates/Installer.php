@@ -3,8 +3,10 @@
 namespace App\Services\Updates;
 
 use App\Models\Backup;
+use App\Models\Page;
 use App\Models\SystemUpdate;
 use App\Services\BackupService;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -205,10 +207,10 @@ class Installer
                 return;
             }
             throw new RuntimeException('Verificarea de sănătate a răspuns cu HTTP '.$r->status().'.');
-        } catch (\Illuminate\Http\Client\ConnectionException $e) {
+        } catch (ConnectionException $e) {
             // Some hosts block loopback HTTP. Fall back to in-process checks.
             $this->log('HTTP /health inaccesibil din server ('.$e->getMessage().'); verificare internă.');
-            if (! \App\Models\Page::where('status', 'published')->exists()) {
+            if (! Page::where('status', 'published')->exists()) {
                 throw new RuntimeException('Baza de date nu conține pagini publicate după actualizare.');
             }
         } finally {

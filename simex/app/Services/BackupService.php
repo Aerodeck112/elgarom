@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use App\Models\Backup;
+use App\Models\Setting;
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use RuntimeException;
@@ -132,7 +134,7 @@ class BackupService
     {
         $pdo = DB::connection()->getPdo();
         $fh = fopen($file, 'w');
-        fwrite($fh, "-- GRUP SIMEX dump ".now()->toIso8601String()."\nSET NAMES utf8mb4;\nSET FOREIGN_KEY_CHECKS=0;\n");
+        fwrite($fh, '-- GRUP SIMEX dump '.now()->toIso8601String()."\nSET NAMES utf8mb4;\nSET FOREIGN_KEY_CHECKS=0;\n");
         $tables = [];
         foreach (DB::select('SHOW FULL TABLES WHERE Table_type = "BASE TABLE"') as $row) {
             $t = array_values((array) $row)[0];
@@ -216,7 +218,7 @@ class BackupService
                 $this->reencrypt($manifest['app_key']);
             }
             Artisan::call('migrate', ['--force' => true]);
-            \App\Models\Setting::flush();
+            Setting::flush();
             Artisan::call('optimize:clear');
         } finally {
             $zip->close();
@@ -236,7 +238,7 @@ class BackupService
         $old = new Encrypter($key, config('app.cipher'));
         foreach (DB::table('settings')->where('is_encrypted', true)->get() as $row) {
             try {
-                DB::table('settings')->where('id', $row->id)->update(['value' => \Illuminate\Support\Facades\Crypt::encryptString($old->decryptString($row->value))]);
+                DB::table('settings')->where('id', $row->id)->update(['value' => Crypt::encryptString($old->decryptString($row->value))]);
             } catch (\Throwable) {
                 DB::table('settings')->where('id', $row->id)->delete();
             }
@@ -246,7 +248,7 @@ class BackupService
             foreach (['two_factor_secret', 'two_factor_recovery_codes'] as $c) {
                 if ($u->{$c}) {
                     try {
-                        $upd[$c] = \Illuminate\Support\Facades\Crypt::encryptString($old->decryptString($u->{$c}));
+                        $upd[$c] = Crypt::encryptString($old->decryptString($u->{$c}));
                     } catch (\Throwable) {
                         $upd[$c] = null;
                         $upd['two_factor_confirmed_at'] = null;

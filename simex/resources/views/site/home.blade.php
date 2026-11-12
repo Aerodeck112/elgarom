@@ -12,7 +12,7 @@
     <div class="cards__grid">
     @foreach ($companies as $c)
         <article class="card" data-reveal style="--accent: {{ $c->accent_color ?: '#ffc40e' }}">
-            <div class="card__logo">@if ($c->logoUrl())<img src="{{ $c->logoUrl() }}" alt="Sigla {{ $c->name }}" loading="lazy">@else<span>{{ $c->name }}</span>@endif</div>
+            <div @class(['card__logo', 'card__logo--dark' => $c->logo_on_dark && $c->logo_path])>@if ($c->logoUrl())<img src="{{ $c->logoUrl() }}" alt="Sigla {{ $c->name }}" loading="lazy">@else<span>{{ $c->name }}</span>@endif</div>
             <h3>{{ $c->name }}</h3><p class="card__act">{{ $c->activity }}</p>@if ($c->description)<p>{{ $c->description }}</p>@endif
             @if ($c->website)<a class="card__link" href="{{ safe_url($c->website) }}" rel="noopener">{{ parse_url($c->website, PHP_URL_HOST) }} <span aria-hidden="true">→</span></a>@endif
         </article>

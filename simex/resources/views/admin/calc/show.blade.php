@@ -48,5 +48,6 @@
         @endif
     </aside>
 </div>
-<script type="application/json" id="calc-config">@json(['evaluateUrl' => route('admin.calc.evaluate', $def->key()), 'sheet' => $first, 'inputs' => (object) ($calc->inputs ?? []), 'variant' => $calc->variant, 'readonly' => $locked, 'calculation' => $calc->id])</script>
+@php $config = ['evaluateUrl' => route('admin.calc.evaluate', $def->key()), 'sheet' => $first, 'inputs' => (object) ($calc->inputs ?? []), 'variant' => $calc->variant, 'readonly' => $locked, 'calculation' => $calc->id]; @endphp
+<script type="application/json" id="calc-config">{!! json_encode($config, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE) !!}</script>
 @endsection

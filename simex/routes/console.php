@@ -1,13 +1,19 @@
 <?php
 
+use App\Calc\ModelRegistry;
+use App\Calc\ModelValidator;
 use App\Models\AuditLog;
+use App\Models\Backup;
+use App\Models\CalcModelVersion;
 use App\Models\User;
 use App\Services\BackupService;
 use App\Services\Mail\Outbox;
 use App\Services\Updates\Installer;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schedule;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 Artisan::command('simex:mail', function () {
@@ -29,7 +35,7 @@ Artisan::command('simex:prune', function () {
             @unlink($f);
         }
     }
-    \App\Models\AuditLog::where('created_at', '<', now()->subDays((int) setting('security.audit_days', 365)))->delete();
+    AuditLog::where('created_at', '<', now()->subDays((int) setting('security.audit_days', 365)))->delete();
     $this->info("Directoare temporare șterse: $tmp");
 })->purpose('Aplică retenția (fișiere temporare, jurnal)');
 
@@ -40,7 +46,7 @@ Artisan::command('simex:backup {--type=complet}', function (BackupService $svc) 
 })->purpose('Creează un backup verificat');
 
 Artisan::command('simex:restore {file}', function (BackupService $svc) {
-    $b = \App\Models\Backup::where('filename', basename($this->argument('file')))->first();
+    $b = Backup::where('filename', basename($this->argument('file')))->first();
     if (! $b) {
         $path = BackupService::dir().'/'.basename($this->argument('file'));
         if (! is_file($path)) {
@@ -48,7 +54,7 @@ Artisan::command('simex:restore {file}', function (BackupService $svc) {
 
             return 1;
         }
-        $b = \App\Models\Backup::create(['filename' => basename($path), 'type' => 'incarcat', 'status' => 'ok', 'size' => filesize($path), 'sha256' => hash_file('sha256', $path)]);
+        $b = Backup::create(['filename' => basename($path), 'type' => 'incarcat', 'status' => 'ok', 'size' => filesize($path), 'sha256' => hash_file('sha256', $path)]);
     }
     if (! $this->confirm('Restaurez '.$b->filename.'? Datele curente vor fi înlocuite (se face întâi un backup de siguranță).')) {
         return 0;
@@ -69,7 +75,7 @@ Artisan::command('simex:admin {email} {--name=Administrator}', function () {
     $user = User::firstOrNew(['email' => $email]);
     $user->forceFill(['name' => $user->name ?? $this->option('name'), 'role' => 'super_admin', 'is_active' => true, 'password' => Hash::make($password),
         'two_factor_secret' => null, 'two_factor_confirmed_at' => null, 'two_factor_recovery_codes' => null])->save();
-    \Illuminate\Support\Facades\DB::table('sessions')->where('user_id', $user->id)->delete();
+    DB::table('sessions')->where('user_id', $user->id)->delete();
     AuditLog::record('utilizator.admin_cli', $user, ['email' => $email]);
     $this->warn('Parolă temporară (afișată o singură dată): '.$password);
     $this->info('La autentificare se configurează din nou 2FA.');
@@ -79,7 +85,7 @@ Schedule::command('simex:mail')->everyMinute()->withoutOverlapping();
 Schedule::command('simex:prune')->dailyAt('03:10');
 Schedule::command('simex:backup')->dailyAt('02:40')->withoutOverlapping();
 
-Artisan::command('simex:modele {dir}', function (\App\Calc\ModelRegistry $registry, \App\Calc\ModelValidator $validator) {
+Artisan::command('simex:modele {dir}', function (ModelRegistry $registry, ModelValidator $validator) {
     $dir = rtrim($this->argument('dir'), '/');
     foreach ($registry->all() as $def) {
         $file = $dir.'/'.$def->file_hint;
@@ -95,9 +101,9 @@ Artisan::command('simex:modele {dir}', function (\App\Calc\ModelRegistry $regist
             continue;
         }
         $path = 'calc-models/'.$def->key().'/'.$report['sha256'].'.xlsx';
-        \Illuminate\Support\Facades\Storage::disk('local')->put($path, file_get_contents($file));
-        \App\Models\CalcModelVersion::where('model_key', $def->key())->where('status', 'activ')->where('sha256', '!=', $report['sha256'])->update(['status' => 'retras']);
-        $v = \App\Models\CalcModelVersion::updateOrCreate(['model_key' => $def->key(), 'sha256' => $report['sha256']], [
+        Storage::disk('local')->put($path, file_get_contents($file));
+        CalcModelVersion::where('model_key', $def->key())->where('status', 'activ')->where('sha256', '!=', $report['sha256'])->update(['status' => 'retras']);
+        $v = CalcModelVersion::updateOrCreate(['model_key' => $def->key(), 'sha256' => $report['sha256']], [
             'original_name' => basename($file), 'path' => $path, 'size' => filesize($file), 'status' => 'activ', 'formulas' => $report['formulas'], 'mismatches' => 0, 'report' => $report, 'activated_at' => now(),
         ]);
         AuditLog::record('model.activat_cli', $v, ['model' => $def->key(), 'formule' => $report['formulas']]);

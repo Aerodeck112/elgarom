@@ -3,6 +3,7 @@
 namespace App\Admin;
 
 use App\Calc\ModelRegistry;
+use App\Models\Company;
 use App\Models\Entity;
 use App\Models\Machine;
 use App\Models\Material;
@@ -141,7 +142,7 @@ final class Resources
                     ['name' => 'kind', 'label' => 'Tip', 'type' => 'select', 'options' => ['piesa' => 'Piesă', 'scula' => 'Ștanță / sculă', 'zincare' => 'Reper pentru zincare'], 'rules' => ['required'], 'span' => 4],
                     ['name' => 'code', 'label' => 'Cod piesă', 'type' => 'text', 'rules' => 'required|string|max:80', 'span' => 4],
                     ['name' => 'name', 'label' => 'Denumire', 'type' => 'text', 'rules' => 'required|string|max:255', 'span' => 4],
-                    ['name' => 'company_id', 'label' => 'Client', 'type' => 'select', 'options' => fn () => \App\Models\Company::orderBy('name')->pluck('name', 'id')->all(), 'span' => 6],
+                    ['name' => 'company_id', 'label' => 'Client', 'type' => 'select', 'options' => fn () => Company::orderBy('name')->pluck('name', 'id')->all(), 'span' => 6],
                     ['name' => 'project', 'label' => 'Proiect', 'type' => 'text', 'span' => 6],
                     ['name' => 'drawing_no', 'label' => 'Număr desen', 'type' => 'text', 'max' => 80, 'span' => 4],
                     ['name' => 'revision', 'label' => 'Revizie', 'type' => 'text', 'max' => 20, 'span' => 4],

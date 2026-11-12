@@ -23,8 +23,16 @@ if (PHP_SAPI !== 'cli') {
     exit(1);
 }
 $repo = dirname(__DIR__);
-$src = $repo.'/platforma';
-$buildDir = $repo.'/build/platforma';
+// --app=simex builds the GRUP SIMEX Industrial CRM; the default stays the ELGAROM website.
+$appDir = 'platforma';
+foreach ($argv as $a) { if (preg_match('/^--app=([a-z]+)$/', $a, $m)) { $appDir = $m[1]; } }
+$apps = ['platforma' => ['elgarom', 'elgarom', 'elgarom'], 'simex' => ['simex', 'simex-crm', 'simex-crm']];
+if (! isset($apps[$appDir])) { fwrite(STDERR, "Aplicație necunoscută: $appDir\n"); exit(1); }
+define('APP_CFG', $apps[$appDir][0]);   // config/<name>.php holding version and public keys
+define('APP_ID', $apps[$appDir][1]);    // "app" field of the update manifest
+define('APP_NAME', $apps[$appDir][2]);  // prefix of the produced archives
+$src = $repo.'/'.$appDir;
+$buildDir = $repo.'/build/'.$appDir;
 $dist = $repo.'/dist';
 @mkdir($dist, 0755, true);
 
@@ -90,7 +98,7 @@ function build(string $src, string $buildDir, string $version, bool $skip): void
 {
     if (! preg_match('/^\d+\.\d+\.\d+$/', $version)) { die_('Versiune invalidă: '.$version); }
     $setVersion = function () use ($buildDir, $version) {
-        $cfg = $buildDir.'/config/elgarom.php';
+        $cfg = $buildDir.'/config/'.APP_CFG.'.php';
         file_put_contents($cfg, preg_replace("/'version' => '[^']+'/", "'version' => '".$version."'", file_get_contents($cfg), 1));
     };
     if ($skip && is_dir($buildDir)) { say('Folosesc build-ul existent.'); $setVersion(); return; }
@@ -111,7 +119,7 @@ function build(string $src, string $buildDir, string $version, bool $skip): void
     run('composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction --no-progress', $buildDir);
     // strip VCS metadata and add deny rules
     // Packages installed from VCS (when dist zips are unavailable) carry tests, docs and symlinks: drop them.
-    foreach (['.git', '.github', 'tests', 'test', 'Tests', 'docs', 'doc', 'examples', 'benchmarks', '.phive'] as $junk) {
+    foreach (['.git', '.github', 'tests', 'test', 'Tests', 'docs', 'doc', 'examples', 'samples', 'test_files', 'benchmarks', '.phive'] as $junk) {
         foreach (glob($buildDir.'/vendor/*/*/'.$junk, GLOB_ONLYDIR) ?: [] as $g) { rrmdir($g); }
     }
     $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($buildDir.'/vendor', FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST);
@@ -134,7 +142,7 @@ function zip_dir(string $root, string $zipPath, array $files): void
 
 function public_keys(string $src): array
 {
-    $cfg = file_get_contents($src.'/config/elgarom.php');
+    $cfg = file_get_contents($src.'/config/'.APP_CFG.'.php');
     preg_match_all("/'([a-z0-9\-]+)' => '([A-Za-z0-9+\/=]{40,})'/", $cfg, $m, PREG_SET_ORDER);
     return array_column($m, 2, 1);
 }
@@ -144,7 +152,7 @@ switch ($cmd) {
         $dir = $pos[0] ?? die_('Indicați directorul pentru chei.');
         @mkdir($dir, 0700, true);
         $kp = sodium_crypto_sign_keypair();
-        $id = 'elgarom-release-'.date('Y');
+        $id = APP_CFG.'-release-'.date('Y');
         file_put_contents($dir.'/'.$id.'.secret', base64_encode(sodium_crypto_sign_secretkey($kp))."\n");
         chmod($dir.'/'.$id.'.secret', 0600);
         file_put_contents($dir.'/'.$id.'.public', base64_encode(sodium_crypto_sign_publickey($kp))."\n");
@@ -157,7 +165,7 @@ switch ($cmd) {
         $v = $opts['version'] ?? die_('--version lipsește');
         build($src, $buildDir, $v, isset($opts['skip-build']));
         $files = files_of($buildDir);
-        $zip = $dist.'/elgarom-'.$v.'-cpanel.zip';
+        $zip = $dist.'/'.APP_NAME.'-'.$v.'-cpanel.zip';
         zip_dir($buildDir, $zip, $files);
         $list = [];
         foreach ($files as $rel) { if (! excluded($rel, NOT_IN_UPDATE)) { $list[$rel] = hash_file('sha256', $buildDir.'/'.$rel); } }
@@ -181,7 +189,7 @@ switch ($cmd) {
         $prev = isset($opts['previous']) ? json_decode((string) file_get_contents($opts['previous']), true) : [];
         $delete = array_values(array_diff(array_keys($prev ?: []), array_keys($files)));
         $manifest = [
-            'format' => 1, 'app' => 'elgarom', 'key_id' => $keyId, 'version' => $v, 'min_from' => $min,
+            'format' => 1, 'app' => APP_ID, 'key_id' => $keyId, 'version' => $v, 'min_from' => $min,
             'php_min' => '8.3.0', 'extensions' => ['pdo_mysql', 'mbstring', 'openssl', 'sodium', 'zip', 'gd', 'fileinfo'],
             'released_at' => date('c'),
             'changelog' => isset($opts['changelog']) ? trim((string) file_get_contents($opts['changelog'])) : 'Versiunea '.$v,
@@ -190,7 +198,7 @@ switch ($cmd) {
         $json = json_encode($manifest, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         $sig = base64_encode(sodium_crypto_sign_detached($json, $secret));
         sodium_memzero($secret);
-        $zip = $dist.'/elgarom-update-'.$v.'.zip';
+        $zip = $dist.'/'.APP_NAME.'-update-'.$v.'.zip';
         @unlink($zip);
         $z = new ZipArchive();
         $z->open($zip, ZipArchive::CREATE);

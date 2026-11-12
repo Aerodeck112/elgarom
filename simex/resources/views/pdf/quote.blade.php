@@ -23,7 +23,7 @@
     .terms td { padding: 1mm 0; vertical-align: top; } .terms td:first-child { width: 42mm; color: #6b737c; } .block { page-break-inside: avoid; margin-top: 7mm; }
 </style></head><body>
 @if ($draft)<div class="draft">{{ __('quote.draft') }}</div>@endif
-<table class="head"><tr><td>@if ($logo)<img src="{{ $logo }}" alt="">@else<span class="brand">{{ $iss['name'] }}</span>@endif</td><td class="r small">{{ $iss['website'] }}<br>{{ $iss['email'] }} @if ($iss['phone'])· {{ $iss['phone'] }}@endif</td></tr></table>
+<table class="head"><tr><td>@if ($logo)@if (! empty($iss['logo_on_dark']))<span style="background:#15181b;padding:1.5mm 3mm;display:inline-block"><img src="{{ $logo }}" alt=""></span>@else<img src="{{ $logo }}" alt="">@endif @else<span class="brand">{{ $iss['name'] }}</span>@endif</td><td class="r small">{{ $iss['website'] }}<br>{{ $iss['email'] }} @if ($iss['phone'])· {{ $iss['phone'] }}@endif</td></tr></table>
 <div class="foot">{{ $iss['legal_name'] ?: $iss['name'] }} @if ($iss['tax_id'])· {{ __('quote.tax_id') }} {{ $iss['tax_id'] }}@endif @if ($iss['reg_no'])· {{ __('quote.reg_no') }} {{ $iss['reg_no'] }}@endif @if ($iss['address'])· {{ collect([$iss['address'], $iss['postal_code'], $iss['city'], $iss['county']])->filter()->implode(', ') }}@endif @if ($iss['iban'])<br>{{ __('quote.bank') }}: {{ $iss['bank'] }} · IBAN {{ $iss['iban'] }}@endif</div>
 
 <table><tr><td style="vertical-align:top"><h1>{{ __('quote.title') }}</h1>@if ($q['title'])<div>{{ $q['title'] }}</div>@endif</td>

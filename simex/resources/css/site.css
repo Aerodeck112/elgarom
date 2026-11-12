@@ -17,7 +17,7 @@ a { color: inherit; }
 .brandmark__sq { width: 34px; height: 34px; display: grid; place-items: center; background: var(--ink); color: var(--accent); font-weight: 800; font-size: 13px; letter-spacing: 0.04em; }
 .brandmark__tx { font-weight: 700; letter-spacing: 0.2em; font-size: 14px; }
 .hero { padding: clamp(72px, 13vw, 168px) 0 clamp(56px, 9vw, 120px); background: linear-gradient(180deg, var(--paper) 0%, var(--mist) 100%); border-bottom: 1px solid var(--line); position: relative; overflow: hidden; }
-.hero::after { content: ''; position: absolute; right: -8%; top: -30%; width: 46%; aspect-ratio: 1; border: 1px solid var(--line); transform: rotate(18deg); pointer-events: none; box-shadow: 0 0 0 60px rgb(227 230 233 / 0.35), 0 0 0 61px var(--line); }
+.hero::after { content: ''; position: absolute; right: -14%; top: 8%; width: 38%; aspect-ratio: 1; border: 1px solid var(--line); transform: rotate(18deg); pointer-events: none; outline: 1px solid var(--line); outline-offset: 44px; }
 .hero--page { padding: 80px 0 48px; } .hero--page h1 { font-size: clamp(30px, 4vw, 44px); }
 .kicker { font-size: 12px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--steel); margin: 0 0 22px; }
 h1 { font-size: clamp(42px, 8.2vw, 104px); line-height: 0.96; letter-spacing: -0.035em; font-weight: 700; margin: 0; position: relative; z-index: 1; }
@@ -31,6 +31,7 @@ h1 { font-size: clamp(42px, 8.2vw, 104px); line-height: 0.96; letter-spacing: -0
 .card::before { content: ''; position: absolute; left: 0; top: 0; height: 3px; width: 0; background: var(--accent); transition: width 0.35s ease; }
 .card:hover { background: #fcfcfd; } .card:hover::before { width: 100%; }
 .card__logo { height: 64px; display: flex; align-items: center; margin-bottom: 26px; } .card__logo img { max-height: 56px; max-width: 190px; }
+.card__logo--dark { background: var(--ink); padding: 0 18px; width: fit-content; }
 .card__logo span { font-weight: 700; letter-spacing: 0.14em; font-size: 15px; color: var(--steel-2); }
 .card h3 { font-size: 21px; letter-spacing: -0.01em; margin: 0 0 6px; } .card__act { font-weight: 500; margin: 0 0 12px; } .card p { color: var(--steel); margin: 0 0 14px; font-size: 15.5px; }
 .card__link { margin-top: auto; padding-top: 12px; font-size: 14px; font-weight: 600; text-decoration: none; letter-spacing: 0.02em; } .card__link span { display: inline-block; transition: transform 0.2s; } .card__link:hover span { transform: translateX(4px); }

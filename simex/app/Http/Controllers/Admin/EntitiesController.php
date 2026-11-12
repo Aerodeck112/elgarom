@@ -33,6 +33,7 @@ class EntitiesController extends Controller
         ]);
         $data['show_on_site'] = $request->boolean('show_on_site');
         $data['is_issuer'] = $request->boolean('is_issuer');
+        $data['logo_on_dark'] = $request->boolean('logo_on_dark');
         unset($data['logo']);
         if ($request->hasFile('logo')) {
             $file = $request->file('logo');

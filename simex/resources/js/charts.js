@@ -5,7 +5,7 @@ Chart.register(BarController, BarElement, LineController, LineElement, PointElem
 
 const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 const palette = ['#15181b', '#ffc40e', '#8a929b', '#17753f', '#1f5fbf', '#b3261e', '#b9bfc6', '#9a5b00'];
-Chart.defaults.font.family = "'Inter Variable', sans-serif";
+Chart.defaults.font.family = "'IBM Plex Sans', sans-serif";
 Chart.defaults.font.size = 12;
 Chart.defaults.color = css('--text-3') || '#7a838d';
 Chart.defaults.borderColor = css('--line') || '#dfe2e6';

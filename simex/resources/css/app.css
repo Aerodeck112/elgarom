@@ -1,6 +1,9 @@
 @import 'tailwindcss';
-@import '@fontsource-variable/inter';
-@import '@fontsource-variable/jetbrains-mono';
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/ibm-plex-sans/700.css';
+@import '@fontsource-variable/saira/wdth.css';
 
 @source '../views';
 @source '../js';
@@ -8,8 +11,10 @@
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @theme {
-    --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
-    --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+    --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+    /* Figures use the same family with tabular numerals: no separate monospace face. */
+    --font-mono: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Saira Variable', 'IBM Plex Sans', sans-serif;
     --color-ink-950: #0f1113;
     --color-ink-900: #15181b;
     --color-ink-800: #1d2125;
@@ -78,7 +83,9 @@
 
 @layer base {
     html { font-family: var(--font-sans); font-size: 14px; -webkit-font-smoothing: antialiased; }
-    body { background: var(--bg); color: var(--text); margin: 0; font-feature-settings: 'cv11', 'ss01'; }
+    body { background: var(--bg); color: var(--text); margin: 0; }
+    .page-title, .side__name, .stat__value, .result__big, .auth__brand, .cota { font-family: var(--font-display); font-stretch: 88%; }
+    .stat__value, .result__big { font-weight: 600; }
     a { color: inherit; }
     h1, h2, h3 { letter-spacing: -0.01em; }
     :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }

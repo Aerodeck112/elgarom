@@ -11,9 +11,10 @@
 </head>
 <body>
 <a class="skip" href="#continut">Sari la conținut</a>
+<div class="progress" data-progress aria-hidden="true"></div>
 <header class="hdr" data-header><div class="wrap hdr__in">
     <a class="brandmark" href="{{ url('/') }}" aria-label="Grup Simex – acasă">@if ($group?->logoUrl())<img src="{{ $group->logoUrl() }}" alt="GRUP SIMEX">@else<span class="brandmark__sq">GS</span><span class="brandmark__tx">GRUP SIMEX</span>@endif</a>
-    <nav aria-label="Principal"><a href="{{ url('/') }}#companii">Companii</a><a href="{{ url('/') }}#contact">Contact</a></nav>
+    <nav aria-label="Principal"><a href="{{ url('/') }}#drum">Cum lucrăm</a><a href="{{ url('/') }}#companii">Companii</a><a href="{{ url('/') }}#contact">Contact</a></nav>
 </div></header>
 <main id="continut">@yield('content')</main>
 <footer class="ftr" id="contact"><div class="wrap ftr__grid">

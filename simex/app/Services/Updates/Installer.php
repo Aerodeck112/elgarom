@@ -3,7 +3,6 @@
 namespace App\Services\Updates;
 
 use App\Models\Backup;
-use App\Models\Page;
 use App\Models\SystemUpdate;
 use App\Services\BackupService;
 use Illuminate\Http\Client\ConnectionException;
@@ -210,8 +209,8 @@ class Installer
         } catch (ConnectionException $e) {
             // Some hosts block loopback HTTP. Fall back to in-process checks.
             $this->log('HTTP /health inaccesibil din server ('.$e->getMessage().'); verificare internă.');
-            if (! Page::where('status', 'published')->exists()) {
-                throw new RuntimeException('Baza de date nu conține pagini publicate după actualizare.');
+            if (! \App\Models\Entity::query()->exists()) {
+                throw new RuntimeException('Baza de date nu conține companiile grupului după actualizare.');
             }
         } finally {
             Artisan::call('down', ['--retry' => 60]);

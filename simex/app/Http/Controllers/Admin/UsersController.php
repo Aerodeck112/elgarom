@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AuditLog;
-use App\Models\QuoteRequest;
 use App\Models\User;
 use App\Services\TwoFactor;
 use App\Support\PasswordRules;
@@ -118,7 +117,6 @@ class UsersController extends Controller
             return back()->withErrors(['role' => 'Trebuie să rămână cel puțin un Super Administrator activ.']);
         }
         DB::table('sessions')->where('user_id', $user->id)->delete();
-        QuoteRequest::where('assignee_id', $user->id)->update(['assignee_id' => null]);
         AuditLog::record('utilizator.sters', $user, ['email' => $user->email]);
         $user->delete();
 

@@ -2,7 +2,7 @@
 
 return [
     // Application version. Bumped by every signed update package.
-    'version' => '0.1.1',
+    'version' => '0.1.2',
 
     // Calculation engine version, stored with every saved calculation.
     'engine_version' => '1.0.0',

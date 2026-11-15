@@ -8,7 +8,7 @@ Platformă internă de ofertare, calcul de costuri și CRM, plus website-ul publ
 
 | | |
 |---|---|
-| Pachet de instalare cPanel | `livrare/simex-crm-0.1.1-cpanel.zip` – dezarhivați și deschideți `install.php` |
+| Pachet de instalare cPanel | `livrare/simex-crm-0.1.2-cpanel.zip` – dezarhivați și deschideți `install.php` |
 | Instalare | [`docs/simex/DEPLOYMENT_CPANEL.md`](docs/simex/DEPLOYMENT_CPANEL.md) |
 | Arhitectură | [`docs/simex/PROJECT_ARCHITECTURE.md`](docs/simex/PROJECT_ARCHITECTURE.md) |
 | Starea modulelor | [`docs/simex/MODULES_ROADMAP.md`](docs/simex/MODULES_ROADMAP.md) |

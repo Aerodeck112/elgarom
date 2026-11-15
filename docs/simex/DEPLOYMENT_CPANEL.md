@@ -1,6 +1,6 @@
 # Instalare pe cPanel
 
-Pachet: `livrare/simex-crm-0.1.1-cpanel.zip` (conține `install.php`, codul, `vendor/` și resursele compilate).
+Pachet: `livrare/simex-crm-0.1.2-cpanel.zip` (conține `install.php`, codul, `vendor/` și resursele compilate).
 Pe server nu sunt necesare Node.js, Composer, acces root sau procese permanente.
 
 Instalarea din acest pachet a fost rulată cap-coadă pe MariaDB 10.11 cu PHP 8.3; nu a fost rulată pe serverul dumneavoastră.
@@ -33,7 +33,7 @@ trimite cererile către `public/` și blochează accesul la `.env`, `vendor/`, `
 ## Pași
 
 1. **Baza de date.** cPanel → MySQL Databases: creați o bază de date și un utilizator cu parolă puternică, apoi dați-i „ALL PRIVILEGES” pe acea bază.
-2. **Fișierele.** cPanel → File Manager: urcați `simex-crm-0.1.1-cpanel.zip` în directorul ales și alegeți Extract.
+2. **Fișierele.** cPanel → File Manager: urcați `simex-crm-0.1.2-cpanel.zip` în directorul ales și alegeți Extract.
 3. **Instalatorul.** Deschideți `https://domeniul-dvs.ro/install.php`.
 4. **Cheia de instalare.** În File Manager deschideți `storage/app/private/install-key.txt` și copiați cheia în formular. Ea împiedică pe altcineva să instaleze platforma înaintea dumneavoastră.
 5. **Formularul.** Adresa site-ului, datele bazei de date, numele, emailul și parola primului Super Administrator (minimum 12 caractere, cu litere mari, mici și cifre).
@@ -87,3 +87,17 @@ care nu se află în depozit și nu se pune niciodată pe server. Păstrați-o �
 | Schimbarea Document Root | – | varianta B |
 | Upload peste 32 MB | pachetul de actualizare nu se poate urca din browser | se urcă prin File Manager în `storage/app/private/updates/incoming/` |
 | Linie de comandă | nu se pot rula comenzile `artisan` | toate operațiile curente există și în panou |
+
+## Două pachete diferite – nu se încurcă între ele
+
+| Fișier | La ce folosește | Unde se pune |
+|---|---|---|
+| `simex-crm-X.Y.Z-cpanel.zip` | instalare nouă, pe un server gol | File Manager → Extract, apoi `install.php` |
+| `simex-crm-update-X.Y.Z.zip` | actualizarea unei platforme deja instalate | Administrare → Actualizare aplicație |
+
+Dacă încărcați pachetul de instalare în ecranul „Actualizare aplicație”, el este respins cu mesajul
+„Fișier neașteptat în arhivă: .htaccess”. Este comportamentul corect: ecranul acceptă doar pachete semnate,
+cu `manifest.json`, `manifest.sig` și directorul `files/`. Folosiți fișierul care are `update` în nume.
+
+Actualizarea a fost rulată pe MariaDB 10.11 din 0.1.0 și din 0.1.1 către 0.1.2, cu datele păstrate, inclusiv pe un server
+care nu își poate apela propria adresă. O actualizare eșuată se restaurează singură din backup-ul făcut înainte.

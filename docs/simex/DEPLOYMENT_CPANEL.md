@@ -1,6 +1,6 @@
 # Instalare pe cPanel
 
-Pachet: `livrare/simex-crm-0.1.2-cpanel.zip` (conține `install.php`, codul, `vendor/` și resursele compilate).
+Pachet: `livrare/simex-crm-0.1.3-cpanel.zip` (conține `install.php`, codul, `vendor/` și resursele compilate).
 Pe server nu sunt necesare Node.js, Composer, acces root sau procese permanente.
 
 Instalarea din acest pachet a fost rulată cap-coadă pe MariaDB 10.11 cu PHP 8.3; nu a fost rulată pe serverul dumneavoastră.
@@ -33,14 +33,14 @@ trimite cererile către `public/` și blochează accesul la `.env`, `vendor/`, `
 ## Pași
 
 1. **Baza de date.** cPanel → MySQL Databases: creați o bază de date și un utilizator cu parolă puternică, apoi dați-i „ALL PRIVILEGES” pe acea bază.
-2. **Fișierele.** cPanel → File Manager: urcați `simex-crm-0.1.2-cpanel.zip` în directorul ales și alegeți Extract.
+2. **Fișierele.** cPanel → File Manager: urcați `simex-crm-0.1.3-cpanel.zip` în directorul ales și alegeți Extract.
 3. **Instalatorul.** Deschideți `https://domeniul-dvs.ro/install.php`.
 4. **Cheia de instalare.** În File Manager deschideți `storage/app/private/install-key.txt` și copiați cheia în formular. Ea împiedică pe altcineva să instaleze platforma înaintea dumneavoastră.
 5. **Formularul.** Adresa site-ului, datele bazei de date, numele, emailul și parola primului Super Administrator (minimum 12 caractere, cu litere mari, mici și cifre).
 6. **Instalarea.** Instalatorul creează `.env` (cheie de criptare nouă, depanare oprită), tabelele, datele de referință fără prețuri, contul, cache-urile, apoi scrie `install.lock` și se șterge singur.
 7. **Cron (obligatoriu).** cPanel → Cron Jobs → „Once Per Minute”. Instalatorul afișează comanda exactă pentru serverul dumneavoastră, de forma:
    ```
-   * * * * * /usr/local/bin/php /home/UTILIZATOR/simex/artisan schedule:run >/dev/null 2>&1
+   * * * * * /opt/cpanel/ea-php83/root/usr/bin/php /home/UTILIZATOR/simex/artisan schedule:run >/dev/null 2>&1
    ```
 8. **Prima autentificare.** `https://domeniul-dvs.ro/crm`: email și parolă, apoi scanați codul QR cu o aplicație de autentificare și salvați codurile de recuperare.
 
@@ -101,3 +101,17 @@ cu `manifest.json`, `manifest.sig` și directorul `files/`. Folosiți fișierul 
 
 Actualizarea a fost rulată pe MariaDB 10.11 din 0.1.0 și din 0.1.1 către 0.1.2, cu datele păstrate, inclusiv pe un server
 care nu își poate apela propria adresă. O actualizare eșuată se restaurează singură din backup-ul făcut înainte.
+
+## Eroarea «Your Composer dependencies require a PHP version ">= 8.3.0"»
+
+Mesajul înseamnă că programul a fost pornit cu un PHP mai vechi de 8.3, chiar dacă în cPanel ați ales 8.3.
+PHP are pe cPanel două setări separate:
+
+| Unde apare eroarea | Cauza | Rezolvare |
+|---|---|---|
+| în emailurile de la cron sau în Terminal | comanda `php` (sau `/usr/local/bin/php`) este PHP-ul implicit al serverului, nu cel al site-ului | folosiți calea completă: `/opt/cpanel/ea-php83/root/usr/bin/php` (pe CloudLinux: `/opt/alt/php83/usr/bin/php`) |
+| în browser | domeniul sau subdomeniul pe care este instalată platforma are altă versiune decât domeniul principal | cPanel → MultiPHP Manager: alegeți 8.3 pentru exact acel domeniu |
+
+De la versiunea 0.1.3 platforma afișează ea însăși versiunea cu care a fost pornită, iar comanda de cron corectă
+pentru serverul dumneavoastră este afișată în Administrare → SMTP și email și la finalul instalării.
+Până la 0.1.2 instalatorul recomanda `/usr/local/bin/php`, care pe multe servere este o versiune mai veche.

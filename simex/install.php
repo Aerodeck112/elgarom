@@ -267,10 +267,14 @@ if ($step === 'install' && ! $errors) {
             foreach ($results as [$p, $c, $ok, $exp]) {
                 $html .= '<tr><td><code>'.e($p).'</code> ('.e($exp).')</td><td>'.e((string) $c).'</td><td class="'.($ok ? 'ok' : 'bad').'">'.($ok ? 'OK' : 'VERIFICAȚI').'</td></tr>';
             }
-            $php = e(PHP_BINARY && ! str_contains(PHP_BINARY, 'fpm') ? PHP_BINARY : '/usr/local/bin/php');
+            require_once $ROOT.'/bootstrap/php_cli.php';
+            [$phpPath, $phpFound] = simex_cli_php();
+            $php = e($phpPath);
             $html .= '</table><p class="hint">Dacă /.env răspunde cu 200, mutați documentul rădăcină al domeniului pe directorul <code>public</code> (cPanel → Domains) – vezi docs/DEPLOYMENT_CPANEL.md.</p>
             <h2>Pas obligatoriu: cron</h2><p>În cPanel → Cron Jobs, adăugați o sarcină care rulează în fiecare minut:</p>
             <p><code>* * * * * '.$php.' '.e($ROOT).'/artisan schedule:run &gt;/dev/null 2&gt;&amp;1</code></p>
+            <p class="hint">Folosiți calea completă de mai sus, nu doar <code>php</code>: PHP-ul din cron este separat de cel al site-ului și poate fi o versiune mai veche.'
+            .($phpFound ? '' : ' Calea afișată este cea standard pentru cPanel și nu a putut fi confirmată pe acest server; dacă nu există, cereți furnizorului calea către PHP '.e(PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION).' pentru linia de comandă.').'</p>
             <p class="hint">Cron-ul trimite emailurile din coadă și le reîncearcă, face backup zilnic și aplică retenția datelor. Fără cron, emailurile se reîncearcă doar la vizitele în administrare.</p>
             <h2>Următorii pași</h2><ol>
             <li><a href="'.e($d['app_url']).'/crm">Autentificați-vă în platformă</a> (adresa: <code>/crm</code>) și configurați 2FA cu o aplicație de autentificare.</li>

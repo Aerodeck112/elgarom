@@ -323,6 +323,81 @@ final class CalcSession
         return $out;
     }
 
+    /**
+     * Open warnings of one sheet, the way the workbooks mark them: the sum of «Flag …» columns when the sheet has them,
+     * otherwise the number of result cells whose text starts with ATENȚIE / VERIFICĂ / BLOCAJ / EROARE.
+     */
+    public function warningCount(string $sheet): int
+    {
+        $data = $this->sheets[$sheet] ?? null;
+        if ($data === null) {
+            return 0;
+        }
+        $sid = $this->wb->sheetId($sheet);
+        $flagCols = [];
+        for ($r = 1; $r <= min(8, $data['maxRow']); $r++) {
+            foreach ($data['cells'][$r] ?? [] as $c => $cell) {
+                if (is_string($cell) && preg_match('/^flag\b/iu', trim($cell))) {
+                    $flagCols[$c] = $r;
+                }
+            }
+        }
+        $n = 0;
+        if ($flagCols !== []) {
+            foreach ($flagCols as $c => $headerRow) {
+                for ($r = $headerRow + 1; $r <= $data['maxRow']; $r++) {
+                    $cell = $data['cells'][$r][$c] ?? null;
+                    if (is_array($cell) && ! isset($cell['err'])) {
+                        $v = $this->wb->cellValue($sid, $r, $c);
+                        if (is_float($v) && $v > 0) {
+                            $n++;
+                        }
+                    }
+                }
+            }
+
+            return $n;
+        }
+        foreach ($data['cells'] as $r => $row) {
+            foreach ($row as $c => $cell) {
+                if (is_array($cell) && ! isset($cell['err'])) {
+                    $v = $this->wb->cellValue($sid, $r, $c);
+                    if (is_string($v) && preg_match('/^(ATENȚIE|ATENTIE|VERIFICĂ|BLOCAJ|EROARE)/u', $v)) {
+                        $n++;
+                    }
+                }
+            }
+        }
+
+        return $n;
+    }
+
+    /** Headline figures of a cost model (cost, margin, price…) as defined in its definition file. */
+    public function tiles(): array
+    {
+        $out = [];
+        foreach ($this->def->tiles ?? [] as $t) {
+            $v = Display::numberOrNull($this->cell($t['ref']));
+            $label = $t['label'];
+            if (isset($t['pct'])) {
+                $pct = Display::numberOrNull($this->cell($t['pct']));
+                $label = str_replace('{pct}', $pct === null ? '' : Display::number($pct * 100, 0).'%', $label);
+            }
+            $tile = ['label' => trim($label), 'value' => $v, 'display' => $v === null ? '—' : Display::number($v, 2).' '.$t['unit'], 'main' => ! empty($t['main']), 'perm' => $t['perm'] ?? null];
+            if (isset($t['eur_rate']) && $v !== null) {
+                $rate = Display::numberOrNull($this->cell($t['eur_rate']));
+                $tile['note'] = $rate ? '≈ '.Display::number($v / $rate, 2).' EUR' : null;
+            }
+            if (isset($t['second'])) {
+                $w = Display::numberOrNull($this->cell($t['second']['ref']));
+                $tile['note'] = $w === null ? null : Display::number($w, 2).' '.$t['second']['unit'];
+            }
+            $out[] = $tile;
+        }
+
+        return $out;
+    }
+
     /** Pre-offer checks of a cost model. */
     public function checks(): array
     {

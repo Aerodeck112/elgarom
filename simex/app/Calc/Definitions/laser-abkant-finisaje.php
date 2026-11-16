@@ -39,6 +39,11 @@ return [
         'GHID_SUDURA' => ['role' => 'doc', 'label' => 'Ghid sudură'],
         '15_SURSE' => ['role' => 'doc', 'label' => 'Surse'],
     ],
+    'tiles' => [
+        ['label' => 'Subtotal repere', 'ref' => '13_OFERTA!I42', 'unit' => 'EUR'],
+        ['label' => 'Ajustare valoare minimă', 'ref' => '13_OFERTA!I43', 'unit' => 'EUR'],
+        ['label' => 'Total ofertă fără TVA', 'ref' => '13_OFERTA!I44', 'unit' => 'EUR', 'main' => true, 'second' => ['ref' => '13_OFERTA!J44', 'unit' => 'RON']],
+    ],
     'variants' => [
         'oferta' => [
             'label' => 'Ofertă generală',

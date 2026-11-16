@@ -56,6 +56,14 @@ document.addEventListener('submit', (e) => {
     const f = e.target.closest('form[data-confirm]');
     if (f && !window.confirm(f.dataset.confirm)) e.preventDefault();
 }, true);
+document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[data-confirm]');
+    if (a && !window.confirm(a.dataset.confirm)) e.preventDefault();
+});
+/* dropdown menus (<details class="drop">): close on outside click or Escape */
+const closeDrops = (except) => document.querySelectorAll('details.drop[open]').forEach((d) => { if (d !== except) d.open = false; });
+document.addEventListener('click', (e) => closeDrops(e.target.closest('details.drop')));
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrops(null); });
 
 /* copy to clipboard */
 document.addEventListener('click', async (e) => {
@@ -106,3 +114,11 @@ $$('select[data-contacts-for]').forEach((sel) => {
 
 /* submit a filter form when a select changes */
 $$('form[data-auto] select').forEach((s) => s.addEventListener('change', () => s.form.requestSubmit()));
+
+/* sticky elements below the header (calculator result band) need the header's height */
+const hdr = document.querySelector('[data-hdr]');
+if (hdr) {
+    const setH = () => document.documentElement.style.setProperty('--hdr-h', hdr.offsetHeight + 'px');
+    setH();
+    window.addEventListener('resize', setH);
+}

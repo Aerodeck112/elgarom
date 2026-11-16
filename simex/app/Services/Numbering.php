@@ -24,4 +24,13 @@ final class Numbering
             return sprintf('%s-%d-%04d', $prefix, $year, $value);
         });
     }
+
+    /** The number the next document would get, without reserving it (shown in the header). */
+    public static function peek(string $name, string $prefix): string
+    {
+        $year = (int) now()->format('Y');
+        $value = (int) DB::table('sequences')->where('name', $name)->where('year', $year)->value('value');
+
+        return sprintf('%s-%d-%04d', $prefix, $year, $value + 1);
+    }
 }

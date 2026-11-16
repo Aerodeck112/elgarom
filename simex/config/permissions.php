@@ -23,6 +23,8 @@ return [
         'quotes.discount' => 'Aplicarea discounturilor',
         'quotes.approve' => 'Aprobarea ofertelor',
         'quotes.send' => 'Trimiterea emailurilor către clienți',
+        'quotes.delete' => 'Ștergerea ofertelor din registru (doar administratorul)',
+        'ai.use' => 'Integrare AI – instrumente de redactare (fără modificarea cifrelor)',
         'export' => 'Export (PDF, Excel, CSV)',
         'library.view' => 'Materiale, utilaje, operații, furnizori – vizualizare',
         'library.manage' => 'Materiale, utilaje, operații, furnizori – modificare',
@@ -45,17 +47,17 @@ return [
         'super_admin' => ['label' => 'Super Administrator', 'permissions' => ['*']],
         'admin' => ['label' => 'Administrator', 'permissions' => [
             'dashboard', 'crm.view', 'crm.manage', 'crm.delete', 'rfq.view', 'rfq.manage', 'calc.use', 'costs.view', 'margins.view', 'rates.view', 'rates.edit',
-            'formulas.manage', 'quotes.view', 'quotes.manage', 'quotes.discount', 'quotes.approve', 'quotes.send', 'export', 'library.view', 'library.manage',
-            'marketing', 'prospecting', 'reports', 'site', 'templates', 'users', 'settings', 'smtp', 'api.keys', 'security', 'audit', 'backups',
+            'formulas.manage', 'quotes.view', 'quotes.manage', 'quotes.discount', 'quotes.approve', 'quotes.send', 'quotes.delete', 'export', 'library.view', 'library.manage',
+            'ai.use', 'marketing', 'prospecting', 'reports', 'site', 'templates', 'users', 'settings', 'smtp', 'api.keys', 'security', 'audit', 'backups',
         ]],
         'director_comercial' => ['label' => 'Director Comercial', 'permissions' => [
             'dashboard', 'crm.view', 'crm.manage', 'crm.delete', 'rfq.view', 'rfq.manage', 'calc.use', 'costs.view', 'margins.view', 'rates.view',
-            'quotes.view', 'quotes.manage', 'quotes.discount', 'quotes.approve', 'quotes.send', 'export', 'library.view', 'marketing', 'prospecting',
+            'quotes.view', 'quotes.manage', 'quotes.discount', 'quotes.approve', 'quotes.send', 'export', 'library.view', 'ai.use', 'marketing', 'prospecting',
             'reports', 'templates', 'audit',
         ]],
         'inginer_ofertare' => ['label' => 'Inginer Ofertare', 'permissions' => [
             'dashboard', 'crm.view', 'rfq.view', 'rfq.manage', 'calc.use', 'costs.view', 'rates.view', 'quotes.view', 'quotes.manage', 'export',
-            'library.view', 'library.manage',
+            'library.view', 'library.manage', 'ai.use',
         ]],
         'agent_vanzari' => ['label' => 'Agent Vânzări', 'permissions' => [
             'dashboard', 'crm.view', 'crm.manage', 'rfq.view', 'rfq.manage', 'quotes.view', 'quotes.manage', 'quotes.send', 'export', 'library.view',

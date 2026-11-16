@@ -2,7 +2,7 @@
 
 return [
     // Application version. Bumped by every signed update package.
-    'version' => '0.1.5',
+    'version' => '0.1.6',
 
     // Calculation engine version, stored with every saved calculation.
     'engine_version' => '1.0.0',
@@ -34,6 +34,17 @@ return [
     'languages' => ['ro' => 'Română', 'en' => 'English', 'de' => 'Deutsch'],
 
     'currencies' => ['EUR', 'RON', 'USD', 'GBP', 'CHF', 'HUF'],
+
+    // «Noutăți» on the dashboard: shown once per user until «Am văzut».
+    'news' => [
+        ['version' => '0.1.6', 'date' => '16.11.2026', 'items' => [
+            'Interfața după aplicația ARGENTO: antet cu firma, numărul următoarei oferte, cursul EUR și tab-uri (Dashboard, Ofertă piesă, Tarife, Ofertă ștanță, Tutorial, Oferte, Integrare AI).',
+            'Calculatorul pe secțiuni numerotate, cu banda «Rezultat final» mereu vizibilă, avertizări pe fiecare secțiune și Registru de avertizări.',
+            'Drafturi salvate și «Resetează la exemplul inițial» direct din calculator; oferta se creează dintr-un clic din «Audit final».',
+            'Cursul EUR se preia automat de la BNR; registrul de oferte are indicatori și acțiuni (ștergerea doar pentru administrator).',
+            'Integrare AI: email de însoțire, rezumat de cerere și traducere, rulate pe server, fără a modifica cifre.',
+        ]],
+    ],
 
     'ai' => [
         // Models offered in the settings screen. Token prices are entered by the administrator, not assumed here.

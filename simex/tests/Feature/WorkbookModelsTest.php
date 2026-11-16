@@ -74,4 +74,23 @@ class WorkbookModelsTest extends TestCase
         $this->assertSame('block', $session->summary()['standard']['state']);
         $this->assertNull($session->summary()['standard']['hours']);
     }
+
+    public function test_die_model_reports_headline_tiles_and_section_warnings(): void
+    {
+        $def = app(ModelRegistry::class)->find('stante-matrite-fepo');
+        $file = $this->workbookDir().'/'.$def->file_hint;
+        if (! is_file($file)) {
+            $this->markTestSkipped('Workbook-ul sursă nu este disponibil.');
+        }
+        $session = new CalcSession($def, (new XlsxModelReader)->read($file));
+        $tiles = $session->tiles();
+        $this->assertCount(4, $tiles);
+        $this->assertSame('Adaos 50%', $tiles[1]['label']);
+        $this->assertEqualsWithDelta(32104.398258, $tiles[3]['value'], 0.001);
+        $this->assertTrue($tiles[3]['main']);
+        $this->assertStringStartsWith('≈ ', $tiles[3]['note']);
+        foreach (array_keys(array_filter($def->sheets(), fn ($m) => $m['role'] === 'input')) as $name) {
+            $this->assertGreaterThanOrEqual(0, $session->warningCount($name));
+        }
+    }
 }

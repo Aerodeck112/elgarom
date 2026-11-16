@@ -80,6 +80,17 @@ class SettingsController extends Controller
         return back()->with('status', $changed ? 'Setările au fost salvate.' : 'Nicio modificare.');
     }
 
+    public function fxRefresh(\App\Services\BnrRates $bnr)
+    {
+        try {
+            $fx = $bnr->apply();
+        } catch (\Throwable $e) {
+            return back()->with('error', 'Cursul BNR nu a putut fi preluat: '.$e->getMessage());
+        }
+
+        return back()->with('status', 'Curs BNR actualizat: 1 EUR = '.number_format($fx['rate'], 4, ',', '.').' lei ('.date('d.m.Y', strtotime($fx['date'])).').');
+    }
+
     public function smtpTest(Request $request)
     {
         abort_unless($request->user()->can_('smtp'), 403);

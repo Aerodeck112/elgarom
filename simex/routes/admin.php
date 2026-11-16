@@ -115,6 +115,7 @@ Route::prefix('crm')->name('admin.')->group(function () {
             Route::post('oferte/{quote}/revizie', [Admin\QuoteController::class, 'revise'])->name('quotes.revise');
             Route::post('oferte/{quote}/copie', [Admin\QuoteController::class, 'duplicate'])->name('quotes.duplicate');
         });
+        Route::delete('oferte/{quote}', [Admin\QuoteController::class, 'destroy'])->middleware(['admin.can:quotes.delete', 'admin.recent'])->name('quotes.destroy');
         Route::middleware('admin.can:quotes.approve')->group(function () {
             Route::post('oferte/{quote}/aproba', [Admin\QuoteController::class, 'approve'])->name('quotes.approve');
             Route::post('oferte/{quote}/returneaza', [Admin\QuoteController::class, 'sendBack'])->name('quotes.back');
@@ -136,6 +137,14 @@ Route::prefix('crm')->name('admin.')->group(function () {
             Route::post('grup/{entity}/confirma', [Admin\EntitiesController::class, 'confirm'])->middleware('admin.recent')->name('entities.confirm');
         });
 
+        Route::get('tutorial', [Admin\DashboardController::class, 'tutorial'])->middleware('admin.can:dashboard')->name('tutorial');
+        Route::post('noutati/vazut', [Admin\DashboardController::class, 'newsSeen'])->middleware('admin.can:dashboard')->name('news.seen');
+        Route::get('tarife', [Admin\CalculatorController::class, 'rates'])->middleware('admin.can:calc.use')->name('rates');
+        Route::post('curs-bnr', [Admin\SettingsController::class, 'fxRefresh'])->middleware(['admin.can:settings', 'throttle:6,1'])->name('fx.refresh');
+        Route::middleware('admin.can:ai.use')->group(function () {
+            Route::get('integrare-ai', [Admin\AiController::class, 'index'])->name('ai.index');
+            Route::post('integrare-ai', [Admin\AiController::class, 'run'])->middleware('throttle:20,1')->name('ai.run');
+        });
         Route::get('modul/{module}', [Admin\DashboardController::class, 'planned'])->name('planned');
 
         // Settings groups (permission per group inside the controller)

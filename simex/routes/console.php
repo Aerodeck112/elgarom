@@ -81,6 +81,18 @@ Artisan::command('simex:admin {email} {--name=Administrator}', function () {
     $this->info('La autentificare se configurează din nou 2FA.');
 })->purpose('Recuperare acces: creează/resetează un administrator (parolă nouă, 2FA resetat)');
 
+Artisan::command('simex:curs', function (\App\Services\BnrRates $bnr) {
+    if (! setting('quotes.fx_auto', true)) {
+        $this->line('Actualizarea automată a cursului este dezactivată din Configurări.');
+
+        return 0;
+    }
+    $fx = $bnr->apply();
+    $this->info('Curs BNR: 1 EUR = '.$fx['rate'].' lei ('.$fx['date'].')');
+})->purpose('Preia cursul EUR publicat de BNR și îl folosește implicit în ofertele noi');
+
+Schedule::command('simex:curs')->weekdays()->at('13:20')->timezone('Europe/Bucharest')->withoutOverlapping();
+Schedule::command('simex:curs')->dailyAt('07:05')->timezone('Europe/Bucharest')->withoutOverlapping();
 Schedule::command('simex:mail')->everyMinute()->withoutOverlapping();
 Schedule::command('simex:prune')->dailyAt('03:10');
 Schedule::command('simex:backup')->dailyAt('02:40')->withoutOverlapping();

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
+use App\Models\Calculation;
+use App\Models\Setting;
 use App\Models\Company;
 use App\Models\Entity;
 use App\Models\Quote;
@@ -51,7 +53,33 @@ class DashboardController extends Controller
         $topCountries = Company::whereNotNull('country')->selectRaw('country, count(*) as n')->groupBy('country')->orderByDesc('n')->limit(6)->pluck('n', 'country');
         $byOwner = (clone $quotes())->selectRaw('owner_id, count(*) as n, sum(total_net) as v')->groupBy('owner_id')->orderByDesc('n')->limit(8)->with('owner')->get();
 
+        // As in ARGENTO: what changed in the application, what needs a look, the offer flow and the latest offers.
+        $news = collect(config('simex.news', []))->filter(fn ($n) => version_compare($n['version'], (string) setting('news.seen.'.$user->id, '0'), '>'))->values();
+        $review = [];
+        if ($user->can_('calc.use')) {
+            $review['calcs'] = Calculation::with('company:id,name')->whereIn('state', ['warn', 'block'])->whereNull('locked_at')->orderByDesc('updated_at')->limit(6)->get();
+        }
+        if ($user->can_('quotes.approve')) {
+            $review['approve'] = Quote::with('company:id,name')->where('is_current', true)->where('status', 'aprobare')->orderBy('updated_at')->limit(6)->get();
+        }
+        $review['expiring'] = $user->can_('quotes.view') ? Quote::with('company:id,name')->where('is_current', true)->whereIn('status', ['trimisa', 'negociere'])
+            ->whereNotNull('valid_until')->where('valid_until', '<=', now()->addDays(7))->orderBy('valid_until')->limit(6)->get() : collect();
+        $months = collect(range(5, 0))->mapWithKeys(fn ($i) => [now()->startOfMonth()->subMonths($i)->format('Y-m') => 0.0]);
+        Quote::where('is_current', true)->where('currency', $currency)->whereNotIn('status', ['ciorna', 'aprobare', 'anulata'])
+            ->where('created_at', '>=', now()->startOfMonth()->subMonths(5))->get(['created_at', 'total_net'])
+            ->each(function ($q) use (&$months) { $k = $q->created_at->format('Y-m'); if ($months->has($k)) { $months[$k] += (float) $q->total_net; } });
+        $structure = null;
+        if ($user->can_('costs.view')) {
+            $last = Calculation::where('model_key', 'stante-matrite-fepo')->whereNotNull('results')->orderByDesc('updated_at')->first();
+            $parts = collect($last?->results['summary']['oferta']['outputs'] ?? [])->filter(fn ($o) => preg_match('/^Ofertă!C1[1-9]$/u', $o['ref'] ?? '') && is_numeric($o['value']) && $o['value'] > 0);
+            if ($parts->isNotEmpty()) {
+                $structure = ['calc' => $last, 'chart' => ['type' => 'doughnut', 'labels' => $parts->pluck('label')->all(), 'datasets' => [['data' => $parts->pluck('value')->map(fn ($v) => round((float) $v, 2))->all()]]]];
+            }
+        }
+
         return view('admin.dashboard', [
+            'news' => $news, 'flow' => $byStatus, 'review' => $review, 'structure' => $structure,
+            'latest' => $user->can_('quotes.view') ? Quote::with('company:id,name')->where('is_current', true)->orderByDesc('id')->limit(8)->get() : collect(),
             'days' => $days, 'currency' => $currency, 'kpi' => $kpi, 'topClients' => $topClients, 'byOwner' => $byOwner,
             'tasks' => Activity::with('company')->where('type', 'sarcina')->whereNull('done_at')->where(fn ($w) => $w->where('assigned_to', $user->id)->orWhereNull('assigned_to'))->orderBy('due_at')->limit(8)->get(),
             'followUps' => Company::whereNotNull('next_follow_up_at')->where('next_follow_up_at', '<=', now()->addDays(7))->orderBy('next_follow_up_at')->limit(8)->get(),
@@ -61,9 +89,22 @@ class DashboardController extends Controller
                 'entity' => ['type' => 'bar', 'horizontal' => true, 'labels' => $byEntity->keys()->all(), 'datasets' => [['label' => 'Valoare ofertată ('.$currency.')', 'data' => $byEntity->values()->all()]]],
                 'type' => ['type' => 'doughnut', 'labels' => $byType->keys()->map(fn ($k) => Vocab::QUOTE_TYPES[$k] ?? $k)->all(), 'datasets' => [['data' => $byType->values()->all()]]],
                 'status' => ['type' => 'bar', 'labels' => $byStatus->keys()->map(fn ($k) => Vocab::QUOTE_STATUSES[$k] ?? $k)->all(), 'datasets' => [['label' => 'Oferte', 'data' => $byStatus->values()->all()]]],
+                'months' => ['type' => 'bar', 'labels' => $months->keys()->map(fn ($k) => \Illuminate\Support\Carbon::createFromFormat('Y-m', $k)->locale('ro')->translatedFormat('M Y'))->all(), 'datasets' => [['label' => 'Valoare ofertată ('.$currency.')', 'data' => $months->values()->map(fn ($v) => round($v, 2))->all()]]],
                 'country' => ['type' => 'bar', 'horizontal' => true, 'labels' => $topCountries->keys()->map(fn ($k) => Vocab::countries()[$k] ?? $k)->all(), 'datasets' => [['label' => 'Companii', 'data' => $topCountries->values()->all()]]],
             ],
         ]);
+    }
+
+    public function newsSeen(Request $request)
+    {
+        Setting::put('news.seen.'.$request->user()->id, (string) config('simex.version'));
+
+        return back();
+    }
+
+    public function tutorial()
+    {
+        return view('admin.tutorial');
     }
 
     /** Modules scheduled for a later phase: an honest status page instead of buttons that do nothing. */

@@ -37,6 +37,25 @@ class CalculatorController extends Controller
         ]);
     }
 
+    /** «Tarife»: every rate and parameter sheet of the active models, with its current version, and the machine rates. */
+    public function rates(Request $request)
+    {
+        $user = $request->user();
+        $active = CalcModelVersion::where('status', 'activ')->get()->keyBy('model_key');
+        $params = \App\Models\CalcParameterSet::where('is_active', true)->get()->keyBy('model_key');
+        $models = [];
+        foreach ($this->registry->all() as $def) {
+            $sheets = array_filter($this->calc->visibleSheets($def, $user), fn ($s) => $s['role'] === 'params');
+            $models[] = ['def' => $def, 'version' => $active[$def->key()] ?? null, 'params' => $params[$def->key()] ?? null, 'sheets' => $sheets];
+        }
+        usort($models, fn ($a, $b) => [$a['def']->entity !== 'argento', $a['def']->kind !== 'cost', $a['def']->title] <=> [$b['def']->entity !== 'argento', $b['def']->kind !== 'cost', $b['def']->title]);
+
+        return view('admin.calc.rates', [
+            'models' => $models,
+            'machines' => $user->can_('library.view') ? \App\Models\Machine::with('entity:id,name')->orderBy('name')->get() : collect(),
+        ]);
+    }
+
     public function create(Request $request, string $key)
     {
         $def = $this->registry->find($key);
@@ -62,6 +81,8 @@ class CalculatorController extends Controller
             'version' => $calc->exists ? $calc->version : CalcModelVersion::active($def->key()),
             'companies' => Company::orderBy('name')->pluck('name', 'id'),
             'rfqs' => Rfq::whereIn('status', Rfq::OPEN)->orWhere('id', $calc->rfq_id)->orderByDesc('id')->limit(200)->get(['id', 'number', 'title']),
+            'drafts' => Calculation::with('company:id,name')->where('model_key', $def->key())->whereKeyNot($calc->id ?? 0)
+                ->orderByDesc('updated_at')->limit(12)->get(['id', 'reference', 'title', 'company_id', 'total', 'hours', 'currency', 'state', 'updated_at']),
         ]);
     }
 
@@ -69,8 +90,9 @@ class CalculatorController extends Controller
     public function evaluate(Request $request, string $key)
     {
         $def = $this->registry->find($key);
+        $visible = array_keys($this->calc->visibleSheets($def, $request->user()));
         $data = $request->validate([
-            'sheet' => ['required', 'string', Rule::in(array_keys($this->calc->visibleSheets($def, $request->user())))],
+            'sheet' => ['nullable', 'string', Rule::in($visible)], 'sheets' => 'nullable|array|max:40', 'sheets.*' => ['string', Rule::in($visible)],
             'inputs' => 'nullable|array|max:20000', 'params' => 'nullable|array|max:20000', 'calculation' => 'nullable|integer',
         ]);
         $saved = isset($data['calculation']) ? Calculation::find($data['calculation']) : null;
@@ -88,11 +110,16 @@ class CalculatorController extends Controller
             $rejected = array_merge($rejected, $session->apply($this->scalars($data['params']), ['params']));
         }
         $roles = $saved?->isLocked() ? [] : $this->calc->writableRoles($request->user());
+        $views = [];
+        foreach (array_unique($data['sheets'] ?? []) as $name) {
+            $views[$name] = $session->sheetView($name, $roles);
+        }
+        $out = $this->calc->present($session, $request->user(), $saved?->results['machine'] ?? null) + ['views' => $views, 'rejected' => $rejected];
+        if (! empty($data['sheet'])) {
+            $out['view'] = $session->sheetView($data['sheet'], $roles);
+        }
 
-        return response()->json($this->calc->present($session, $request->user(), $saved?->results['machine'] ?? null) + [
-            'view' => $session->sheetView($data['sheet'], $roles),
-            'rejected' => $rejected,
-        ]);
+        return response()->json($out);
     }
 
     public function store(Request $request, string $key)

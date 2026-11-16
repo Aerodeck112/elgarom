@@ -5,19 +5,31 @@ import { postJson, toast } from './app.js';
 const box = document.querySelector('[data-calc]');
 if (box) {
     const cfg = JSON.parse(document.getElementById('calc-config').textContent);
-    const state = { mode: 'auto', sheet: cfg.sheet, inputs: cfg.inputs || {}, params: {}, variant: cfg.variant, view: null, timer: null, seq: 0, dirty: false };
-    const grid = box.querySelector('[data-grid]');
-    const tabs = box.querySelector('[data-sheets]');
+    const state = { mode: 'auto', inputs: cfg.inputs || {}, params: {}, variant: cfg.variant, views: {}, timer: null, seq: 0, dirty: false, last: null };
+    const sections = [...box.querySelectorAll('details[data-sheet]')];
     const results = box.querySelector('[data-results]');
-    const modeBtns = [...box.querySelectorAll('[data-mode]')];
-    modeBtns.forEach((btn) => btn.addEventListener('click', () => { state.mode = btn.dataset.mode; if (state.lastView) render(state.lastView); }));
+    const register = box.querySelector('[data-register]');
+    const tilesBox = box.querySelector('[data-tiles]');
+    const stateTag = box.querySelector('[data-state]');
+    const warnbar = box.querySelector('[data-warnbar]');
+    const modeBtns = [...document.querySelectorAll('[data-mode]')];
+    const ids = new Map();
+    const uid = (name) => { if (!ids.has(name)) ids.set(name, ids.size + 1); return ids.get(name); };
+    const hostOf = (sec) => sec.querySelector('[data-host]');
+    const openNames = () => sections.filter((d) => d.open).map((d) => d.dataset.sheet);
+    const syncModeBtns = () => modeBtns.forEach((btn) => btn.classList.toggle('is-active', btn.dataset.mode === (state.mode === 'grid' ? 'grid' : 'form')));
+    modeBtns.forEach((btn) => btn.addEventListener('click', () => {
+        state.mode = btn.dataset.mode;
+        syncModeBtns();
+        sections.forEach((sec) => { const v = state.views[sec.dataset.sheet]; if (sec.open && v) render(v, hostOf(sec)); });
+    }));
+    syncModeBtns();
     const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text !== undefined) n.textContent = text; return n; };
     const ref = (sheet, col, row) => `${sheet}!${col}${row}`;
     const TONE = { ok: 'tag--ok', warn: 'tag--warn', block: 'tag--err' };
     const STATE_LABEL = { ok: 'Calculat', warn: 'Calculat – cu avertizări', block: 'Incomplet / blocat' };
 
-    function renderGrid(view) {
-        state.view = view;
+    function renderGrid(view, host) {
         const table = el('table', 'sheet');
         const head = el('tr');
         head.appendChild(el('th', 'rn', ''));
@@ -60,7 +72,7 @@ if (box) {
             body.appendChild(tr);
         });
         table.appendChild(body);
-        grid.replaceChildren(table);
+        host.replaceChildren(table);
     }
 
     function inputFor(view, cell, key) {
@@ -85,11 +97,11 @@ if (box) {
         return input;
     }
 
-    function patch(view) {
+    function patch(view, host) {
         // Same sheet: update computed values in place so focus and caret are kept (works in both views).
         const byAddr = new Map();
         view.rows.forEach((row) => row.cells.forEach((c) => byAddr.set(view.cols[c.c - 1] + row.r, c)));
-        grid.querySelectorAll('[data-a]').forEach((node) => {
+        host.querySelectorAll('[data-a]').forEach((node) => {
             if (node.classList.contains('in') || node.querySelector('[data-ref]')) return;
             const cell = byAddr.get(node.dataset.a);
             const text = cell ? (cell.d ?? '') : '';
@@ -99,7 +111,6 @@ if (box) {
                 node.classList.remove('changed'); void node.offsetWidth; node.classList.add('changed');
             }
         });
-        state.view = view;
     }
 
     /* ---------- guided form: the same cells, laid out as labelled fields and tables ---------- */
@@ -176,7 +187,7 @@ if (box) {
             const input = inputFor(view, c, ref(view.name, view.cols[c.c - 1], x.r));
             input.classList.add(c.t === 'l' ? 'select' : 'input');
             if (c.n || typeof c.v === 'number') input.classList.add('input--num');
-            if (k === 0) lab.htmlFor = input.id = 'f-' + view.cols[c.c - 1] + x.r;
+            if (k === 0) lab.htmlFor = input.id = 'f-' + uid(view.name) + '-' + view.cols[c.c - 1] + x.r;
             if (!view.editable || cfg.readonly) input.disabled = true;
             ctl.appendChild(input);
         });
@@ -263,8 +274,7 @@ if (box) {
         return box;
     }
 
-    function renderForm(view) {
-        state.view = view;
+    function renderForm(view, host) {
         const root = el('div', 'fx');
         let group = null;
         const ensure = () => { if (!group) { group = el('section', 'fx__group'); root.appendChild(group); } return group; };
@@ -275,14 +285,92 @@ if (box) {
             else if (b.type === 'result') { const node = resultBlock(view, b.x); if (node) ensure().appendChild(node); }
             else if (b.type === 'table') { ensure().appendChild(tableBlock(view, b)); }
         });
-        grid.classList.add('is-form');
-        grid.replaceChildren(root);
+        host.classList.add('is-form');
+        host.replaceChildren(root);
     }
 
-    function render(view) {
-        const form = state.mode === 'form' || (state.mode === 'auto' && ['input', 'reference'].includes(view.role));
-        modeBtns.forEach((btn) => btn.classList.toggle('is-active', (btn.dataset.mode === 'form') === form));
-        if (form) renderForm(view); else { grid.classList.remove('is-form'); renderGrid(view); }
+    const wantsForm = (role) => state.mode === 'form' || (state.mode === 'auto' && ['input', 'reference'].includes(role));
+    function render(view, host) {
+        const form = wantsForm(view.role);
+        host.dataset.rendered = form ? 'form' : 'grid';
+        if (form) renderForm(view, host); else { host.classList.remove('is-form'); renderGrid(view, host); }
+    }
+
+
+    const fmtTile = (t) => {
+        const tile = el('div', 'rft' + (t.main ? ' rft--main' : ''));
+        tile.appendChild(el('span', 'rft__l', t.label));
+        tile.appendChild(el('span', 'rft__v', t.display));
+        if (t.note) tile.appendChild(el('span', 'rft__n', t.note));
+        return tile;
+    };
+
+    function renderTiles(data) {
+        let tiles = data.tiles || [];
+        if (!tiles.length) {
+            // Hour models: one tile per estimate, the one chosen for the offer highlighted.
+            tiles = Object.values(data.summary).map((v) => ({
+                label: v.label, main: state.variant ? state.variant === v.key : false,
+                display: v.hours !== null ? v.hours_display + ' ore' : (v.total !== null ? v.total_display + ' ' + (v.currency || '') : '—'),
+                note: v.machine_cost_display ? 'Cost utilaj: ' + v.machine_cost_display : null,
+            }));
+            if (tiles.length && !tiles.some((t) => t.main)) tiles[tiles.length - 1].main = true;
+        }
+        tilesBox.replaceChildren(...tiles.map(fmtTile));
+        const states = Object.values(data.summary).map((v) => v.state);
+        const worst = states.includes('block') ? 'block' : (states.includes('warn') ? 'warn' : 'ok');
+        stateTag.className = 'tag ' + (TONE[worst] || '');
+        stateTag.textContent = STATE_LABEL[worst];
+    }
+
+    function renderBadges(data) {
+        const badges = data.badges || {};
+        sections.forEach((sec) => {
+            const b = sec.querySelector('[data-badge]');
+            const n = badges[sec.dataset.sheet];
+            if (n === undefined) { b.textContent = ''; b.className = 'sec__b'; return; }
+            b.textContent = n > 0 ? n + ' ⚠' : 'OK';
+            b.className = 'sec__b ' + (n > 0 ? 'sec__b--warn' : 'sec__b--ok');
+        });
+    }
+
+    function renderRegister(data) {
+        const badges = data.badges || {};
+        const bad = (data.checks || []).filter((c) => !c.ok);
+        const warns = [];
+        Object.values(data.summary).forEach((v) => v.warnings.forEach((w) => warns.push([v.label, w])));
+        const flagged = sections.filter((sec) => (badges[sec.dataset.sheet] || 0) > 0);
+        const total = flagged.reduce((n, sec) => n + badges[sec.dataset.sheet], 0) + bad.length + warns.length;
+        warnbar.hidden = total === 0;
+        warnbar.querySelector('[data-warncount]').textContent = total;
+        const regBadge = box.querySelector('[data-badge-reg]');
+        regBadge.textContent = total ? total + ' ⚠' : 'OK';
+        regBadge.className = 'sec__b ' + (total ? 'sec__b--warn' : 'sec__b--ok');
+
+        const table = el('table', 't reg');
+        const thead = el('thead'); const hr = el('tr');
+        ['#', 'Secțiune', 'Avertizare', 'Ce faceți'].forEach((h) => hr.appendChild(el('th', '', h)));
+        thead.appendChild(hr); table.appendChild(thead);
+        const tbody = el('tbody');
+        let i = 0;
+        const row = (where, what, how, sec) => {
+            const tr = el('tr');
+            tr.appendChild(el('td', 'rn', String(++i)));
+            const td = el('td');
+            if (sec) { const a = el('a', 'link', where); a.href = '#' + sec.id; a.addEventListener('click', () => { sec.open = true; }); td.appendChild(a); } else td.textContent = where;
+            tr.appendChild(td);
+            tr.appendChild(el('td', 'status--warn', what));
+            tr.appendChild(el('td', 'small muted', how || ''));
+            tbody.appendChild(tr);
+        };
+        flagged.forEach((sec) => row(sec.querySelector('.sec__t').textContent, badges[sec.dataset.sheet] + ' câmpuri marcate în foaie', 'Deschideți secțiunea și corectați rândurile marcate.', sec));
+        bad.forEach((c) => row('Verificare', c.label + ': ' + c.value, c.where && c.where !== c.value ? c.where : ''));
+        warns.forEach(([label, w]) => row(label, w, ''));
+        if (!i) { register.replaceChildren(el('p', 'status--ok', 'Nicio avertizare activă. ' + ((data.checks || []).length ? `Toate cele ${data.checks.length} controale sunt în regulă.` : ''))); return; }
+        table.appendChild(tbody);
+        const okCount = (data.checks || []).length - bad.length;
+        register.replaceChildren(table);
+        if (okCount) register.appendChild(el('p', 'small status--ok', `${okCount} controale în regulă.`));
     }
 
     function renderResults(data) {
@@ -314,49 +402,38 @@ if (box) {
                 v.outputs.forEach((o) => { const d = el('div'); d.appendChild(el('dt', '', o.label)); d.appendChild(el('dd', '', o.display || '—')); dl.appendChild(d); });
                 card.appendChild(dl);
             }
-            if (v.warnings.length) {
-                const ul = el('ul');
-                v.warnings.forEach((w) => ul.appendChild(el('li', '', w)));
-                card.appendChild(ul);
-            }
             if (Object.keys(data.summary).length > 1) {
                 const pick = el('label', 'check');
                 pick.style.padding = '10px 16px';
                 pick.style.borderTop = '1px solid var(--line)';
                 const radio = el('input'); radio.type = 'radio'; radio.name = 'variant-pick'; radio.value = v.key; radio.checked = state.variant === v.key;
-                radio.addEventListener('change', () => { state.variant = v.key; state.dirty = true; });
+                radio.addEventListener('change', () => { state.variant = v.key; state.dirty = true; if (state.last) renderTiles(state.last); });
                 pick.appendChild(radio); pick.appendChild(document.createTextNode(' Folosește această estimare în ofertă'));
                 card.appendChild(pick);
             }
             results.appendChild(card);
         });
-        if (data.checks && data.checks.length) {
-            const card = el('section', 'result');
-            const bad = data.checks.filter((c) => !c.ok);
-            card.appendChild(el('div', 'result__head', bad.length ? `Verificări: ${bad.length} de rezolvat` : 'Verificări înainte de ofertă'));
-            const dl = el('dl');
-            bad.forEach((c) => {
-                const d = el('div');
-                d.appendChild(el('dt', '', c.label));
-                d.appendChild(el('dd', 'status--err', c.value + (c.where && c.where !== c.value ? `  → ${c.where}` : '')));
-                dl.appendChild(d);
-            });
-            const okCount = data.checks.length - bad.length;
-            if (okCount) { const d = el('div'); d.appendChild(el('dt', 'status--ok', `${okCount} controale în regulă`)); dl.appendChild(d); }
-            card.appendChild(dl);
-            results.appendChild(card);
-        }
         if (data.rejected && data.rejected.length) toast('Unele celule nu pot fi modificate: ' + data.rejected.slice(0, 3).join(', '), true);
     }
 
-    async function evaluate(switching = false) {
+    async function evaluate() {
         const seq = ++state.seq;
         box.classList.add('busy');
         try {
-            const data = await postJson(cfg.evaluateUrl, { sheet: state.sheet, inputs: state.inputs, params: state.params, calculation: cfg.calculation || null });
+            const data = await postJson(cfg.evaluateUrl, { sheets: openNames(), inputs: state.inputs, params: state.params, calculation: cfg.calculation || null });
             if (seq !== state.seq) return;
-            if (switching || !state.view || state.view.name !== data.view.name) render(data.view); else patch(data.view);
-            state.lastView = data.view;
+            Object.entries(data.views || {}).forEach(([name, view]) => {
+                const sec = sections.find((d) => d.dataset.sheet === name);
+                if (!sec) return;
+                const host = hostOf(sec);
+                const mode = wantsForm(view.role) ? 'form' : 'grid';
+                if (host.dataset.rendered === mode && state.views[name]) patch(view, host); else render(view, host);
+                state.views[name] = view;
+            });
+            state.last = data;
+            renderTiles(data);
+            renderBadges(data);
+            renderRegister(data);
             renderResults(data);
         } catch (err) {
             toast(err.message, true);
@@ -365,25 +442,24 @@ if (box) {
         }
     }
 
-    grid.addEventListener('input', (e) => {
+    box.addEventListener('input', (e) => {
         const input = e.target.closest('[data-ref]');
         if (!input) return;
-        const target = state.view.role === 'params' ? state.params : state.inputs;
+        const sec = input.closest('details[data-sheet]');
+        const target = sec && sec.dataset.role === 'params' ? state.params : state.inputs;
         target[input.dataset.ref] = input.value;
         state.dirty = true;
         clearTimeout(state.timer);
-        state.timer = setTimeout(() => evaluate(false), input.tagName === 'SELECT' || input.type === 'date' ? 0 : 350);
+        state.timer = setTimeout(evaluate, input.tagName === 'SELECT' || input.type === 'date' ? 0 : 350);
     });
-    grid.addEventListener('change', (e) => { if (e.target.closest('select[data-ref]')) { clearTimeout(state.timer); evaluate(false); } });
+    box.addEventListener('change', (e) => { if (e.target.closest('select[data-ref]')) { clearTimeout(state.timer); evaluate(); } });
 
-    tabs?.addEventListener('click', (e) => {
-        const btn = e.target.closest('[data-sheet]');
-        if (!btn) return;
-        state.sheet = btn.dataset.sheet;
-        tabs.querySelectorAll('[data-sheet]').forEach((b) => b.classList.toggle('is-active', b === btn));
-        clearTimeout(state.timer);
-        evaluate(true);
-    });
+    sections.forEach((sec) => sec.addEventListener('toggle', () => {
+        if (!sec.open) return;
+        if (!state.views[sec.dataset.sheet]) { clearTimeout(state.timer); evaluate(); }
+    }));
+    // The warnings bar and the register open the section they point to.
+    if (location.hash) { const target = document.querySelector(location.hash); if (target && target.tagName === 'DETAILS') target.open = true; }
 
     const submitWith = (form, extra) => {
         Object.entries(extra).forEach(([name, value]) => {
@@ -403,5 +479,5 @@ if (box) {
     }));
     window.addEventListener('beforeunload', (e) => { if (state.dirty) { e.preventDefault(); e.returnValue = ''; } });
 
-    evaluate(true);
+    evaluate();
 }

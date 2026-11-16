@@ -47,7 +47,7 @@ class PlatformTest extends TestCase
         foreach (['/crm', '/crm/companii', '/crm/companii/noua', "/crm/companii/{$company->id}", '/crm/cereri', '/crm/cereri/noua', '/crm/oferte', '/crm/oferte/noua', '/crm/calculatoare/piese',
             '/crm/calculatoare/stante', '/crm/stante', '/crm/stante/nou', '/crm/zincare', '/crm/zincare/nou', '/crm/modele-excel', '/crm/biblioteca/materials', '/crm/biblioteca/machines',
             '/crm/biblioteca/operations', '/crm/biblioteca/suppliers', '/crm/biblioteca/products', '/crm/biblioteca/materials/nou', '/crm/grup', '/crm/setari/general', '/crm/setari/smtp',
-            '/crm/setari/ai', '/crm/setari/site', '/crm/modul/prospectare', '/crm/modul/marketing', '/crm/utilizatori', '/crm/jurnal', '/crm/backup', '/crm/actualizari', '/crm/securitate', '/crm/cont'] as $url) {
+            '/crm/setari/ai', '/crm/setari/site', '/crm/modul/prospectare', '/crm/modul/marketing', '/crm/utilizatori', '/crm/jurnal', '/crm/backup', '/crm/actualizari', '/crm/securitate', '/crm/cont', '/crm/tarife', '/crm/tutorial', '/crm/integrare-ai'] as $url) {
             $this->get($url)->assertOk();
         }
         $this->get('/crm/calculator/rectificare-okamoto')->assertOk()->assertSee('Formulă în curs de configurare');
@@ -243,6 +243,32 @@ class PlatformTest extends TestCase
         $this->assertSame('RON', $quote->currency);
         $this->assertEqualsWithDelta($calc->results['summary']['oferta']['total'], $line->quantity * $line->unit_price, 0.01);
         $this->assertNotNull($line->unit_cost);
-        $this->get("/crm/calcule/{$calc->id}")->assertOk()->assertSee('Creează ofertă din acest calcul');
+        $this->get("/crm/calcule/{$calc->id}")->assertOk()->assertSee('Creează ofertă din acest calcul')->assertSee('Registru avertizări')->assertSee('Rezultat final');
+
+        // The accordion asks for several sections at once and gets the headline tiles and per-section warnings.
+        $res = $this->postJson('/crm/api/calculator/stante-matrite-fepo', ['sheets' => ['Date proiect', 'Ofertă'], 'inputs' => []])->assertOk()->json();
+        $this->assertSame(['Date proiect', 'Ofertă'], array_keys($res['views']));
+        $this->assertCount(4, $res['tiles']);
+        $this->assertArrayHasKey('Date proiect', $res['badges']);
+        $this->assertArrayNotHasKey('Ofertă', $res['badges']);
+    }
+
+    public function test_only_the_administrator_deletes_quotes_from_the_register(): void
+    {
+        $quote = $this->quote([['description' => 'Piesă', 'quantity' => 1, 'unit_price' => 10]]);
+        $this->signIn('director_comercial');
+        $this->get('/crm/oferte')->assertOk()->assertDontSee('>Șterge<', false);
+        $this->delete("/crm/oferte/{$quote->id}")->assertForbidden();
+        $this->signIn('admin');
+        $this->withSession(['admin.confirmed_at' => time()])->delete("/crm/oferte/{$quote->id}")->assertRedirect(route('admin.quotes.index'));
+        $this->assertSoftDeleted($quote);
+    }
+
+    public function test_bnr_rate_is_read_from_the_official_xml(): void
+    {
+        $xml = '<?xml version="1.0" encoding="utf-8"?><DataSet xmlns="http://www.bnr.ro/xsd"><Header><Publisher>National Bank of Romania</Publisher></Header>'
+            .'<Body><Subject>Reference rates</Subject><OrigCurrency>RON</OrigCurrency><Cube date="2026-11-13"><Rate currency="EUR">5.0912</Rate><Rate currency="HUF" multiplier="100">1.2950</Rate></Cube></Body></DataSet>';
+        $this->assertSame(['rate' => 5.0912, 'date' => '2026-11-13'], \App\Services\BnrRates::parse($xml));
+        $this->assertSame(0.01295, \App\Services\BnrRates::parse($xml, 'HUF')['rate']);
     }
 }

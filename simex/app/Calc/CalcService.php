@@ -103,8 +103,18 @@ final class CalcService
         }
         unset($v);
 
+        $tiles = array_values(array_filter($session->tiles(), fn ($t) => $t['perm'] === null || $user->can_($t['perm'])));
+        $badges = [];
+        foreach (array_keys($this->visibleSheets($def, $user)) as $name) {
+            if (in_array($def->role($name), ['input', 'params'], true)) {
+                $badges[$name] = $session->warningCount($name);
+            }
+        }
+
         return [
             'summary' => $summary,
+            'tiles' => $tiles,
+            'badges' => $badges,
             'machine' => $machine ? [
                 'name' => $machine['name'],
                 'rate_note' => $machine['hourly_rate'] === null ? 'Tarif orar neconfigurat pentru '.$machine['name'] : null,
@@ -160,6 +170,9 @@ final class CalcService
             'calc_date' => $calcDate,
             'results' => [
                 'summary' => $summary,
+                'tiles' => $session->tiles(),
+                'badges' => array_filter(array_map(fn ($name) => $session->warningCount($name), array_combine(
+                    $names = array_keys(array_filter($def->sheets(), fn ($m) => in_array($m['role'], ['input', 'params'], true))), $names))),
                 'lines' => $session->lines(),
                 'checks' => $session->checks(),
                 'machine' => $machine,

@@ -38,8 +38,34 @@ class QuoteController extends Controller
             $q->where('entity_id', (int) $request->query('entity'));
         }
 
-        return view('admin.quotes.index', ['rows' => $q->orderByDesc('id')->paginate(30)->withQueryString(), 'entities' => Entity::orderBy('sort')->pluck('name', 'id'),
+        $currency = setting('quotes.currency', 'EUR');
+        $cur = fn () => Quote::where('is_current', true)->where('currency', $currency);
+        $kpi = [
+            'total' => Quote::where('is_current', true)->count(),
+            'month' => Quote::where('is_current', true)->where('created_at', '>=', now()->startOfMonth())->count(),
+            'open_value' => (float) $cur()->whereIn('status', ['aprobata', 'trimisa', 'negociere'])->sum('total_net'),
+            'won_value' => (float) $cur()->where('status', 'acceptata')->sum('total_net'),
+            'currency' => $currency,
+        ];
+
+        return view('admin.quotes.index', ['rows' => $q->orderByDesc('id')->paginate(30)->withQueryString(), 'entities' => Entity::orderBy('sort')->pluck('name', 'id'), 'kpi' => $kpi,
             'counts' => Quote::where('is_current', true)->selectRaw('status, count(*) as n')->groupBy('status')->pluck('n', 'status')]);
+    }
+
+    /** Removes a quote and all its revisions from the register (administrator only; kept as soft-deleted for the audit). */
+    public function destroy(Request $request, Quote $quote)
+    {
+        DB::transaction(function () use ($quote) {
+            $all = Quote::where('number', $quote->number)->get();
+            $calcIds = \App\Models\QuoteItem::whereIn('quote_id', $all->pluck('id'))->whereNotNull('calculation_id')->pluck('calculation_id')->unique();
+            $all->each->delete();
+            // A calculation stays locked only while another issued quote still uses it.
+            $stillUsed = \App\Models\QuoteItem::whereIn('calculation_id', $calcIds)->whereHas('quote', fn ($q) => $q->whereNotNull('issued_at'))->pluck('calculation_id');
+            Calculation::whereIn('id', $calcIds->diff($stillUsed))->update(['locked_at' => null]);
+        });
+        AuditLog::record('oferta.stearsa', $quote, ['numar' => $quote->number, 'status' => $quote->status, 'total' => $quote->total_net]);
+
+        return redirect()->route('admin.quotes.index')->with('status', 'Oferta '.$quote->number.' a fost ștearsă din registru.');
     }
 
     public function create(Request $request)

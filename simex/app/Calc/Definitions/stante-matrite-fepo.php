@@ -33,6 +33,13 @@ return [
         'Date originale' => ['role' => 'doc', 'label' => 'Date originale'],
         'Instrucțiuni v19 (arhivă)' => ['role' => 'doc', 'label' => 'Instrucțiuni v19'],
     ],
+    // Banda «Rezultat final» din pagina calculatorului, ca în aplicația ARGENTO.
+    'tiles' => [
+        ['label' => 'Cost total', 'ref' => 'Ofertă!C20', 'unit' => 'lei', 'perm' => 'costs.view'],
+        ['label' => 'Adaos {pct}', 'ref' => 'Calcul general!H18', 'pct' => 'Configurare!B8', 'unit' => 'lei', 'perm' => 'costs.view'],
+        ['label' => 'Preț fără TVA', 'ref' => 'Ofertă!C21', 'unit' => 'lei'],
+        ['label' => 'Preț final ofertat', 'ref' => 'Ofertă!C23', 'unit' => 'lei', 'main' => true, 'eur_rate' => 'Configurare!B4'],
+    ],
     'variants' => [
         'oferta' => [
             'label' => 'Ofertă ștanță / matriță',

@@ -15,6 +15,7 @@ class SettingGroups
                 ['name' => 'quotes.vat_rate', 'label' => 'Cotă TVA implicită (%)', 'type' => 'decimal', 'rules' => 'nullable|numeric|min:0|max:50', 'hint' => 'Introduceți cota aplicabilă. Pentru livrări intracomunitare se setează 0 pe ofertă.'],
                 ['name' => 'quotes.exchange_rate', 'label' => 'Curs RON/EUR folosit la ofertare', 'type' => 'decimal', 'rules' => 'nullable|numeric|min:0.0001|max:1000', 'hint' => 'Se copiază în fiecare ofertă nouă și rămâne înghețat în ea.'],
                 ['name' => 'quotes.exchange_rate_date', 'label' => 'Data cursului', 'type' => 'date'],
+                ['name' => 'quotes.fx_auto', 'label' => 'Preia automat cursul EUR de la BNR (zilnic, prin cron)', 'type' => 'checkbox', 'hint' => 'Ofertele deja create își păstrează cursul. Butonul «Actualizează acum» este în antet, pe insigna EUR.'],
                 ['name' => 'quotes.min_margin', 'label' => 'Prag minim de marjă (%)', 'type' => 'decimal', 'rules' => 'nullable|numeric|min:0|max:100', 'hint' => 'Sub acest prag oferta cere aprobarea unui rol cu permisiunea «Aprobarea ofertelor». Gol = fără prag.'],
                 ['name' => 'quotes.max_discount', 'label' => 'Discount maxim fără aprobare (%)', 'type' => 'decimal', 'rules' => 'nullable|numeric|min:0|max:100'],
                 ['name' => 'quotes.link_days', 'label' => 'Valabilitatea linkului securizat pentru client (zile)', 'type' => 'number', 'rules' => 'nullable|integer|min:1|max:120'],

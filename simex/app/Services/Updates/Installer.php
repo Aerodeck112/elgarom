@@ -3,6 +3,7 @@
 namespace App\Services\Updates;
 
 use App\Models\Backup;
+use App\Models\Entity;
 use App\Models\SystemUpdate;
 use App\Services\BackupService;
 use Illuminate\Http\Client\ConnectionException;
@@ -209,7 +210,7 @@ class Installer
         } catch (ConnectionException $e) {
             // Some hosts block loopback HTTP. Fall back to in-process checks.
             $this->log('HTTP /health inaccesibil din server ('.$e->getMessage().'); verificare internă.');
-            if (! \App\Models\Entity::query()->exists()) {
+            if (! Entity::query()->exists()) {
                 throw new RuntimeException('Baza de date nu conține companiile grupului după actualizare.');
             }
         } finally {

@@ -8,7 +8,7 @@ Stări: **funcțional** (implementat și testat), **parțial**, **în așteptare
 | 2 | Clienți și contacte | funcțional | flux comercial, contacte, activități, sarcini, follow-up, câmpuri GDPR |
 | 3 | Cereri de ofertă (RFQ) | funcțional | numerotare, repere, statusuri, legături către calcule și oferte |
 | 4 | Calculator piese metalice | funcțional pentru tablă (laser, abkant, sudură, finisaje, ambalare); în așteptarea datelor pentru ștanțare, găurire, montaj, transport | fără Excel, operațiile lipsă afișează „Formulă în curs de configurare” |
-| 5 | Calculator ștanțe și matrițe | parțial | orele de frezare, strunjire, electroeroziune cu fir și rectificare sunt validate; însumarea costurilor este o simplă adunare, formula de preț FEPO nu a fost furnizată |
+| 5 | Calculator ștanțe și matrițe | funcțional | modelul FEPO v35 (cost, risc, adaos, preț) este validat; orele de frezare, strunjire, electroeroziune și rectificare la fel. La cantitate > 1 fișierul are un defect, semnalat ca avertizare (vezi auditul Excel) |
 | 6 | Calculator zincare | în așteptarea datelor | fișa tehnică și avertizările de gabarit funcționează; costul nu se calculează |
 | 7 | Oferte comerciale | funcțional, fără trimitere | constructor, revizii, comparare, aprobare, snapshot, PDF RO/EN/DE, Excel |
 | 8 | Produse și proiecte | funcțional | |
@@ -38,7 +38,7 @@ cereri GDPR de export și ștergere din interfață, scenarii comparative de vol
 ## Date care lipsesc de la beneficiar
 
 1. Excel sau reguli pentru costul zincării (Elgarom).
-2. Formula de preț pentru ștanțe și matrițe (FEPO): adaosuri, regie, risc.
+2. Corectarea formulei `Calcul general!H4:H13` din modelul de ștanțe v35, pentru oferte cu mai multe bucăți.
 3. Tarifele orare ale celor patru utilaje.
 4. Datele juridice ale emitenților și siglele oficiale GRUP SIMEX și FEPO.
 5. Cotă TVA, curs, praguri de marjă și de discount.

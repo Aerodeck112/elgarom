@@ -21,8 +21,12 @@
                 @endforeach
             @endforeach
         </div>
+        <div class="calc__bar">
+            <div class="seg" role="group" aria-label="Mod de afișare"><button type="button" data-mode="form">Formular</button><button type="button" data-mode="grid">Foaia Excel</button></div>
+            <span class="small muted">Rezultatele se recalculează pe server la fiecare modificare.</span>
+        </div>
         <div class="sheet-wrap" data-grid><div class="empty">Se calculează…</div></div>
-        <p class="small muted" style="margin-top:8px">Celulele galbene sunt datele de intrare. Coloanele și rândurile au aceleași adrese ca în Excel. Parametrii și tarifele se schimbă doar cu permisiunea dedicată și se salvează ca versiune nouă.</p>
+        <p class="small muted" style="margin-top:8px">În «Foaia Excel» celulele galbene sunt datele de intrare, cu aceleași adrese ca în fișier. Parametrii și tarifele se schimbă doar cu permisiunea dedicată și se salvează ca versiune nouă.</p>
     </div>
     <aside class="calc__side">
         <div data-results></div>
@@ -41,6 +45,14 @@
         <form class="panel" method="post" action="{{ route('admin.calc.params', $def->key()) }}" data-calc-params>@csrf
             <h2>Parametri și tarife</h2><p class="small muted">După ce modificați celule din foile de parametri, salvați-le ca versiune nouă, valabilă pentru toate calculele viitoare.</p>
             <div class="field"><label for="note">Motivul modificării</label><input class="input" id="note" name="note" maxlength="255"></div><button class="btn btn--sm btn--line" type="submit">Salvează parametrii</button></form>
+        @endif
+        @if ($calc->exists && can('quotes.manage'))
+        <form class="panel panel--ok" method="post" action="{{ route('admin.quotes.from-calc', $calc) }}">@csrf
+            <h2>Ofertă</h2>
+            <p class="small">Creează o ofertă pentru {{ $calc->company?->name ?? 'clientul ales' }} cu rezultatul acestui calcul. O puteți modifica înainte de aprobare.</p>
+            <button class="btn btn--accent" type="submit" @disabled($calc->state === 'block' || ! $calc->company_id)>Creează ofertă din acest calcul</button>
+            @if (! $calc->company_id)<p class="hint">Alegeți întâi clientul și salvați calculul.</p>@endif
+        </form>
         @endif
         @if ($calc->exists)
         <div class="panel"><div class="btn-row"><form method="post" action="{{ route('admin.calc.duplicate', $calc) }}">@csrf<button class="btn btn--sm btn--line" type="submit">Duplică cu parametrii actuali</button></form>

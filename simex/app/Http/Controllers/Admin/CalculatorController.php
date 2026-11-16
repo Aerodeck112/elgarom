@@ -27,6 +27,8 @@ class CalculatorController extends Controller
         abort_unless(in_array($area, ['piese', 'stante'], true), 404);
         $entity = $area === 'piese' ? 'argento' : 'fepo';
         $models = array_filter($this->registry->all(), fn ($d) => $d->entity === $entity);
+        // Calculators that price a whole job come first, hour estimators after.
+        uasort($models, fn ($a, $b) => [$a->kind !== 'cost', $a->title] <=> [$b->kind !== 'cost', $b->title]);
         $active = CalcModelVersion::where('status', 'activ')->get()->keyBy('model_key');
 
         return view('admin.calc.index', [

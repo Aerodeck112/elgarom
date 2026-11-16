@@ -6,16 +6,16 @@
 @foreach ($job->exists ? $job->warnings() : [] as $w)<div class="alert alert--warn">{{ $w }}</div>@endforeach
 <div class="cols">
 <form class="panel form-grid" method="post" action="{{ $job->exists ? route('admin.zinc.update', $job) : route('admin.zinc.store') }}">@csrf @if ($job->exists) @method('PUT') @endif
-    <div class="field col-8"><label for="title">Titlu / reper <span class="req">*</span></label><input class="input" id="title" name="title" value="{{ old('title', $job->title) }}" required></div>
-    <div class="field col-4"><label for="company_id">Client</label><select class="select" id="company_id" name="company_id"><option value="">—</option>@foreach ($companies as $id => $name)<option value="{{ $id }}" @selected((int) old('company_id', $job->company_id) === $id)>{{ $name }}</option>@endforeach</select></div>
+    <div class="field span-8"><label for="title">Titlu / reper <span class="req">*</span></label><input class="input" id="title" name="title" value="{{ old('title', $job->title) }}" required></div>
+    <div class="field span-4"><label for="company_id">Client</label><select class="select" id="company_id" name="company_id"><option value="">—</option>@foreach ($companies as $id => $name)<option value="{{ $id }}" @selected((int) old('company_id', $job->company_id) === $id)>{{ $name }}</option>@endforeach</select></div>
     @foreach (\App\Http\Controllers\Admin\ZincController::FIELDS as $key => [$label, $type])
-        <div class="field col-4"><label for="z-{{ $key }}">{{ $label }}</label>
+        <div class="field span-4"><label for="z-{{ $key }}">{{ $label }}</label>
         @if ($type === 'select')<select class="select" id="z-{{ $key }}" name="inputs[{{ $key }}]"><option value="dispozitiv" @selected(($i[$key] ?? '') === 'dispozitiv')>Dispozitiv (agățat)</option><option value="tambur" @selected(($i[$key] ?? '') === 'tambur')>Tambur</option></select>
         @else<input class="input {{ $type === 'num' ? 'input--num' : '' }}" id="z-{{ $key }}" name="inputs[{{ $key }}]" value="{{ $i[$key] ?? '' }}" @if ($type === 'num') inputmode="decimal" @endif>@endif
         @error('inputs.'.$key)<p class="error-text">{{ $message }}</p>@enderror</div>
     @endforeach
-    <div class="field col-12"><label for="notes">Observații</label><textarea class="textarea" id="notes" name="notes">{{ old('notes', $job->notes) }}</textarea></div>
-    <div class="col-12"><button class="btn" type="submit">Salvează fișa</button></div>
+    <div class="field span-12"><label for="notes">Observații</label><textarea class="textarea" id="notes" name="notes">{{ old('notes', $job->notes) }}</textarea></div>
+    <div class="span-12"><button class="btn" type="submit">Salvează fișa</button></div>
 </form>
 <div class="stack">
     <div class="panel"><h2>Mărimi derivate</h2><dl class="kv"><dt>Suprafață totală / lot</dt><dd class="mono">{{ $surface > 0 ? money($surface).' dm²' : '—' }}</dd><dt>Masă totală / lot</dt><dd class="mono">{{ $mass > 0 ? money($mass).' kg' : '—' }}</dd></dl><p class="hint">Produse simple (mărime pe piesă × piese pe lot), afișate pentru verificare.</p></div>

@@ -65,3 +65,32 @@ Fișierul de frezare are foaia `Interfata_API`, cu chei stabile pentru intrări 
 
 - Corectitudinea tehnologică a parametrilor (viteze, regimuri, tarife): motorul reproduce fișierele, nu le judecă.
 - Compararea cu Excel pe scenarii completate: scenariile au fost recalculate cu LibreOffice, nu cu Excel. Valorile inițiale ale fișierelor sunt însă cele scrise de Excel și coincid integral.
+
+## Adăugat la 16.11.2026: `model_calcul_matrite_stante_v35.xlsx`
+
+| Fișier | Foi | Formule | Ce calculează | Calculator |
+|---|---|---|---|---|
+| `model_calcul_matrite_stante_v35.xlsx` | 18 | 10.949 | cost și preț pentru o ștanță / matriță: materiale, operații, componente cumpărate, tratamente, indirecte, risc, adaos, TVA | `stante-matrite-fepo` |
+
+- Fișier salvat cu Excel la 13.11.2026, fără macro-uri și fără legături externe.
+- Toate cele 10.949 de formule recalculate de motor sunt identice cu valorile salvate de Excel.
+- Scenariu cu cantitatea 3, recalculat independent cu LibreOffice: 10.949 din 10.949 identice.
+- Workbook-ul nu folosește protecția celulelor; intrările sunt celulele constante cu umplere albastră (`DBEAFE`, `DDEBF7`, `D9EAF7`) sau galbenă (`FFF2CC`). Celulele cu formulă nu sunt niciodată intrări, oricare le-ar fi culoarea.
+- Rezultatul principal: `Ofertă!C21` (preț fără TVA, în lei), pe bucată `Ofertă!C24`; starea: `Verificare model!A2`.
+- O ofertă se creează direct din calcul: o poziție «Ștanță / matriță», cu cantitatea din `Date proiect!B11`, prețul unitar din `Ofertă!C24` și costul unitar din `Ofertă!C20` ÷ cantitate.
+
+### Defect găsit: cantitate mai mare de 1
+
+Foaia «Calcul general», coloana H (`H4:H13`, «Cost pentru cantitatea ofertată»), folosește pe toate rândurile aceeași formulă:
+
+```
+H = SUMIFS(Operații!T; Operații!A; "Proiectare și pregătire tehnică") + (C − același SUMIFS) × cantitate
+```
+
+La cantitatea 1 termenii se anulează și H = C, deci defectul nu se vede. La cantitate mai mare, fiecare rând adaugă și scade indirectele
+proiectării, înmulțite diferit. Rândurile fără cost (componente cumpărate, servicii externe, transport) devin negative.
+Exemplu, cantitatea 3: transport −758,31 lei, deși nota din rândul 25 spune că transportul se calculează o singură dată.
+
+Platforma reproduce fișierul exact și nu îi corectează formulele. Orice valoare negativă apare ca avertizare la rezultat,
+iar calculul trece în starea «cu avertizări». Pentru ofertele cu mai multe ștanțe, corectați formula în Excel și încărcați versiunea nouă
+(Calcul de costuri → Modele Excel); este validată și activată la fel.

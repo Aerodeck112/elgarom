@@ -19,7 +19,7 @@ class WorkbookModelsTest extends TestCase
 {
     public static function models(): array
     {
-        return [['rectificare-okamoto'], ['frezare-genos-m460'], ['strunjire-genos-l3000'], ['electroeroziune-cut-e600'], ['laser-abkant-finisaje']];
+        return [['rectificare-okamoto'], ['frezare-genos-m460'], ['strunjire-genos-l3000'], ['electroeroziune-cut-e600'], ['laser-abkant-finisaje'], ['stante-matrite-fepo']];
     }
 
     #[DataProvider('models')]

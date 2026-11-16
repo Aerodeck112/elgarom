@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\CalcModelVersion;
 use App\Models\Calculation;
+use App\Models\Entity;
 use App\Models\Machine;
 use App\Models\Quote;
 use App\Models\Setting;
@@ -188,7 +189,7 @@ class PlatformTest extends TestCase
             $this->markTestSkipped('Workbook-ul sursă nu este disponibil.');
         }
         $this->artisan('simex:modele', ['dir' => $this->workbookDir()])->assertSuccessful();
-        $this->assertSame(5, CalcModelVersion::where('status', 'activ')->count());
+        $this->assertSame(count(glob($this->workbookDir().'/*.xlsx')), CalcModelVersion::where('status', 'activ')->count());
         $this->signIn('inginer_ofertare');
         $inputs = ['Calculator!B6' => 'S235/S355', 'Calculator!B8' => '200', 'Calculator!B9' => '150', 'Calculator!B10' => '30'];
 
@@ -213,5 +214,35 @@ class PlatformTest extends TestCase
         $this->assertNull($calc->fresh()->machineCost());
         $this->post("/crm/calcule/{$calc->id}/copie")->assertRedirect();
         $this->assertEqualsWithDelta(73.24, Calculation::latest('id')->first()->machineCost(), 0.05);
+    }
+
+    public function test_a_die_calculation_becomes_a_quote_in_one_step(): void
+    {
+        if (! is_file($this->workbookDir().'/model_calcul_matrite_stante_v35.xlsx')) {
+            $this->markTestSkipped('Workbook-ul sursă nu este disponibil.');
+        }
+        $this->artisan('simex:modele', ['dir' => $this->workbookDir()])->assertSuccessful();
+        Entity::where('code', 'fepo')->update(['legal_name' => 'FEPO TEST SRL', 'tax_id' => 'RO1', 'address' => 'Str. 1', 'legal_confirmed_at' => now()]);
+        $company = $this->company();
+        $this->signIn('inginer_ofertare');
+        // Only input cells are accepted; the summary formula cannot be overwritten.
+        $res = $this->postJson('/crm/api/calculator/stante-matrite-fepo', ['sheet' => 'Date proiect', 'inputs' => ['Date proiect!B11' => '2', 'Ofertă!C21' => 1]])->assertOk()->json();
+        $this->assertSame(['Ofertă!C21'], $res['rejected']);
+        $this->assertNotNull($res['summary']['oferta']['total']);
+        // Known defect of the v35 workbook: Calcul general!H4:H13 turns rows without cost negative when the quantity is above 1.
+        $this->assertNotEmpty(preg_grep('/^Valoare negativă/u', $res['summary']['oferta']['warnings']));
+        $this->assertSame('warn', $res['summary']['oferta']['state']);
+
+        $this->post('/crm/calculator/stante-matrite-fepo', ['title' => 'Ștanță test', 'company_id' => $company->id, 'inputs' => json_encode(['Date proiect!B11' => '2'])])->assertRedirect();
+        $calc = Calculation::where('model_key', 'stante-matrite-fepo')->firstOrFail();
+        $this->post("/crm/calcule/{$calc->id}/oferta")->assertRedirect();
+        $quote = Quote::where('company_id', $company->id)->firstOrFail();
+        $line = $quote->items()->firstOrFail();
+        $this->assertSame('scula', $line->kind);
+        $this->assertSame(2.0, $line->quantity);
+        $this->assertSame('RON', $quote->currency);
+        $this->assertEqualsWithDelta($calc->results['summary']['oferta']['total'], $line->quantity * $line->unit_price, 0.01);
+        $this->assertNotNull($line->unit_cost);
+        $this->get("/crm/calcule/{$calc->id}")->assertOk()->assertSee('Creează ofertă din acest calcul');
     }
 }

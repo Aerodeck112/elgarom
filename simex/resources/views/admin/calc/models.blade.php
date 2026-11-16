@@ -4,10 +4,10 @@
 @php use App\Support\Vocab; @endphp
 <div class="page-head"><div><h1 class="page-title">Modele Excel de calcul</h1><p class="lead">Fiecare calculator rulează formulele unui workbook. La încărcare, toate formulele sunt recalculate de motorul platformei și comparate cu rezultatele salvate de Excel. Un model poate fi activat numai cu zero diferențe. Macro-urile nu sunt citite și nu sunt executate.</p></div></div>
 <form class="panel form-grid" method="post" action="{{ route('admin.models.upload') }}" enctype="multipart/form-data" style="max-width:900px;margin-bottom:20px">@csrf
-    <div class="field col-4"><label for="model_key">Calculator</label><select class="select" id="model_key" name="model_key" required>@foreach ($defs as $d)<option value="{{ $d->key() }}">{{ $d->title }}</option>@endforeach</select></div>
-    <div class="field col-4"><label for="file">Fișier .xlsx</label><input class="input" id="file" name="file" type="file" accept=".xlsx" required></div>
-    <div class="field col-4"><label for="label">Etichetă versiune</label><input class="input" id="label" name="label" maxlength="60" placeholder="ex. v18"></div>
-    <div class="col-12"><button class="btn" type="submit">Încarcă și validează</button></div>
+    <div class="field span-4"><label for="model_key">Calculator</label><select class="select" id="model_key" name="model_key" required>@foreach ($defs as $d)<option value="{{ $d->key() }}">{{ $d->title }}</option>@endforeach</select></div>
+    <div class="field span-4"><label for="file">Fișier .xlsx</label><input class="input" id="file" name="file" type="file" accept=".xlsx" required></div>
+    <div class="field span-4"><label for="label">Etichetă versiune</label><input class="input" id="label" name="label" maxlength="60" placeholder="ex. v18"></div>
+    <div class="span-12"><button class="btn" type="submit">Încarcă și validează</button></div>
 </form>
 @foreach ($defs as $d)
 <div class="panel panel--flush" style="margin-bottom:16px"><div class="panel__title"><span>{{ $d->title }} <span class="muted small">· fișier așteptat: {{ $d->file_hint }}</span></span>

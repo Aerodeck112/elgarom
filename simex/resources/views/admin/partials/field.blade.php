@@ -7,7 +7,7 @@
     $span = $f['span'] ?? ($f['type'] === 'textarea' ? 12 : 6);
     $required = is_array($f['rules'] ?? null) ? in_array('required', $f['rules'], true) : str_contains((string) ($f['rules'] ?? ''), 'required');
 @endphp
-<div class="field col-{{ $span }}">
+<div class="field span-{{ $span }}">
     @if ($f['type'] === 'checkbox')
         <label class="check"><input type="hidden" name="{{ $name }}" value="0"><input type="checkbox" id="{{ $id }}" name="{{ $name }}" value="1" @checked($value) @disabled($locked)> <span>{{ $f['label'] }}</span></label>
     @else

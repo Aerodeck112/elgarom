@@ -12,7 +12,7 @@
     @csrf @if ($rfq->exists) @method('PUT') @endif
     <div class="panel form-grid">
         @include('admin.partials.field', ['f' => ['name' => 'company_id', 'label' => 'Client', 'type' => 'select', 'options' => $companies->all(), 'rules' => 'required', 'span' => 4], 'value' => $rfq->company_id])
-        <div class="field col-4"><label for="contact_id">Persoană de contact</label><select class="select" id="contact_id" name="contact_id" data-contacts-for="f-company_id" data-url="{{ route('admin.companies.contacts', '__ID__') }}" data-selected="{{ old('contact_id', $rfq->contact_id) }}"></select></div>
+        <div class="field span-4"><label for="contact_id">Persoană de contact</label><select class="select" id="contact_id" name="contact_id" data-contacts-for="f-company_id" data-url="{{ route('admin.companies.contacts', '__ID__') }}" data-selected="{{ old('contact_id', $rfq->contact_id) }}"></select></div>
         @include('admin.partials.field', ['f' => ['name' => 'entity_id', 'label' => 'Compania din grup vizată', 'type' => 'select', 'options' => $entities->all(), 'span' => 4], 'value' => $rfq->entity_id])
         @include('admin.partials.field', ['f' => ['name' => 'title', 'label' => 'Titlu', 'type' => 'text', 'rules' => 'required', 'span' => 8], 'value' => $rfq->title])
         @include('admin.partials.field', ['f' => ['name' => 'source', 'label' => 'Sursă', 'type' => 'select', 'options' => Vocab::LEAD_SOURCES, 'span' => 4], 'value' => $rfq->source])
@@ -22,7 +22,7 @@
         @include('admin.partials.field', ['f' => ['name' => 'due_at', 'label' => 'Termen de răspuns', 'type' => 'date', 'span' => 3], 'value' => $rfq->due_at])
         @include('admin.partials.field', ['f' => ['name' => 'owner_id', 'label' => 'Responsabil comercial', 'type' => 'select', 'options' => $users->all(), 'span' => 6], 'value' => $rfq->owner_id])
         @include('admin.partials.field', ['f' => ['name' => 'engineer_id', 'label' => 'Inginer ofertare', 'type' => 'select', 'options' => $users->all(), 'span' => 6], 'value' => $rfq->engineer_id])
-        <div class="field col-12"><span class="label">Servicii solicitate</span><div class="btn-row">@foreach (Vocab::SERVICES as $k => $l)<label class="check"><input type="checkbox" name="services[]" value="{{ $k }}" @checked(in_array($k, old('services', $rfq->services ?? []), true))> {{ $l }}</label>@endforeach</div></div>
+        <div class="field span-12"><span class="label">Servicii solicitate</span><div class="btn-row">@foreach (Vocab::SERVICES as $k => $l)<label class="check"><input type="checkbox" name="services[]" value="{{ $k }}" @checked(in_array($k, old('services', $rfq->services ?? []), true))> {{ $l }}</label>@endforeach</div></div>
         @include('admin.partials.field', ['f' => ['name' => 'description', 'label' => 'Descrierea cererii', 'type' => 'textarea'], 'value' => $rfq->description])
         @include('admin.partials.field', ['f' => ['name' => 'notes', 'label' => 'Note interne', 'type' => 'textarea'], 'value' => $rfq->notes])
     </div>

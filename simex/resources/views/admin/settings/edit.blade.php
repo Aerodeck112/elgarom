@@ -14,7 +14,7 @@
     @foreach ($g['fields'] as $f)
         @php $in = $input($f['name']); $val = setting($f['name']); @endphp
         @if ($f['type'] === 'secret')
-            <div class="field col-12">
+            <div class="field span-12">
                 <label for="f-{{ $in }}">{{ $f['label'] }}</label>
                 <input class="input" type="password" id="f-{{ $in }}" name="{{ $in }}" autocomplete="new-password" placeholder="{{ \App\Models\Setting::has($f['name']) ? 'Setată – lăsați gol pentru a o păstra' : 'Nesetată' }}">
                 @if (\App\Models\Setting::has($f['name']))<label class="check small"><input type="checkbox" name="{{ $in }}__clear" value="1"> <span>Șterge valoarea salvată</span></label>@endif
@@ -26,7 +26,7 @@
             @include('admin.partials.field', ['f' => ['span' => 12] + $f, 'name' => $in, 'value' => $val])
         @endif
     @endforeach
-    <div class="col-12"><button class="btn" type="submit">Salvează</button></div>
+    <div class="span-12"><button class="btn" type="submit">Salvează</button></div>
 </form>
 @if ($g['key'] === 'smtp')
     <form class="panel" method="post" action="{{ route('admin.smtp.test') }}">

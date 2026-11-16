@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Calc\ModelRegistry;
 use App\Http\Controllers\Controller;
 use App\Models\AuditLog;
 use App\Models\Calculation;
@@ -116,21 +117,7 @@ class QuoteController extends Controller
             if ($calc->state === 'block') {
                 return back()->with('error', 'Calculul nu are un rezultat valabil.');
             }
-            $lines = $calc->results['lines'] ?? [];
-            if ($lines !== []) {
-                foreach ($lines as $l) {
-                    if (! is_numeric($l['unit_price'] ?? null) || ! is_numeric($l['qty'] ?? null)) {
-                        continue;
-                    }
-                    $quote->items()->create(['position' => ++$position, 'kind' => 'piesa', 'code' => $l['code'], 'name' => $l['name'] ?: $l['code'], 'quantity' => $l['qty'], 'unit' => 'buc',
-                        'unit_price' => $l['unit_price'], 'unit_cost' => is_numeric($l['cost'] ?? null) ? $l['cost'] : null, 'calculation_id' => $calc->id]);
-                }
-            } else {
-                // Hour models give a cost only when the machine has a tariff; the selling price is always set by a person.
-                $cost = $calc->machineCost();
-                $quote->items()->create(['position' => ++$position, 'kind' => 'serviciu', 'code' => $calc->reference, 'name' => $calc->title,
-                    'description' => ($calc->results['model']['title'] ?? '').' – '.money($calc->hours).' ore', 'quantity' => 1, 'unit' => 'lot', 'unit_price' => 0, 'unit_cost' => $cost, 'calculation_id' => $calc->id]);
-            }
+            $position = $this->addCalculation($quote, $calc, $position);
         }
         if (! empty($data['tool_project_id'])) {
             $tool = ToolProject::with('lines')->findOrFail($data['tool_project_id']);
@@ -233,6 +220,56 @@ class QuoteController extends Controller
 
         return response($excel->build($quote->load(['items', 'entity', 'company']), $withCosts), 200, [
             'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'Content-Disposition' => 'attachment; filename="'.$quote->number.'.xlsx"']);
+    }
+
+    /** One click from a saved calculation to a draft quote for the same client, with the calculation's lines. */
+    public function fromCalculation(Request $request, Calculation $calculation)
+    {
+        if ($calculation->state === 'block') {
+            return back()->with('error', 'Calculul nu are încă un rezultat valabil. Completați datele care lipsesc și salvați din nou.');
+        }
+        if (! $calculation->company_id) {
+            return back()->with('error', 'Alegeți clientul în panoul «Salvează calculul», salvați, apoi creați oferta.');
+        }
+        $def = app(ModelRegistry::class)->find($calculation->model_key);
+        $entity = Entity::where('code', $def->entity)->where('is_issuer', true)->first() ?? Entity::where('is_issuer', true)->orderBy('sort')->firstOrFail();
+        $company = Company::findOrFail($calculation->company_id);
+        $currency = collect($calculation->results['summary'] ?? [])->pluck('currency')->filter()->first() ?? setting('quotes.currency', 'EUR');
+        $quote = DB::transaction(function () use ($request, $calculation, $entity, $company, $currency, $def) {
+            $quote = $this->quotes->create([
+                'entity_id' => $entity->id, 'company_id' => $company->id, 'contact_id' => $company->contacts()->where('is_primary', true)->value('id'),
+                'rfq_id' => $calculation->rfq_id, 'title' => $calculation->title, 'type' => $def->entity === 'fepo' ? 'stante' : 'piese',
+                'language' => $company->language ?: 'ro', 'currency' => $currency, 'vat_rate' => (float) setting('quotes.vat_rate', 0),
+                'exchange_rate' => setting('quotes.exchange_rate'), 'exchange_rate_date' => setting('quotes.exchange_rate_date'), 'discount_percent' => 0,
+            ], $request->user());
+            $this->addCalculation($quote, $calculation, 0);
+            $quote->events()->create(['user_id' => $request->user()->id, 'type' => 'creata', 'body' => 'Din calculul '.$calculation->reference]);
+
+            return $this->quotes->recalculate($quote);
+        });
+        AuditLog::record('oferta.creata_din_calcul', $quote, ['calcul' => $calculation->reference]);
+
+        return redirect()->route('admin.quotes.edit', $quote)->with('status', 'Oferta '.$quote->number.' a fost creată din '.$calculation->reference.'. Verificați prețurile și condițiile, apoi salvați.');
+    }
+
+    private function addCalculation(Quote $quote, Calculation $calc, int $position): int
+    {
+        $lines = $calc->results['lines'] ?? [];
+        if ($lines !== []) {
+            foreach ($lines as $l) {
+                if (! is_numeric($l['unit_price'] ?? null) || ! is_numeric($l['qty'] ?? null)) {
+                    continue;
+                }
+                $quote->items()->create(['position' => ++$position, 'kind' => $l['kind'] ?? 'piesa', 'code' => $l['code'], 'name' => $l['name'] ?: $l['code'], 'quantity' => $l['qty'], 'unit' => $l['unit'] ?? 'buc',
+                    'unit_price' => $l['unit_price'], 'unit_cost' => is_numeric($l['cost'] ?? null) ? $l['cost'] : null, 'calculation_id' => $calc->id]);
+            }
+        } else {
+            // Hour models give a cost only when the machine has a tariff; the selling price is always set by a person.
+            $quote->items()->create(['position' => ++$position, 'kind' => 'serviciu', 'code' => $calc->reference, 'name' => $calc->title,
+                'description' => ($calc->results['model']['title'] ?? '').' – '.money($calc->hours).' ore', 'quantity' => 1, 'unit' => 'lot', 'unit_price' => 0, 'unit_cost' => $calc->machineCost(), 'calculation_id' => $calc->id]);
+        }
+
+        return $position;
     }
 
     private function attempt(\Closure $action, Quote $quote, string $audit, string $message)

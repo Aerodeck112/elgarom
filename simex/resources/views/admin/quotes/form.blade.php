@@ -15,8 +15,8 @@
     @csrf @if ($quote->exists) @method('PUT') @endif <input type="hidden" name="rfq_id" value="{{ old('rfq_id', $quote->rfq_id) }}">
     <div class="panel form-grid"><h2 style="grid-column:span 12">1 · Client și emitent</h2>
         @include('admin.partials.field', ['f' => $F('company_id', 'Client', 'select', ['options' => $companies->all(), 'rules' => 'required', 'span' => 4]), 'value' => $quote->company_id])
-        <div class="field col-4"><label for="contact_id">Persoană de contact</label><select class="select" id="contact_id" name="contact_id" data-contacts-for="f-company_id" data-url="{{ route('admin.companies.contacts', '__ID__') }}" data-selected="{{ old('contact_id', $quote->contact_id) }}"></select></div>
-        <div class="field col-4"><label for="entity_id">Societatea emitentă <span class="req">*</span></label>
+        <div class="field span-4"><label for="contact_id">Persoană de contact</label><select class="select" id="contact_id" name="contact_id" data-contacts-for="f-company_id" data-url="{{ route('admin.companies.contacts', '__ID__') }}" data-selected="{{ old('contact_id', $quote->contact_id) }}"></select></div>
+        <div class="field span-4"><label for="entity_id">Societatea emitentă <span class="req">*</span></label>
             <select class="select" id="entity_id" name="entity_id" required @disabled($quote->exists)>@foreach ($entities as $e)<option value="{{ $e->id }}" @selected((int) old('entity_id', $quote->entity_id) === $e->id)>{{ $e->name }}@unless ($e->canIssue()) – date juridice neconfirmate @endunless</option>@endforeach</select>
             <p class="hint">Emitentul stabilește numărul și identitatea ofertei și nu se mai schimbă după creare.</p></div>
         @include('admin.partials.field', ['f' => $F('title', 'Titlu / proiect', 'text', ['span' => 6]), 'value' => $quote->title])

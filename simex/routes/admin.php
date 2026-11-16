@@ -109,6 +109,7 @@ Route::prefix('crm')->name('admin.')->group(function () {
             Route::get('oferte/{quote}/modifica', [Admin\QuoteController::class, 'edit'])->name('quotes.edit');
             Route::put('oferte/{quote}', [Admin\QuoteController::class, 'update'])->name('quotes.update');
             Route::post('oferte/{quote}/import', [Admin\QuoteController::class, 'import'])->name('quotes.import');
+            Route::post('calcule/{calculation}/oferta', [Admin\QuoteController::class, 'fromCalculation'])->name('quotes.from-calc');
             Route::post('oferte/{quote}/aprobare', [Admin\QuoteController::class, 'submit'])->name('quotes.submit');
             Route::post('oferte/{quote}/status', [Admin\QuoteController::class, 'status'])->name('quotes.status');
             Route::post('oferte/{quote}/revizie', [Admin\QuoteController::class, 'revise'])->name('quotes.revise');

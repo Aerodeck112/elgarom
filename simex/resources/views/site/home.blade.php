@@ -3,7 +3,7 @@
 @php
     $byCode = $companies->keyBy('code');
     // The path of a part through the group: the tool, the part, the coating. A real sequence, so it is numbered.
-    $steps = collect([['fepo', 'Scula'], ['argento', 'Piesa'], ['elgarom', 'Protecția']])
+    $steps = collect([['fepo', 'Ștanța'], ['argento', 'Piesa'], ['elgarom', 'Protecția']])
         ->filter(fn ($s) => isset($byCode[$s[0]]))->map(fn ($s) => ['key' => $s[0], 'title' => $s[1], 'e' => $byCode[$s[0]]])->values();
     $title = setting('site.title', 'GRUP SIMEX SRL');
 @endphp
@@ -12,7 +12,7 @@
     <div class="wrap hero__in">
         <h1 class="hero__title" data-title aria-label="{{ $title }}">@foreach (preg_split('//u', $title, -1, PREG_SPLIT_NO_EMPTY) as $ch)<span aria-hidden="true" @class(['sp' => $ch === ' '])>{{ $ch === ' ' ? ' ' : $ch }}</span>@endforeach</h1>
         <p class="hero__sub" data-in>{{ setting('site.subtitle', 'Soluții industriale integrate. Precizie, tehnologie și experiență în prelucrarea metalelor.') }}</p>
-        <p class="hero__intro" data-in>{{ setting('site.intro', 'Grup Simex reunește trei activități industriale complementare: producția de piese și componente metalice, proiectarea și fabricația ștanțelor și matrițelor, și zincarea electrolitică. Împreună acoperă drumul unui reper de la sculă la piesa finită, protejată anticoroziv.') }}</p>
+        <p class="hero__intro" data-in>{{ setting('site.intro', 'Grup Simex reunește trei activități industriale complementare: producția de piese și componente metalice, proiectarea și fabricația ștanțelor și matrițelor, și zincarea electrolitică. Împreună acoperă drumul unui reper de la ștanță la piesa finită, protejată anticoroziv.') }}</p>
         <a class="hero__cue" href="#drum" data-in>Urmăriți drumul unui reper</a>
     </div>
 </section>
@@ -24,7 +24,7 @@
             <svg viewBox="0 0 600 440" role="img" data-scene>
                 <defs><clipPath id="pc"><path d="M222 172 H378 V268 H222 V236 H238 V204 H222 Z"/></clipPath><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" stroke="#8a929b" stroke-width="1.4"/></pattern></defs>
                 <line x1="40" y1="372" x2="560" y2="372" class="ln ln--soft"/>
-                {{-- 1 · die set, side view --}}
+                {{-- 1 · die (ștanță), side view --}}
                 <g data-s="1">
                     <rect x="170" y="318" width="260" height="54" class="solid"/><rect x="170" y="318" width="260" height="54" fill="url(#hatch)" opacity=".5"/>
                     <rect x="268" y="318" width="64" height="20" class="void"/>
@@ -59,7 +59,7 @@
             <ol class="rail" data-rail>@foreach ($steps as $i => $s)<li><span>{{ $i + 1 }}</span>{{ $s['title'] }}</li>@endforeach</ol>
         </div>
         <div class="path__text">
-            <h2 class="path__h">De la sculă la piesa finită, în același grup</h2>
+            <h2 class="path__h">De la ștanță la piesa finită, în același grup</h2>
             @foreach ($steps as $i => $s)
             <article class="step" data-step>
                 <p class="step__n">{{ $i + 1 }} din 3</p>

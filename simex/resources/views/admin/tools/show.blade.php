@@ -21,16 +21,16 @@
 @empty <tr><td colspan="8"><div class="empty">Nicio linie de cost. Adăugați ore de proiectare, prelucrări, materiale, componente.</div></td></tr>
 @endforelse</tbody></table></div>
 <form class="panel form-grid" method="post" action="{{ route('admin.tools.lines.store', $tool) }}">@csrf
-    <h2 class="col-12" style="grid-column:span 12">Adaugă linie de cost</h2>
-    <div class="field col-3"><label>Fază</label><select class="select" name="phase">@foreach (Vocab::TOOL_PHASES as $k => $l)<option value="{{ $k }}" @selected($k === 'realizare')>{{ $l }}</option>@endforeach</select></div>
-    <div class="field col-3"><label>Categorie</label><select class="select" name="category">@foreach (Vocab::TOOL_CATEGORIES as $k => $l)<option value="{{ $k }}">{{ $l }}</option>@endforeach</select></div>
-    <div class="field col-6"><label>Descriere</label><input class="input" name="description" maxlength="255"></div>
-    <div class="field col-6"><label>Din calcul salvat (ore validate)</label><select class="select" name="calculation_id"><option value="">— introducere manuală —</option>@foreach ($calculations as $c)<option value="{{ $c->id }}">{{ $c->reference }} · {{ \Illuminate\Support\Str::limit($c->title, 40) }} · {{ money($c->hours) }} h</option>@endforeach</select><p class="hint">Orele și tariful utilajului se preiau din calcul.</p></div>
-    <div class="field col-2"><label>Cantitate</label><input class="input input--num" name="quantity" inputmode="decimal"></div>
-    <div class="field col-2" style="grid-column:span 2"><label>U.M.</label><select class="select" name="unit">@foreach (['h', 'buc', 'kg', 'set', 'lot'] as $u)<option>{{ $u }}</option>@endforeach</select></div>
-    <div class="field col-2" style="grid-column:span 2"><label>Cost unitar</label><input class="input input--num" name="unit_cost" inputmode="decimal" @disabled(! $see)></div>
-    <div class="field col-6"><label>Utilaj (pentru tariful orar)</label><select class="select" name="machine_id"><option value="">—</option>@foreach ($machines as $m)<option value="{{ $m->id }}">{{ $m->name }}@if ($m->hourly_rate === null) · tarif neconfigurat @endif</option>@endforeach</select></div>
-    <div class="col-12" style="grid-column:span 12"><button class="btn btn--sm" type="submit">Adaugă linia</button></div>
+    <h2 class="span-12" style="grid-column:span 12">Adaugă linie de cost</h2>
+    <div class="field span-3"><label>Fază</label><select class="select" name="phase">@foreach (Vocab::TOOL_PHASES as $k => $l)<option value="{{ $k }}" @selected($k === 'realizare')>{{ $l }}</option>@endforeach</select></div>
+    <div class="field span-3"><label>Categorie</label><select class="select" name="category">@foreach (Vocab::TOOL_CATEGORIES as $k => $l)<option value="{{ $k }}">{{ $l }}</option>@endforeach</select></div>
+    <div class="field span-6"><label>Descriere</label><input class="input" name="description" maxlength="255"></div>
+    <div class="field span-6"><label>Din calcul salvat (ore validate)</label><select class="select" name="calculation_id"><option value="">— introducere manuală —</option>@foreach ($calculations as $c)<option value="{{ $c->id }}">{{ $c->reference }} · {{ \Illuminate\Support\Str::limit($c->title, 40) }} · {{ money($c->hours) }} h</option>@endforeach</select><p class="hint">Orele și tariful utilajului se preiau din calcul.</p></div>
+    <div class="field span-2"><label>Cantitate</label><input class="input input--num" name="quantity" inputmode="decimal"></div>
+    <div class="field span-2" style="grid-column:span 2"><label>U.M.</label><select class="select" name="unit">@foreach (['h', 'buc', 'kg', 'set', 'lot'] as $u)<option>{{ $u }}</option>@endforeach</select></div>
+    <div class="field span-2" style="grid-column:span 2"><label>Cost unitar</label><input class="input input--num" name="unit_cost" inputmode="decimal" @disabled(! $see)></div>
+    <div class="field span-6"><label>Utilaj (pentru tariful orar)</label><select class="select" name="machine_id"><option value="">—</option>@foreach ($machines as $m)<option value="{{ $m->id }}">{{ $m->name }}@if ($m->hourly_rate === null) · tarif neconfigurat @endif</option>@endforeach</select></div>
+    <div class="span-12" style="grid-column:span 12"><button class="btn btn--sm" type="submit">Adaugă linia</button></div>
 </form>
 <form class="panel" method="post" action="{{ route('admin.tools.update', $tool) }}" style="margin-top:18px">@csrf @method('PUT')
     @foreach (['name', 'type', 'company_id', 'complexity', 'operations_count', 'lead_time', 'amortization_quantity', 'currency', 'notes'] as $k)<input type="hidden" name="{{ $k }}" value="{{ $tool->{$k} }}">@endforeach

@@ -10,6 +10,6 @@
         $F('currency', 'Monedă', 'select', ['options' => array_combine(config('simex.currencies'), config('simex.currencies')), 'rules' => 'required', 'span' => 4]), $F('notes', 'Observații', 'textarea')] as $f)
         @include('admin.partials.field', ['f' => $f, 'value' => $tool->{$f['name']}])
     @endforeach
-    <div class="col-12 btn-row"><button class="btn" type="submit">Salvează</button></div>
+    <div class="span-12 btn-row"><button class="btn" type="submit">Salvează</button></div>
 </form>
 @endsection

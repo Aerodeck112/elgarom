@@ -27,8 +27,11 @@ final class XlsxModelReader
 
     public const MAX_PART_BYTES = 80 * 1024 * 1024;
 
-    /** @param ?string $inputFill ARGB fill colour that marks input cells in workbooks which do not use cell protection */
-    public function read(string $path, ?string $inputFill = null): array
+    /**
+     * @param  string|list<string>|null  $inputFill  ARGB fill colour(s) that mark input cells in workbooks which do not use
+     *                                               cell protection. Formula cells are never inputs, whatever their colour.
+     */
+    public function read(string $path, string|array|null $inputFill = null): array
     {
         $zip = new ZipArchive;
         if ($zip->open($path, ZipArchive::RDONLY) !== true) {
@@ -197,12 +200,13 @@ final class XlsxModelReader
         return $out;
     }
 
-    private function sheet(SimpleXMLElement $xml, array $strings, array $styles, ?string $inputFill): array
+    private function sheet(SimpleXMLElement $xml, array $strings, array $styles, string|array|null $inputFill): array
     {
         $cells = [];
         $unlocked = [];
         $st = [];
         $shared = [];
+        $fills = $inputFill === null ? [] : array_flip((array) $inputFill);
         $maxRow = 0;
         $maxCol = 0;
         foreach ($xml->sheetData->row as $row) {
@@ -210,7 +214,7 @@ final class XlsxModelReader
                 [$r, $col] = self::addr((string) $c['r']);
                 $xf = (int) $c['s'];
                 $style = $styles[$xf] ?? null;
-                if ($style !== null && ($style['unlocked'] || ($inputFill !== null && $style['fill'] === $inputFill))) {
+                if ($style !== null && ($style['unlocked'] || ($style['fill'] !== null && isset($fills[$style['fill']]) && ! isset($c->f)))) {
                     $unlocked[$r][$col] = true;
                 }
                 if ($xf > 0) {

@@ -8,7 +8,7 @@
         @foreach ($res['fields'] as $f)
             @include('admin.partials.field', ['f' => $f, 'value' => $row->{$f['name']}])
         @endforeach
-        <div class="col-12 btn-row"><button class="btn" type="submit">Salvează</button><a class="btn btn--line" href="{{ route('admin.res.index', $res['key']) }}">Renunță</a></div>
+        <div class="span-12 btn-row"><button class="btn" type="submit">Salvează</button><a class="btn btn--line" href="{{ route('admin.res.index', $res['key']) }}">Renunță</a></div>
     </form>
     <div class="stack">
         @if (! empty($history) && $history->isNotEmpty())

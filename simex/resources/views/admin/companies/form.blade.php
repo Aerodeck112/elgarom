@@ -20,8 +20,8 @@
 <form class="panel form-grid" method="post" action="{{ $company->exists ? route('admin.companies.update', $company) : route('admin.companies.store') }}">
     @csrf @if ($company->exists) @method('PUT') @endif
     @foreach ($fields as $f) @include('admin.partials.field', ['f' => $f, 'value' => $company->{$f['name']}]) @endforeach
-    <div class="field col-6"><span class="label">Interese industriale</span><div class="btn-row">@foreach (Vocab::SERVICES as $k => $l)<label class="check"><input type="checkbox" name="interests[]" value="{{ $k }}" @checked(in_array($k, old('interests', $company->interests ?? []), true))> {{ $l }}</label>@endforeach</div></div>
-    <div class="field col-6"><span class="label">Excludere</span><label class="check"><input type="checkbox" name="do_not_contact" value="1" @checked(old('do_not_contact', $company->do_not_contact))> Nu contacta în scop comercial</label></div>
-    <div class="col-12 btn-row"><button class="btn" type="submit">Salvează</button><a class="btn btn--line" href="{{ $company->exists ? route('admin.companies.show', $company) : route('admin.companies.index') }}">Renunță</a></div>
+    <div class="field span-6"><span class="label">Interese industriale</span><div class="btn-row">@foreach (Vocab::SERVICES as $k => $l)<label class="check"><input type="checkbox" name="interests[]" value="{{ $k }}" @checked(in_array($k, old('interests', $company->interests ?? []), true))> {{ $l }}</label>@endforeach</div></div>
+    <div class="field span-6"><span class="label">Excludere</span><label class="check"><input type="checkbox" name="do_not_contact" value="1" @checked(old('do_not_contact', $company->do_not_contact))> Nu contacta în scop comercial</label></div>
+    <div class="span-12 btn-row"><button class="btn" type="submit">Salvează</button><a class="btn btn--line" href="{{ $company->exists ? route('admin.companies.show', $company) : route('admin.companies.index') }}">Renunță</a></div>
 </form>
 @endsection

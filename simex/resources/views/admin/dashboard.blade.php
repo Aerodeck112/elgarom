@@ -18,12 +18,12 @@
     <div class="stat"><div class="stat__label">Vânzări potențiale</div><div class="stat__value">{{ money($kpi['potential'], 0) }}</div><div class="stat__hint">oferte emise, fără decizie încă</div></div>
     @if (array_key_exists('margin', $kpi))<div class="stat"><div class="stat__label">Marjă estimată</div><div class="stat__value">{{ $kpi['margin'] === null ? '—' : money($kpi['margin'], 1).' %' }}</div><div class="stat__hint">doar ofertele cu cost complet</div></div>@endif
 </div>
-<div class="grid-2" style="margin-bottom:20px">
+<div class="grid-2x" style="margin-bottom:20px">
     @foreach (['entity' => 'Valoare ofertată pe companii', 'type' => 'Oferte pe tipuri de servicii', 'status' => 'Oferte pe status', 'country' => 'Companii pe țări'] as $key => $title)
         <div class="panel"><h2>{{ $title }}</h2>@if (array_sum($charts[$key]['datasets'][0]['data']) > 0)<div class="chart"><canvas data-chart="chart-{{ $key }}" role="img" aria-label="{{ $title }}"></canvas></div><script type="application/json" id="chart-{{ $key }}">@json($charts[$key])</script>@else<div class="empty">Nu există încă date pentru acest grafic.</div>@endif</div>
     @endforeach
 </div>
-<div class="grid-2">
+<div class="grid-2x">
     <div class="panel panel--flush"><div class="panel__title">Follow-up în următoarele 7 zile @if ($overdue)<span class="tag tag--err">{{ $overdue }} întârziate</span>@endif</div><table class="t"><tbody>
         @forelse ($followUps as $c)<tr><td><a class="link" href="{{ route('admin.companies.show', $c) }}">{{ $c->name }}</a></td><td><span class="tag tag--{{ Vocab::tone($c->stage) }}">{{ $c->stageLabel() }}</span></td><td class="mono small"><span @class(['status--err' => $c->next_follow_up_at->isPast()])>{{ $c->next_follow_up_at->format('d.m.Y') }}</span></td></tr>
         @empty<tr><td><div class="empty">Niciun follow-up programat.</div></td></tr>@endforelse</tbody></table></div>

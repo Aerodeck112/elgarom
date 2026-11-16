@@ -133,6 +133,8 @@
     .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
     .grid { display: grid; gap: 16px; }
     .grid-2 { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+    .grid-2x { display: grid; gap: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (max-width: 960px) { .grid-2x { grid-template-columns: minmax(0, 1fr); } }
     .grid-3 { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
     .grid-4 { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
     .cols { display: grid; gap: 20px; grid-template-columns: minmax(0, 1fr) 360px; align-items: start; }
@@ -208,9 +210,13 @@
     .check { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; }
     .check input { width: 16px; height: 16px; accent-color: #15181b; }
     .form-grid { display: grid; gap: 0 18px; grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    .form-grid > * { grid-column: 1 / -1; }
     .form-grid > .field { grid-column: span 6; }
-    .form-grid > .col-12 { grid-column: span 12; } .form-grid > .col-8 { grid-column: span 8; } .form-grid > .col-4 { grid-column: span 4; } .form-grid > .col-3 { grid-column: span 3; }
-    @media (max-width: 760px) { .form-grid > .field, .form-grid > [class*='col-'] { grid-column: span 12; } }
+    /* span-N, not col-N: Tailwind 4 has its own col-N utility (grid-column: N) that would override these. */
+    .form-grid > .span-12 { grid-column: span 12; } .form-grid > .span-8 { grid-column: span 8; } .form-grid > .span-6 { grid-column: span 6; }
+    .form-grid > .span-4 { grid-column: span 4; } .form-grid > .span-3 { grid-column: span 3; } .form-grid > .span-2 { grid-column: span 2; }
+    @media (max-width: 960px) { .form-grid > .span-3, .form-grid > .span-2 { grid-column: span 6; } .form-grid > .span-4 { grid-column: span 6; } }
+    @media (max-width: 640px) { .form-grid > .field, .form-grid > [class*='span-'] { grid-column: 1 / -1; } }
     .filters { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px; margin-bottom: 14px; }
     .filters .input, .filters .select { width: auto; min-width: 150px; }
     .filters .input[type='search'] { min-width: 260px; }
@@ -299,6 +305,37 @@
     .sheet td.in input:focus, .sheet td.in select:focus { outline: 2px solid var(--focus); outline-offset: -2px; }
     .sheet td.changed { animation: flash 0.9s ease-out; }
     @keyframes flash { from { background: #ffe58a; } to { background: transparent; } }
+    .calc__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: -6px 0 10px; flex-wrap: wrap; }
+    .seg { display: inline-flex; border: 1px solid var(--line-strong); border-radius: 4px; overflow: hidden; }
+    .seg button { font: inherit; font-size: 12.5px; font-weight: 600; padding: 6px 12px; border: 0; background: var(--surface); color: var(--text-2); cursor: pointer; }
+    .seg button + button { border-left: 1px solid var(--line-strong); }
+    .seg button.is-active { background: #15181b; color: #fff; }
+    .sheet-wrap.is-form { background: transparent; border: 0; max-height: none; overflow: visible; }
+    .fx { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; min-width: 0; }
+    .fx__group { min-width: 0; }
+    .fx__group { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 6px 18px 12px; }
+    .fx__h { font-family: var(--font-display); font-stretch: 88%; font-size: 16px; font-weight: 700; margin: 10px 0 6px; }
+    .fx__note { font-size: 12.5px; color: var(--text-3); margin: 4px 0 8px; max-width: 90ch; }
+    .ff { display: grid; grid-template-columns: minmax(170px, 1fr) minmax(200px, 280px) minmax(0, 1.2fr); gap: 4px 16px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); }
+    .ff__label { font-weight: 600; font-size: 13px; }
+    .ff__ctl { display: flex; align-items: center; gap: 8px; }
+    .ff__ctl .input, .ff__ctl .select { min-height: 34px; background: var(--input-bg); border-color: var(--input-line); }
+    .ff__unit { font-size: 12px; color: var(--text-3); white-space: nowrap; }
+    .ff__help { font-size: 12px; color: var(--text-3); display: flex; flex-direction: column; gap: 2px; }
+    .ff__used { color: var(--text-2); font-variant-numeric: tabular-nums; }
+    .fr { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 7px 0; border-top: 1px solid var(--line); font-size: 13px; }
+    .fr__label { color: var(--text-2); }
+    .fr__vals { display: flex; gap: 14px; font-weight: 600; font-variant-numeric: tabular-nums; text-align: right; }
+    .ft { margin: 8px 0 4px; min-width: 0; }
+    .ft__scroll { overflow: auto; max-height: 62vh; border: 1px solid var(--line); border-radius: 4px; }
+    .ft__t th { position: sticky; top: 0; z-index: 1; white-space: normal; min-width: 90px; max-width: 180px; vertical-align: bottom; line-height: 1.25; text-transform: none; letter-spacing: 0; font-size: 11.5px; }
+    .ft__t th.rn, .ft__t td.rn { min-width: 34px; width: 34px; color: var(--text-3); font-variant-numeric: tabular-nums; }
+    .ft__t td { padding: 4px 6px; vertical-align: middle; }
+    .ft__t td .select { min-width: 140px; }
+    .ft__t td .input, .ft__t td .select { min-height: 30px; padding: 4px 6px; font-size: 12.5px; min-width: 90px; background: var(--input-bg); border-color: var(--input-line); }
+    .ft__calc { color: var(--text-2); white-space: nowrap; background: var(--surface-2); }
+    .ft__foot { display: flex; align-items: center; gap: 12px; margin-top: 8px; }
+    @media (max-width: 900px) { .ff { grid-template-columns: minmax(0, 1fr); } }
     .result { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
     .result__head { padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 10px; border-bottom: 1px solid var(--line); font-weight: 700; font-size: 13px; }
     .result__main { padding: 14px 16px; }

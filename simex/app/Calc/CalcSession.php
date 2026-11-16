@@ -258,6 +258,13 @@ final class CalcSession
             foreach ($variant['outputs'] ?? [] as $label => $ref) {
                 $v = $this->cell($ref);
                 $outputs[] = ['label' => $label, 'ref' => $ref, 'value' => Display::raw($v), 'display' => Display::format($v, $this->fmtOf($ref))];
+                // A cost or a price is never negative: the engine reproduces the workbook, so this points at its formulas.
+                if (is_float($v) && $v < -0.005) {
+                    $warnings[] = "Valoare negativă la «{$label}» ({$ref}). Rezultatul este cel din Excel; verificați formula înainte de ofertare.";
+                }
+            }
+            if ($state === 'ok' && preg_grep('/^Valoare negativă/u', $warnings)) {
+                $state = 'warn';
             }
             $hours = isset($variant['hours']) ? Display::numberOrNull($this->cell($variant['hours'])) : null;
             $total = isset($variant['total']) ? Display::numberOrNull($this->cell($variant['total'])) : null;
@@ -285,6 +292,18 @@ final class CalcSession
     /** Offer lines of a cost model (one per priced part). */
     public function lines(): array
     {
+        if ($single = $this->def->single_line) {
+            // Models that price one item (a die): one line, unit price and cost taken from the workbook.
+            $get = fn ($ref) => Display::raw($this->cell($ref));
+            $qty = max(1.0, (float) (Display::numberOrNull($this->cell($single['qty'])) ?? 1));
+            $cost = Display::numberOrNull($this->cell($single['total_cost']));
+
+            return [[
+                'code' => Display::text($get($single['code'])), 'name' => Display::text($get($single['name'])), 'qty' => $qty,
+                'unit_price' => $get($single['unit_price']), 'cost' => $cost === null ? null : $cost / $qty,
+                'kind' => $single['kind'] ?? 'piesa', 'unit' => $single['unit'] ?? 'buc', 'status' => 'OK',
+            ]];
+        }
         $spec = $this->def->lines;
         if (! $spec) {
             return [];
@@ -320,6 +339,7 @@ final class CalcSession
             $value = $this->wb->get($spec['sheet'], $spec['value'].$r);
             $expected = Display::text($this->wb->get($spec['sheet'], $spec['expected'].$r));
             $ok = match (true) {
+                isset($spec['ok_text']) => Display::text($value) === $spec['ok_text'],
                 $expected === '0' => $value === 0.0,
                 $expected === '> 0' => is_float($value) && $value > 0,
                 default => true,

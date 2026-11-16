@@ -34,7 +34,7 @@ document.querySelectorAll('canvas[data-chart]').forEach((canvas) => {
             maintainAspectRatio: false,
             indexAxis: cfg.horizontal ? 'y' : 'x',
             plugins: { legend: { display: cfg.type === 'doughnut' || datasets.length > 1, position: 'bottom', labels: { boxWidth: 10, boxHeight: 10 } } },
-            scales: cfg.type === 'doughnut' ? {} : { x: { grid: { display: Boolean(cfg.horizontal) }, stacked: Boolean(cfg.stacked) }, y: { beginAtZero: true, grid: { display: !cfg.horizontal }, stacked: Boolean(cfg.stacked) } },
+            scales: cfg.type === 'doughnut' ? {} : { x: { grid: { display: Boolean(cfg.horizontal) }, stacked: Boolean(cfg.stacked), ticks: { precision: 0 } }, y: { beginAtZero: true, grid: { display: !cfg.horizontal }, stacked: Boolean(cfg.stacked), ticks: { precision: 0 } } },
         },
     });
 });

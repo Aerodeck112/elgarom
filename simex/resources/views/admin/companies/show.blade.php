@@ -36,12 +36,12 @@
     <div class="panel"><h2>Istoric comunicări și sarcini</h2>
         @if ($manage)
         <form class="form-grid" method="post" action="{{ route('admin.activities.store', $company) }}" style="margin-bottom:16px">@csrf
-            <div class="field col-3"><label for="a-type">Tip</label><select class="select" id="a-type" name="type">@foreach (array_diff_key(Vocab::ACTIVITY_TYPES, ['sistem' => 1]) as $k => $l)<option value="{{ $k }}">{{ $l }}</option>@endforeach</select></div>
-            <div class="field col-6"><label for="a-title">Subiect</label><input class="input" id="a-title" name="title" required maxlength="255"></div>
-            <div class="field col-3"><label for="a-due">Termen (pentru sarcini)</label><input class="input" id="a-due" name="due_at" type="date"></div>
-            <div class="field col-8"><label for="a-body">Detalii</label><textarea class="textarea" id="a-body" name="body" rows="2"></textarea></div>
-            <div class="field col-4"><label for="a-user">Atribuit</label><select class="select" id="a-user" name="assigned_to"><option value="">—</option>@foreach ($users as $id => $name)<option value="{{ $id }}" @selected($id === auth()->id())>{{ $name }}</option>@endforeach</select></div>
-            <div class="col-12"><button class="btn btn--sm" type="submit">Înregistrează</button></div>
+            <div class="field span-3"><label for="a-type">Tip</label><select class="select" id="a-type" name="type">@foreach (array_diff_key(Vocab::ACTIVITY_TYPES, ['sistem' => 1]) as $k => $l)<option value="{{ $k }}">{{ $l }}</option>@endforeach</select></div>
+            <div class="field span-6"><label for="a-title">Subiect</label><input class="input" id="a-title" name="title" required maxlength="255"></div>
+            <div class="field span-3"><label for="a-due">Termen (pentru sarcini)</label><input class="input" id="a-due" name="due_at" type="date"></div>
+            <div class="field span-8"><label for="a-body">Detalii</label><textarea class="textarea" id="a-body" name="body" rows="2"></textarea></div>
+            <div class="field span-4"><label for="a-user">Atribuit</label><select class="select" id="a-user" name="assigned_to"><option value="">—</option>@foreach ($users as $id => $name)<option value="{{ $id }}" @selected($id === auth()->id())>{{ $name }}</option>@endforeach</select></div>
+            <div class="span-12"><button class="btn btn--sm" type="submit">Înregistrează</button></div>
         </form>
         @endif
         <ul class="timeline">

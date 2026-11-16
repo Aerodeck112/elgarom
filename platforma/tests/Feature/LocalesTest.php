@@ -138,4 +138,54 @@ class LocalesTest extends TestCase
         $a->put('/admin/setari/languages', ['locales__on__de' => '1', 'locales__on__en' => '1'])->assertRedirect();
         $this->assertSame(['ro', 'de', 'en'], Setting::get('locales.enabled'));
     }
+
+    public function test_import_uses_language_prefixes_even_with_the_previous_configuration_in_memory(): void
+    {
+        // During the update from 1.0.0 the running process still has the 1.0.0 configuration (no prefixes).
+        \App\Models\MenuItem::where('locale', 'de')->delete();
+        config(['elgarom.locales' => ['ro' => ['name' => 'Română', 'published' => true]]]);
+        (new TranslationImporter)->run();
+        $this->assertSame('/de/leistungen', \App\Models\MenuItem::where('locale', 'de')->where('label', 'Leistungen')->value('url'));
+    }
+
+    public function test_links_saved_without_prefix_by_1_1_0_are_repaired(): void
+    {
+        \App\Models\MenuItem::where('locale', 'de')->where('label', 'Leistungen')->update(['url' => '/leistungen']);
+        \App\Models\MenuItem::where('locale', 'hu')->where('label', 'Kapcsolat')->update(['url' => '/kapcsolat']);
+        $page = Page::where('locale', 'de')->where('slug', 'leistungen')->first();
+        $sec = $page->sections()->where('type', 'cta')->first();
+        $sec->update(['data' => ['button_url' => '/angebot-anfordern'] + $sec->data]);
+        $page->publish(null);
+        $ro = \App\Models\MenuItem::where('locale', 'ro')->where('url', '/servicii')->value('url');
+
+        (new TranslationImporter)->repairLinks();
+
+        $this->assertSame('/de/leistungen', \App\Models\MenuItem::where('locale', 'de')->where('label', 'Leistungen')->value('url'));
+        $this->assertSame('/hu/kapcsolat', \App\Models\MenuItem::where('locale', 'hu')->where('label', 'Kapcsolat')->value('url'));
+        $this->assertSame('/de/angebot-anfordern', $sec->fresh()->data['button_url']);
+        $this->assertStringContainsString('href="/de/angebot-anfordern"', $this->get('/de/leistungen')->getContent());
+        $this->assertSame('/servicii', $ro, 'Romanian links are never changed');
+        // running it again changes nothing
+        $this->assertSame(0, (new TranslationImporter)->repairLinks());
+    }
+
+    public function test_every_menu_link_of_every_language_opens_a_page(): void
+    {
+        foreach (\App\Models\MenuItem::where('is_visible', true)->get() as $m) {
+            if (str_starts_with($m->url, '/')) {
+                $this->get($m->url)->assertOk();
+            }
+        }
+    }
+
+    public function test_footer_credit_and_server_files_kept_by_updates(): void
+    {
+        foreach (['/', '/de', '/hu/kapcsolat'] as $u) {
+            $this->get($u)->assertSee('POWERED BY VITIM');
+        }
+        $this->assertTrue(\App\Services\Updates\Installer::isProtected('.htaccess'));
+        $this->assertTrue(\App\Services\Updates\Installer::isProtected('public/.htaccess'));
+        $this->assertFalse(\App\Services\Updates\Installer::isProtected('public/index.php'));
+        $this->assertStringContainsString(base_path('artisan').' schedule:run', cron_command());
+    }
 }

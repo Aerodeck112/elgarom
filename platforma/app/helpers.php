@@ -184,3 +184,13 @@ if (! function_exists('lsetting')) {
         return setting($key, $default);
     }
 }
+
+if (! function_exists('cron_command')) {
+    /** The cron line for this server, with the command-line PHP that matches the website's PHP. */
+    function cron_command(): string
+    {
+        require_once base_path('bootstrap/php_cli.php');
+
+        return '* * * * * '.elgarom_cli_php()[0].' '.base_path('artisan').' schedule:run >/dev/null 2>&1';
+    }
+}

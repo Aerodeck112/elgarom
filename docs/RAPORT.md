@@ -1,10 +1,37 @@
-# Raport de livrare – ELGAROM 1.0.0 și actualizarea 1.1.0
+# Raport de livrare – ELGAROM 1.0.0 și actualizările 1.1.0, 1.1.1
 
 Data: 2026-11-06. Pachet: `livrare/elgarom-1.0.0-cpanel.zip`. Amprenta SHA-256 se află în `livrare/SHA256SUMS`.
 
+## Actualizarea 1.1.1 – reparații la actualizare și „POWERED BY VITIM”
+
+Pachet: `livrare/elgarom-update-1.1.1.zip`, semnat cu `elgarom-release-2026`. Se instalează peste 1.0.0 sau 1.1.0 din Administrare → Actualizări. Modificările sunt descrise în `docs/CHANGELOG-1.1.1.md`.
+
+**Probleme găsite în 1.1.0 (reproduse pe site-ul de test):**
+1. Actualizarea 1.0.0 → 1.1.0 putea eșua cu „Cannot access offset of type string on string” și se restaura singură. Cauza: în cererea care instalează, OPcache mai servea câteva secunde versiunea veche a unor fișiere, iar `opcache_reset()` acționează abia la cererea următoare. Eroarea apare sau nu în funcție de momentul instalării.
+2. Când 1.1.0 se instala, linkurile din meniurile și butoanele DE/EN/HU erau salvate fără prefix (`/leistungen`), deci 38 din 54 de linkuri interne duceau la 404. Cauza: configurația veche din memorie, aceeași problemă ca la punctul 1.
+3. Pachetul înlocuia `.htaccess`, unde cPanel ține versiunea PHP a domeniului (aceeași problemă ca la Grup Simex 0.1.4).
+
+**Verificat pe Apache + MariaDB, cu OPcache activ și un bloc „cPanel-generated handler” în `.htaccess`:**
+
+| Pornire | Rezultat |
+|---|---|
+| 1.0.0 → 1.1.1 | instalat în 11 s; 54 de linkuri interne în 4 limbi, 0 stricate; `.htaccess` neatins; paginile RO identice |
+| 1.0.0 → 1.1.0 (instalat, linkuri stricate) → 1.1.1 | instalat; linkurile reparate automat (0 stricate); `.htaccess` neatins |
+| 1.0.0 → 1.1.0 (eșuat și restaurat) → 1.1.1 | instalat; 0 linkuri stricate |
+| 1.1.0 → 1.1.1, prima variantă a pachetului | eșuat („Call to undefined method Locales::refresh()”), restaurat automat corect; reparat în pachetul final |
+
+`php artisan test`: **38 de teste, 332 de verificări, toate trec**. Testele noi acoperă:
+- importul făcut cu configurația veche în memorie și repararea linkurilor;
+- deschiderea fiecărui link din meniuri, în toate limbile;
+- verificarea de după instalare când serverul blochează cererea (403) sau răspunde cu eroare (500);
+- fișierele `.htaccess` protejate;
+- comanda de cron;
+- subsolul cu „POWERED BY VITIM”;
+- dump-ul de backup.
+
 ## Actualizarea 1.1.0 – site în patru limbi
 
-Pachet: `livrare/elgarom-update-1.1.0.zip` (semnat cu `elgarom-release-2026`, se instalează peste 1.0.0 din Administrare → Actualizări). Lista de fișiere a versiunii: `livrare/files-1.1.0.json`. Modificările sunt descrise în `docs/CHANGELOG-1.1.0.md`.
+Pachetul 1.1.0 a fost **înlocuit de 1.1.1** (vezi mai sus) și a fost scos din `livrare/`; rămâne doar în istoricul git. Folosiți `elgarom-update-1.1.1.zip`. Lista de fișiere a versiunii: `livrare/files-1.1.0.json`. Modificările sunt descrise în `docs/CHANGELOG-1.1.0.md`.
 
 **Ce s-a verificat pe site-ul de test (Apache, instalare 1.0.0 cu date):**
 - Pachetul a fost încărcat din panou. Semnătura și toate fișierele au fost validate, apoi instalarea a durat 11 secunde (backup automat înainte).

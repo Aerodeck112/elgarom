@@ -116,7 +116,9 @@ Toate redirect-urile sunt înregistrări în baza de date (Administrare → SEO 
 
 - [x] 1.1.0 – site în română, germană, engleză și maghiară. Include rute cu prefix, hreflang, sitemap multilingv, traduceri pentru conținut și interfață, emailuri în limba clientului, limbi în administrare și actualizare ZIP semnată.
 
-Versiune livrată: 1.1.0 (actualizare 1.0.0 → 1.1.0). Următoarea actualizare se construiește cu `--previous=livrare/files-1.1.0.json`.
+- [x] 1.1.1 – reparații la actualizare (OPcache, linkuri fără prefix de limbă, `.htaccess` păstrat, verificare tolerantă), comanda de cron cu PHP-ul corect, „POWERED BY VITIM” în subsol.
+
+Versiune livrată: 1.1.1 (actualizare din 1.0.0 sau 1.1.0). Următoarea actualizare se construiește cu `--previous=livrare/files-1.1.1.json`.
 
 ## 7. Blocaje / întrebări pentru beneficiar
 

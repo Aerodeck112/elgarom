@@ -5,6 +5,22 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
+// The PHP version is set per domain in cPanel (and kept in .htaccess); a subdomain, an add-on domain or a
+// replaced .htaccess can mean an older version. Show which version actually serves this address.
+if (PHP_VERSION_ID < 80300) {
+    http_response_code(503);
+    header('Content-Type: text/html; charset=utf-8');
+    header('Cache-Control: no-store');
+    echo '<!DOCTYPE html><html lang="ro"><meta charset="utf-8"><title>Versiune PHP nepotrivită</title>'
+        .'<body style="font-family:sans-serif;max-width:640px;margin:12vh auto;padding:0 20px;line-height:1.5">'
+        .'<h1 style="font-size:22px">Site-ul cere PHP 8.3 sau mai nou</h1>'
+        .'<p>Această adresă (<strong>'.htmlspecialchars($_SERVER['HTTP_HOST'] ?? '', ENT_QUOTES).'</strong>) este servită acum cu PHP <strong>'.PHP_VERSION.'</strong>.</p>'
+        .'<p>În cPanel → MultiPHP Manager, bifați acest domeniu, alegeți PHP 8.3 (sau mai nou) și apăsați Apply. '
+        .'Dacă versiunea corectă apare deja selectată, alegeți întâi altă versiune, apoi din nou pe cea dorită: '
+        .'cPanel își păstrează setarea în fișierul <code>.htaccess</code> și trebuie să o scrie din nou acolo.</p></body></html>';
+    exit;
+}
+
 // Not installed yet: send the visitor to the installer instead of an error page.
 if (! is_file(__DIR__.'/../install.lock') && is_file(__DIR__.'/../install.php') && ! is_file(__DIR__.'/../.env')) {
     header('Location: /install.php', true, 302);

@@ -65,8 +65,13 @@ const EXCLUDE = [
     '#^\.git#', '#^\.npmrc$#', '#^\.styleci\.yml$#', '#^\.idea#', '#^\.vscode#', '#^\.editorconfig$#', '#^\.gitattributes$#', '#^README\.md$#', '#^CHANGELOG\.md$#',
     '#^package(-lock)?\.json$#', '#^vite\.config\.js$#', '#^resources/(js|css)/#',
 ];
-/** Paths an update must never contain (user data, secrets, installer). */
-const NOT_IN_UPDATE = ['#^\.env#', '#^storage/#', '#^public/media/#', '#^bootstrap/cache/#', '#^install\.lock$#', '#^install\.php$#', '#^public/install\.php$#'];
+/**
+ * Paths an update must never contain (user data, secrets, installer).
+ * The .htaccess files are also excluded: cPanel stores the domain's PHP version there (its "cPanel-generated
+ * handler" block), so overwriting them silently switches the site to the server's default PHP.
+ */
+const NOT_IN_UPDATE = ['#^\.env#', '#^storage/#', '#^public/media/#', '#^bootstrap/cache/#', '#^install\.lock$#', '#^install\.php$#', '#^public/install\.php$#',
+    '#^\.htaccess$#', '#^public/\.htaccess$#', '#^(public/)?\.user\.ini$#', '#^(public/)?php\.ini$#'];
 
 function excluded(string $rel, array $patterns): bool
 {
@@ -179,7 +184,8 @@ switch ($cmd) {
         $files = [];
         foreach (files_of($buildDir) as $rel) { if (! excluded($rel, NOT_IN_UPDATE)) { $files[$rel] = hash_file('sha256', $buildDir.'/'.$rel); } }
         $prev = isset($opts['previous']) ? json_decode((string) file_get_contents($opts['previous']), true) : [];
-        $delete = array_values(array_diff(array_keys($prev ?: []), array_keys($files)));
+        // Protected paths are never deleted either, even if an older file list still mentions them.
+        $delete = array_values(array_filter(array_diff(array_keys($prev ?: []), array_keys($files)), fn ($rel) => ! excluded($rel, NOT_IN_UPDATE)));
         $manifest = [
             'format' => 1, 'app' => 'elgarom', 'key_id' => $keyId, 'version' => $v, 'min_from' => $min,
             'php_min' => '8.3.0', 'extensions' => ['pdo_mysql', 'mbstring', 'openssl', 'sodium', 'zip', 'gd', 'fileinfo'],

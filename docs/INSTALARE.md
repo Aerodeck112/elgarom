@@ -41,9 +41,9 @@ Instalatorul verifică automat toate aceste cerințe și le afișează înainte 
    - scrie `install.lock` și se șterge singur.
 8. **Cron (obligatoriu):** cPanel → Cron Jobs → „Once Per Minute”:
    ```
-   * * * * * /usr/local/bin/php /home/UTILIZATOR/elgarom/artisan schedule:run >/dev/null 2>&1
+   * * * * * /opt/cpanel/ea-php83/root/usr/bin/php /home/UTILIZATOR/elgarom/artisan schedule:run >/dev/null 2>&1
    ```
-   Calea către PHP poate diferi, de exemplu `/opt/cpanel/ea-php83/root/usr/bin/php`. Instalatorul afișează comanda exactă pentru serverul dumneavoastră.
+   Folosiți calea completă a PHP 8.3, nu doar `php` sau `/usr/local/bin/php`: PHP-ul din cron este separat de cel al site-ului și poate fi mai vechi (pe CloudLinux: `/opt/alt/php83/usr/bin/php`). Instalatorul și Administrare → SMTP și notificări afișează comanda exactă pentru serverul dumneavoastră.
 9. **Prima autentificare:** deschideți `https://domeniul-dvs.ro/admin` și introduceți emailul și parola. Scanați codul QR cu o aplicație de autentificare și salvați cele 10 coduri de recuperare.
 10. **Configurări:** SMTP (cu test), lista „De completat”, primul backup. Opțional: Google și asistentul AI.
 

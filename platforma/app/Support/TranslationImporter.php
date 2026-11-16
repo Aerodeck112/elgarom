@@ -21,8 +21,32 @@ class TranslationImporter
 {
     private array $media = [];
 
+    /**
+     * During an update this code runs inside the request that copied the new files, and that request still
+     * holds the previous version: its configuration (1.0.0 knew no language prefixes) and, through OPcache,
+     * the compiled previous version of every file it had cached (opcache_reset() only applies to the next
+     * requests). Invalidate the application's files explicitly, then re-read the configuration.
+     * Classes already loaded in this request stay in their previous version, so this code only uses methods
+     * that exist in every earlier release.
+     */
+    private static function freshConfig(): void
+    {
+        if (function_exists('opcache_invalidate')) {
+            foreach ([config_path(), app_path()] as $dir) {
+                $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir, \FilesystemIterator::SKIP_DOTS));
+                foreach ($it as $f) {
+                    if ($f->getExtension() === 'php') {
+                        @opcache_invalidate($f->getPathname(), true);
+                    }
+                }
+            }
+        }
+        config(['elgarom' => require config_path('elgarom.php')]);
+    }
+
     public function run(array $locales = ['de', 'en', 'hu']): array
     {
+        self::freshConfig();
         $this->backfillKeys();
         if (! Page::where('locale', Locales::default())->exists()) {
             return []; // fresh database: the seeder runs the import after creating the Romanian content
@@ -43,6 +67,77 @@ class TranslationImporter
         Setting::put('locales.review_notice', true);
 
         return $report;
+    }
+
+    /**
+     * Version 1.1.0 imported the translations with the configuration of the running 1.0.0 process, which had no
+     * language prefixes: links in menus and page sections were saved as "/leistungen" instead of "/de/leistungen".
+     * Adds the prefix to internal links that point at a page or service of the same language. Idempotent.
+     */
+    public function repairLinks(): int
+    {
+        self::freshConfig();
+        $fixed = 0;
+        foreach (Locales::all() as $loc => $l) {
+            $prefix = Locales::prefix($loc);
+            if ($prefix === '') {
+                continue;
+            }
+            $targets = [];
+            foreach (Page::where('locale', $loc)->where('slug', '!=', '/')->pluck('slug') as $slug) {
+                $targets['/'.$slug] = $prefix.'/'.$slug;
+            }
+            foreach (Service::where('locale', $loc)->pluck('slug') as $slug) {
+                $seg = Locales::segment('services', $loc);
+                $targets['/'.$seg.'/'.$slug] = $prefix.'/'.$seg.'/'.$slug;
+            }
+            if (! $targets) {
+                continue;
+            }
+            foreach (MenuItem::where('locale', $loc)->get() as $m) {
+                if (isset($targets[rtrim($m->url, '/')])) {
+                    $m->forceFill(['url' => $targets[rtrim($m->url, '/')]])->saveQuietly();
+                    $fixed++;
+                }
+            }
+            foreach (Section::whereIn('page_id', Page::where('locale', $loc)->pluck('id'))->get() as $sec) {
+                $changed = 0;
+                $data = $this->mapStrings($sec->data ?? [], $targets, $changed);
+                if ($changed) {
+                    $sec->forceFill(['data' => $data])->saveQuietly();
+                    $fixed += $changed;
+                }
+            }
+            // published pages keep a snapshot of their sections
+            foreach (Page::where('locale', $loc)->whereNotNull('published_data')->get() as $page) {
+                $changed = 0;
+                $data = $this->mapStrings($page->published_data ?? [], $targets, $changed);
+                if ($changed) {
+                    $page->forceFill(['published_data' => $data])->saveQuietly();
+                }
+            }
+        }
+        cache()->forget('menus');
+
+        return $fixed;
+    }
+
+    private function mapStrings(mixed $v, array $targets, int &$changed): mixed
+    {
+        if (is_array($v)) {
+            foreach ($v as $k => $x) {
+                $v[$k] = $this->mapStrings($x, $targets, $changed);
+            }
+
+            return $v;
+        }
+        if (is_string($v) && isset($targets[$v])) {
+            $changed++;
+
+            return $targets[$v];
+        }
+
+        return $v;
     }
 
     /** Romanian rows get a translation key so translations can be linked to them. */
@@ -174,11 +269,12 @@ class TranslationImporter
             if (! isset($this->media[$name])) {
                 continue;
             }
-            $m = Media::find($this->media[$name]);
-            $all = $m->alt_i18n ?? [];
+            // Query builder, not the model: the Media class in memory may be the previous version (without the cast).
+            $raw = \Illuminate\Support\Facades\DB::table('media')->where('id', $this->media[$name])->value('alt_i18n');
+            $all = is_string($raw) ? (json_decode($raw, true) ?: []) : [];
             if (empty($all[$loc])) {
                 $all[$loc] = $alt;
-                $m->forceFill(['alt_i18n' => $all])->saveQuietly();
+                \Illuminate\Support\Facades\DB::table('media')->where('id', $this->media[$name])->update(['alt_i18n' => json_encode($all, JSON_UNESCAPED_UNICODE)]);
             }
         }
 

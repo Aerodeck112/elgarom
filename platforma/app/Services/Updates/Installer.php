@@ -90,6 +90,11 @@ class Installer
             Artisan::call('down', ['--retry' => 60]);
             $this->log('Mod mentenanță activ.');
             foreach ($manifest['files'] as $rel => $hash) {
+                if (self::isProtected($rel)) {
+                    $this->log('Păstrat neschimbat: '.$rel.' (setările serverului, de ex. versiunea PHP din cPanel).');
+
+                    continue;
+                }
                 $dest = base_path($rel);
                 if (! is_file($dest)) {
                     $added[] = $rel;
@@ -102,16 +107,24 @@ class Installer
                     @unlink($tmp);
                     throw new RuntimeException('Nu se poate scrie '.$rel.' (permisiuni?).');
                 }
+                if (str_ends_with($rel, '.php') && function_exists('opcache_invalidate')) {
+                    // opcache_reset() only applies to the next requests; migrations run in this one.
+                    @opcache_invalidate($dest, true);
+                }
                 $applied = true;
             }
             foreach ((array) ($manifest['delete'] ?? []) as $rel) {
-                if (is_file(base_path($rel))) {
+                if (! self::isProtected($rel) && is_file(base_path($rel))) {
                     unlink(base_path($rel));
                     $applied = true;
                 }
             }
             if (function_exists('opcache_reset')) {
                 @opcache_reset();
+            }
+            // This process still holds the previous version's configuration; migrations must see the new one.
+            foreach (glob(config_path('*.php')) ?: [] as $cfg) {
+                config([basename($cfg, '.php') => require $cfg]);
             }
             $this->log('Fișiere aplicate.');
 
@@ -183,6 +196,12 @@ class Installer
         $zip->close();
     }
 
+    /** Server-specific files an update never replaces or deletes: cPanel keeps the domain's PHP version in .htaccess. */
+    public static function isProtected(string $rel): bool
+    {
+        return in_array($rel, ['.htaccess', 'public/.htaccess', '.user.ini', 'public/.user.ini', 'php.ini', 'public/php.ini'], true);
+    }
+
     private function healthCheck(string $expected): void
     {
         DB::select('select 1');
@@ -194,26 +213,60 @@ class Installer
         // Maintenance mode blocks normal requests; the health route is exercised right after "up".
         Artisan::call('up');
         try {
-            $r = Http::timeout(15)->get(route('health', ['token' => $token]));
-            if ($r->successful()) {
-                $j = $r->json();
-                if (! ($j['ok'] ?? false) || ($j['version'] ?? null) !== $expected) {
-                    throw new RuntimeException('Verificarea de sănătate a eșuat: '.json_encode($j));
-                }
+            $problem = $this->httpHealth($token, $expected);
+            if ($problem === null) {
                 $this->log('Verificare HTTP /health: OK, versiune '.$expected.'.');
 
                 return;
             }
-            throw new RuntimeException('Verificarea de sănătate a răspuns cu HTTP '.$r->status().'.');
-        } catch (\Illuminate\Http\Client\ConnectionException $e) {
-            // Some hosts block loopback HTTP. Fall back to in-process checks.
-            $this->log('HTTP /health inaccesibil din server ('.$e->getMessage().'); verificare internă.');
+            // Many shared hosts block or filter requests from the server to its own domain (firewall, WAF, CDN).
+            // That says nothing about the update: check the application from inside instead.
+            $this->log('Verificarea HTTP /health nu este concludentă pe acest server: '.$problem.'. Verificare internă.');
+            preg_match("/'version' => '([^']+)'/", (string) file_get_contents(config_path('elgarom.php')), $m);
+            if (($m[1] ?? null) !== $expected) {
+                throw new RuntimeException('Versiunea din fișiere ('.($m[1] ?? '?').') nu este '.$expected.'.');
+            }
             if (! \App\Models\Page::where('status', 'published')->exists()) {
                 throw new RuntimeException('Baza de date nu conține pagini publicate după actualizare.');
             }
+            if (! is_writable(storage_path('framework'))) {
+                throw new RuntimeException('Directorul storage/framework nu poate fi scris.');
+            }
+            $this->log('Verificare internă: OK (versiune '.$expected.', bază de date, fișiere).');
         } finally {
             Artisan::call('down', ['--retry' => 60]);
         }
+    }
+
+    /**
+     * Calls /health over HTTP. Returns null when the new version answers correctly, a description when the
+     * result is inconclusive (blocked, filtered, old cached answer), and throws when the site answers with an error.
+     */
+    private function httpHealth(string $token, string $expected): ?string
+    {
+        $problem = null;
+        try {
+            // A few attempts: the PHP cache of the web server can need a moment to see the new files.
+            for ($i = 0; $i < 3; $i++) {
+                if ($i > 0) {
+                    sleep(2);
+                }
+                $r = Http::timeout(15)->withHeaders(['User-Agent' => 'Elgarom-Updater/'.$expected])->get(route('health', ['token' => $token]));
+                $j = $r->successful() ? $r->json() : null;
+                if (($j['ok'] ?? false) && ($j['version'] ?? null) === $expected) {
+                    return null;
+                }
+                if ($r->status() >= 500 && $r->status() !== 503) {
+                    // The site really answers with an error (e.g. a PHP version that is too old): keep the previous version.
+                    throw new RuntimeException('Site-ul răspunde cu eroare după actualizare (HTTP '.$r->status().'): '.mb_substr(trim(preg_replace('/\s+/', ' ', strip_tags($r->body()))), 0, 300));
+                }
+                $problem = $r->successful() ? 'răspuns neașteptat '.mb_substr((string) json_encode($j), 0, 200) : 'HTTP '.$r->status();
+            }
+        } catch (\Illuminate\Http\Client\ConnectionException $e) {
+            $problem = 'conexiune imposibilă ('.$e->getMessage().')';
+        }
+
+        return $problem;
     }
 
     private function rollback(?Backup $backup, array $added, bool $filesTouched, bool $migrated): void

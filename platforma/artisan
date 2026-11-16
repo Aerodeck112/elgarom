@@ -6,6 +6,16 @@ use Symfony\Component\Console\Input\ArgvInput;
 
 define('LARAVEL_START', microtime(true));
 
+// On cPanel the command-line PHP is often older than the one the website uses. Say so plainly,
+// with the version that is actually running, instead of Composer's generic message.
+if (PHP_VERSION_ID < 80300) {
+    fwrite(STDERR, 'ELGAROM: comanda este rulată cu PHP '.PHP_VERSION.' ('.PHP_BINARY.'), dar platforma cere PHP 8.3 sau mai nou.'.PHP_EOL
+        .'PHP-ul din cron și din Terminal este separat de cel al site-ului. Folosiți calea completă a PHP 8.3, de exemplu:'.PHP_EOL
+        .'  /opt/cpanel/ea-php83/root/usr/bin/php '.__FILE__.' schedule:run'.PHP_EOL
+        .'  (pe CloudLinux: /opt/alt/php83/usr/bin/php)'.PHP_EOL);
+    exit(1);
+}
+
 // Register the Composer autoloader...
 require __DIR__.'/vendor/autoload.php';
 

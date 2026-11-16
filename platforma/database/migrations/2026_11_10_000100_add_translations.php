@@ -27,6 +27,7 @@ return new class extends Migration
             Schema::table('media', fn (Blueprint $table) => $table->json('alt_i18n')->nullable());
         }
         \App\Models\Setting::flush();
+        // TranslationImporter re-reads config/elgarom.php: during an update this process still has the old configuration.
         (new TranslationImporter)->run();
     }
 

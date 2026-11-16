@@ -6,7 +6,7 @@
     @php $configured = \App\Services\Mail\Outbox::configured(); @endphp
     <div class="panel {{ $configured ? 'panel--ok' : 'panel--warn' }}">
         <p class="status {{ $configured ? 'status--ok' : 'status--warn' }}">{{ $configured ? 'SMTP configurat' : 'SMTP neconfigurat – cererile se salvează, dar emailurile rămân în așteptare' }}</p>
-        <p class="small muted">Emailurile se trimit imediat după fiecare cerere. Eșecurile se reîncearcă automat (cron: <code>* * * * * php {{ base_path('artisan') }} schedule:run</code>; fără cron, la vizitele în administrare). Ultima procesare: {{ $lastRun ? \Carbon\Carbon::createFromTimestamp($lastRun)->diffForHumans() : 'niciodată' }}.</p>
+        <p class="small muted">Emailurile se trimit imediat după fiecare cerere. Eșecurile se reîncearcă automat (cron: <code>{{ cron_command() }}</code>; fără cron, la vizitele în administrare). Ultima procesare: {{ $lastRun ? \Carbon\Carbon::createFromTimestamp($lastRun)->diffForHumans() : 'niciodată' }}.</p>
     </div>
 @endif
 <form class="panel" method="post" action="{{ route('admin.settings.update', $g['key']) }}">

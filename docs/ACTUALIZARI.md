@@ -39,7 +39,33 @@ Respingerile verificate în teste:
    7. la orice eroare: **restaurare automată** a fișierelor (cele noi se elimină) și a bazei de date, dacă migrațiile au pornit; apoi ieșirea din mentenanță.
 5. Istoricul păstrează jurnalul complet al fiecărei instalări.
 
-Conținutul, utilizatorii, cererile, conversațiile AI, setările, fișierele încărcate și `.env` nu sunt atinse.
+Conținutul, utilizatorii, cererile, conversațiile AI, setările, fișierele încărcate și `.env` nu sunt atinse. De la 1.1.1 nici fișierele de server `.htaccess`, `public/.htaccess`, `.user.ini` și `php.ini` nu sunt atinse.
+
+### Pachetul potrivit
+
+| Fișier | La ce folosește | Unde se pune |
+|---|---|---|
+| `elgarom-X.Y.Z-cpanel.zip` | instalare nouă, pe un server gol | File Manager → Extract, apoi `install.php` |
+| `elgarom-update-X.Y.Z.zip` | actualizarea unui site deja instalat | Administrare → Actualizări |
+
+Pachetul de instalare încărcat în Actualizări este respins, pentru că nu are semnătură și manifest. Folosiți fișierul care are `update` în nume.
+
+### Eroarea la actualizare pe cPanel: site-ul trece pe alt PHP
+
+cPanel păstrează versiunea PHP a domeniului într-un bloc din `.htaccess` („cPanel-generated handler”). Actualizarea 1.1.0 înlocuia acest fișier. Site-ul trecea pe PHP-ul implicit al serverului (adesea mai vechi de 8.3), verificarea de după instalare primea eroare și actualizarea se restaura singură. De la 1.1.1 `.htaccess` nu mai este atins.
+
+Dacă site-ul afișează „Site-ul cere PHP 8.3 sau mai nou” sau mesajul Composer «Your Composer dependencies require a PHP version ">= 8.3.0"»:
+
+| Unde apare | Cauza | Rezolvare |
+|---|---|---|
+| în browser | domeniul rulează pe PHP-ul implicit al serverului | cPanel → MultiPHP Manager → bifați domeniul → alegeți altă versiune → Apply → alegeți din nou 8.3 → Apply (cPanel rescrie blocul din `.htaccess`) |
+| în emailurile cron-ului sau în Terminal | comanda `php` este PHP-ul implicit al serverului | folosiți calea completă: `/opt/cpanel/ea-php83/root/usr/bin/php` (CloudLinux: `/opt/alt/php83/usr/bin/php`) |
+
+Dezarhivarea pachetului de instalare peste un site existent înlocuiește și ea `.htaccess`. Aplicați aceeași rezolvare din MultiPHP Manager.
+
+### Server care blochează cererile către propriul domeniu
+
+După instalare, platforma își cere pagina `/health`. Pe unele hostinguri cererea este blocată sau filtrată (firewall, WAF, CDN). De la 1.1.1, în acest caz verificarea se face din interiorul aplicației (versiunea fișierelor, baza de date, paginile publicate, drepturile de scriere), iar jurnalul arată motivul. Dacă site-ul răspunde însă cu o eroare de server (HTTP 500), actualizarea se restaurează automat, ca înainte. Mesajul din jurnal arată și începutul erorii.
 
 **Limitare asumată:** rollback-ul automat restaurează baza de date din backup-ul făcut chiar înainte de actualizare. Pentru migrațiile ireversibile, restaurarea se face din acel backup. Datele scrise *în timpul* celor câteva secunde de mentenanță nu există, pentru că site-ul este în mentenanță. Nu există o promisiune de rollback universal pentru orice tip de modificare externă (de exemplu fișiere modificate manual pe server după actualizare).
 

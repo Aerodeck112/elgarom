@@ -2,7 +2,7 @@
 
 return [
     // Application version. Bumped by every signed update package.
-    'version' => '1.1.0',
+    'version' => '1.1.1',
 
     'default_locale' => 'ro',
 

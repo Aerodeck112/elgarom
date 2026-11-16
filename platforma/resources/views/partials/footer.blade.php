@@ -40,6 +40,7 @@
         <div class="footer__base">
             <span>© {{ date('Y') }} {{ setting('company.legal_name') ?: setting('company.name', 'ELGAROM') }}@if (setting('company.cui')), CUI {{ setting('company.cui') }}@endif</span>
             @if (\App\Support\TagConfig::needsConsent())<button type="button" data-consent-open>{{ __('Preferințe cookies') }}</button>@endif
+            <span class="footer__credit" lang="en">POWERED BY VITIM</span>
         </div>
     </div>
 </footer>

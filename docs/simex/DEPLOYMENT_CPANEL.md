@@ -1,6 +1,6 @@
 # Instalare pe cPanel
 
-Pachet: `livrare/simex-crm-0.1.3-cpanel.zip` (conține `install.php`, codul, `vendor/` și resursele compilate).
+Pachet: `livrare/simex-crm-0.1.4-cpanel.zip` (conține `install.php`, codul, `vendor/` și resursele compilate).
 Pe server nu sunt necesare Node.js, Composer, acces root sau procese permanente.
 
 Instalarea din acest pachet a fost rulată cap-coadă pe MariaDB 10.11 cu PHP 8.3; nu a fost rulată pe serverul dumneavoastră.
@@ -33,7 +33,7 @@ trimite cererile către `public/` și blochează accesul la `.env`, `vendor/`, `
 ## Pași
 
 1. **Baza de date.** cPanel → MySQL Databases: creați o bază de date și un utilizator cu parolă puternică, apoi dați-i „ALL PRIVILEGES” pe acea bază.
-2. **Fișierele.** cPanel → File Manager: urcați `simex-crm-0.1.3-cpanel.zip` în directorul ales și alegeți Extract.
+2. **Fișierele.** cPanel → File Manager: urcați `simex-crm-0.1.4-cpanel.zip` în directorul ales și alegeți Extract.
 3. **Instalatorul.** Deschideți `https://domeniul-dvs.ro/install.php`.
 4. **Cheia de instalare.** În File Manager deschideți `storage/app/private/install-key.txt` și copiați cheia în formular. Ea împiedică pe altcineva să instaleze platforma înaintea dumneavoastră.
 5. **Formularul.** Adresa site-ului, datele bazei de date, numele, emailul și parola primului Super Administrator (minimum 12 caractere, cu litere mari, mici și cifre).
@@ -115,3 +115,15 @@ PHP are pe cPanel două setări separate:
 De la versiunea 0.1.3 platforma afișează ea însăși versiunea cu care a fost pornită, iar comanda de cron corectă
 pentru serverul dumneavoastră este afișată în Administrare → SMTP și email și la finalul instalării.
 Până la 0.1.2 instalatorul recomanda `/usr/local/bin/php`, care pe multe servere este o versiune mai veche.
+
+## Site-ul rulează cu alt PHP decât cel ales în cPanel
+
+cPanel păstrează versiunea PHP a unui domeniu într-un bloc din fișierul `.htaccess` al directorului servit
+(«cPanel-generated handler»). Dacă acel fișier este înlocuit, domeniul trece pe PHP-ul implicit al serverului,
+deși în MultiPHP Manager apare în continuare versiunea aleasă.
+
+- Până la 0.1.3, pachetele de actualizare înlocuiau `.htaccess`. De la 0.1.4 nu îl mai ating.
+- Dezarhivarea pachetului de instalare peste un director existent îl înlocuiește și ea.
+
+Rezolvare: cPanel → MultiPHP Manager → bifați domeniul → alegeți altă versiune → Apply → alegeți din nou 8.3 (sau mai nou) → Apply.
+Astfel cPanel rescrie blocul în `.htaccess`.

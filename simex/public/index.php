@@ -15,8 +15,9 @@ if (PHP_VERSION_ID < 80300) {
         .'<body style="font-family:sans-serif;max-width:640px;margin:12vh auto;padding:0 20px;line-height:1.5">'
         .'<h1 style="font-size:22px">Platforma cere PHP 8.3 sau mai nou</h1>'
         .'<p>Această adresă (<strong>'.htmlspecialchars($_SERVER['HTTP_HOST'] ?? '', ENT_QUOTES).'</strong>) este servită acum cu PHP <strong>'.PHP_VERSION.'</strong>.</p>'
-        .'<p>În cPanel → MultiPHP Manager (sau Select PHP Version), alegeți PHP 8.3 pentru exact acest domeniu sau subdomeniu. '
-        .'Versiunea se setează separat pentru fiecare domeniu.</p></body></html>';
+        .'<p>În cPanel → MultiPHP Manager, bifați acest domeniu, alegeți PHP 8.3 (sau mai nou) și apăsați Apply. '
+        .'Dacă versiunea corectă apare deja selectată, alegeți întâi altă versiune, apoi din nou pe cea dorită: '
+        .'cPanel își păstrează setarea în fișierul <code>.htaccess</code> și trebuie să o scrie din nou acolo.</p></body></html>';
     exit;
 }
 
